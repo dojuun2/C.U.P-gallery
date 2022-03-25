@@ -1,10 +1,13 @@
 package com.example.testgallery.activities.mainActivities;
 
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -37,6 +40,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -127,6 +131,8 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
         //Fix Uri file SDK link: https://stackoverflow.com/questions/48117511/exposed-beyond-app-through-clipdata-item-geturi?answertab=oldest#tab-top
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
+        verifyStoragePermissions(PictureActivity.this);
+
 
 
         mappingControls();
@@ -223,10 +229,13 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
                                 File file = new File(targetUri.getPath());
 
                                 if (file.exists()) {
+
                                     if (file.delete()) {
+
                                         Toast.makeText(PictureActivity.this, "Delete successfully: " + targetUri.getPath(), Toast.LENGTH_SHORT).show();
-                                    } else
+                                    } else{
                                         Toast.makeText(PictureActivity.this, "Delete failed: " + targetUri.getPath(), Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                                 finish();
                                 dialog.dismiss();
@@ -413,15 +422,18 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
 
     private void getResults(ArrayList<SearchRV> searchRVArrayList){
         Uri imageUri = Uri.parse("file://" + thumb);
-        try {
+        try
+        {
             ParcelFileDescriptor parcelFileDescriptor =
                     getContentResolver().openFileDescriptor(imageUri, "r");
             FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
             imageBitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor);
 
             parcelFileDescriptor.close();
+
         } catch (IOException e) {
             e.printStackTrace();
+
         }
         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(imageBitmap);
         FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getOnDeviceImageLabeler();
@@ -753,5 +765,28 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
             super.onPostExecute(unused);
             bottomSheetDialog.cancel();
         }
+
+    }
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(
+                activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
     }
 }
+
+

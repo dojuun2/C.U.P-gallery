@@ -3,10 +3,12 @@ package com.example.testgallery.activities.subActivities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -29,6 +31,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.testgallery.R;
 import com.example.testgallery.activities.mainActivities.PictureActivity;
 import com.example.testgallery.activities.mainActivities.SlideShowActivity;
+import com.example.testgallery.activities.mainActivities.WorldCUPActivity;
+import com.example.testgallery.activities.mainActivities.WorldCUPActivity_result;
 import com.example.testgallery.adapters.AlbumSheetAdapter;
 import com.example.testgallery.adapters.ImageSelectAdapter;
 import com.example.testgallery.adapters.ItemAlbumAdapter;
@@ -122,6 +126,10 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
                     case R.id.menuGif:
                         gifEvents();
                         break;
+                    case R.id.menu_worldcup:
+                        worldEvents();
+                        break;
+
                 }
 
                 return true;
@@ -176,6 +184,7 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
     private void moveEvent() {
         openBottomDialog();
     }
+
     private void openBottomDialog() {
         View viewDialog = LayoutInflater.from(ItemAlbumMultiSelectActivity.this).inflate(R.layout.layout_bottom_sheet_add_to_album, null);
         ryc_album = viewDialog.findViewById(R.id.ryc_album);
@@ -200,6 +209,7 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
             };
         }
     }
+
     private void slideShowEvents() {
         Intent intent = new Intent(ItemAlbumMultiSelectActivity.this, SlideShowActivity.class);
         ArrayList<String> list = new ArrayList<>();
@@ -211,6 +221,34 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivityForResult(intent, REQUEST_CODE_SLIDESHOW);
     }
+
+    private void worldEvents() {
+        Intent intent = new Intent(ItemAlbumMultiSelectActivity.this, WorldCUPActivity.class);
+
+        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> list2 = new ArrayList<>();
+        for(int i=0;i<listImageSelected.size();i++) {
+            list.add(listImageSelected.get(i).getPath());
+            list2.add(listImageSelected.get(i).getThumb());
+        }
+
+        try
+        {
+            intent.putStringArrayListExtra("data_worldlist", list2);
+
+        }
+        catch(IllegalArgumentException e)
+        {
+            System.out.println("IllegalArgumentException caught"); // 예외처리 발생!!
+        }
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivityForResult(intent, REQUEST_CODE_SLIDESHOW);
+
+    }
+
+
+
 
     private void setData() {
         myAlbum = intent.getStringArrayListExtra("data_1");

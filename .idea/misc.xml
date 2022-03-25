@@ -93,6 +93,23 @@
         <entry key="..\:/Users/lhqua/HongQuan/LTMobile/Project/SimpleGallery/app/src/main/res/menu/menu_bottom_picture.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/lhqua/HongQuan/LTMobile/Project/SimpleGallery/app/src/main/res/menu/menu_top.xml" value="0.15052083333333333" />
         <entry key="..\:/Users/lhqua/HongQuan/LTMobile/Project/SimpleGallery/app/src/main/res/xml/file_paths.xml" value="0.1265625" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/layout/activity_item_album.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/layout/activity_slide_show.xml" value="0.33" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/layout/activity_worldcup.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/layout/activity_worldcup_result.xml" value="0.22" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/layout/fragment_album.xml" value="0.1" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/layout/fragment_favorite.xml" value="0.25271739130434784" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/layout/fragment_photo.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/layout/item_album.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/layout/item_picture.xml" value="0.17755825734549138" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/layout/item_picture_album.xml" value="0.5" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/layout/item_worldcup_gallerryview.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/layout/layout_bottom_sheet_add_to_album.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/menu/menu_bottom_nav.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/menu/menu_bottom_picture.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/menu/menu_top.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/menu/menu_top_multi_album.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/tmdgj/AndroidStudioProjects/SimpleGallery/app/src/main/res/xml/setting.xml" value="0.20208333333333334" />
         <entry key="app/src/main/res/drawable-v24/bottom_sheet_background.xml" value="0.4601851851851852" />
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.2708333333333333" />
         <entry key="app/src/main/res/drawable/ic_add_photo_list_album.xml" value="0.2708333333333333" />

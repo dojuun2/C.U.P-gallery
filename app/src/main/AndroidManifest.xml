@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.testgallery">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.testgallery"
+    tools:ignore="ExtraText">
+    adb shell install -g PATH_TO_APK_FILE
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
@@ -9,6 +11,9 @@
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- permission for internet -->
     <uses-permission android:name="android.permission.INTERNET"
         android:required="true"/>
@@ -26,6 +31,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:configChanges="locale"
+
 
         android:theme="@style/Theme.TestGallery">
         <meta-data
@@ -108,6 +114,13 @@
             android:name="com.dsphotoeditor.sdk.activity.DsPhotoEditorDrawActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Material.NoActionBar.Fullscreen" />
+        <activity
+            android:name=".activities.mainActivities.WorldCUPActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.mainActivities.WorldCUPActivity_result"
+            android:exported="true" />
+
     </application>
 
 </manifest>

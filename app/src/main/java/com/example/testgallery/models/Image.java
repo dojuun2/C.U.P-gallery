@@ -7,6 +7,7 @@ public class Image {
     public String getPath() {
         return path;
     }
+    private int resId;
 
     public Image() {
     }
@@ -27,7 +28,9 @@ public class Image {
         this.path = path;
         this.thumb = thumb;
     }
-
+    public int getResId() {
+        return resId;
+    }
     public String getDateTaken() {
         return dateTaken;
     }

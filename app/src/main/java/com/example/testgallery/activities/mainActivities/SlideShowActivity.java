@@ -89,6 +89,7 @@ public class SlideShowActivity extends AppCompatActivity {
         sliderView.startAutoCycle();
         sliderView.setSliderTransformAnimation(effect.get(i));
 
+
     }
 
     private void mappingControls() {
