@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         viewPager.setCurrentItem(1);
                         break;
 
-                    case R.id.scret:
+                    case R.id.esamo:
 
                         viewPager.setCurrentItem(2);
                         break;
