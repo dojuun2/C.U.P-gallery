@@ -120,7 +120,9 @@
         <activity
             android:name=".activities.mainActivities.WorldCUPActivity_result"
             android:exported="true" />
-
+<activity
+            android:name=".activities.mainActivities.ItemTrashCanActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
