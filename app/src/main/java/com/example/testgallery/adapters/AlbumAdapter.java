@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.testgallery.activities.mainActivities.ItemAlbumActivity;
 import com.example.testgallery.R;
 import com.example.testgallery.activities.mainActivities.SlideShowActivity;
+import com.example.testgallery.activities.mainActivities.ItemTrashCanActivity;
 import com.example.testgallery.models.Album;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -81,23 +82,38 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.AlbumViewHol
         }
 
         public void onBind(Album ref, int pos) {
-            bindData(ref);
+            bindData(ref);      // 얘를 해줘야 썸네일이나 앨범안에 사진 갯수 같은거를 가져올수있음
 
             img_album.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, ItemAlbumActivity.class);
+                    Intent intent = new Intent(context, ItemAlbumActivity.class);       // ItemAlbumActivity 얘를 TrashCanActivity 로 바꾸면 휴지통 액티비티가 뜸
+                    Intent intent2 = new Intent(context, ItemTrashCanActivity.class);       // ItemAlbumActivity 얘를 TrashCanActivity 로 바꾸면 휴지통 액티비티가 뜸
                     ArrayList<String> list = new ArrayList<>();
+
                     for(int i=0;i<ref.getList().size();i++) {
                         list.add(ref.getList().get(i).getThumb());
                     }
 
-                    intent.putStringArrayListExtra("data", list);
-                    intent.putExtra("path_folder", ref.getPathFolder());
-                    intent.putExtra("name", ref.getName());
-                    intent.putExtra("ok", 1);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
+                    String folder = ref.getPathFolder();
+                    switch (folder) {
+                        case "/storage/emulated/0/Pictures/휴지통":
+                            intent2.putStringArrayListExtra("data", list);
+                            intent2.putExtra("path_folder", ref.getPathFolder());
+                            intent2.putExtra("name", ref.getName());
+                            intent2.putExtra("ok", 1);
+                            intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent2);
+                            break;
+                        default:
+                            intent.putStringArrayListExtra("data", list);
+                            intent.putExtra("path_folder", ref.getPathFolder());
+                            intent.putExtra("name", ref.getName());
+                            intent.putExtra("ok", 1);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent);
+                            break;
+                    }
                 }
             });
 
