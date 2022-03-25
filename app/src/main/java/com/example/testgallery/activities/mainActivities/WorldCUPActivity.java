@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.testgallery.R;
 import com.example.testgallery.activities.subActivities.ItemAlbumMultiSelectActivity;
@@ -66,15 +67,6 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
         event();
         gallery();
 
-        WC_image1 = (ImageView)findViewById(R.id.WC_image_1);
-        WC_image2 = (ImageView)findViewById(R.id.WC_image_2);
-        WC_image1.setImageDrawable(Drawable.createFromPath(list.get(0)));
-        WC_image2.setImageDrawable(Drawable.createFromPath(list.get(1)));
-        WC_image1.setOnClickListener(new wolrdcc());
-        WC_image2.setOnClickListener(new wolrdcc2());
-
-
-
 
     }
 
@@ -102,7 +94,10 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
 
     private void mappingControls() {
 
-                img_back_wolrd_cup = findViewById(R.id.img_back_world_cup);
+        img_back_wolrd_cup = findViewById(R.id.img_back_world_cup);
+        WC_image1 = (ImageView)findViewById(R.id.WC_image_1);
+        WC_image2 = (ImageView)findViewById(R.id.WC_image_2);
+
 
     }
 
@@ -110,6 +105,15 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
         j=0; // WC_image1 의 값
         k=1;// WC_image2 의 값
         i=2;
+
+
+
+        WC_image1.setImageDrawable(Drawable.createFromPath(list.get(0)));
+        WC_image2.setImageDrawable(Drawable.createFromPath(list.get(1)));
+        WC_image1.setOnClickListener(new worldcc());
+        WC_image2.setOnClickListener(new worldcc2());
+        WC_image1.setOnLongClickListener(new worldlong1());
+        WC_image2.setOnLongClickListener(new worldlong2());
 
         MyAdapter adapter = new MyAdapter(
                 getApplicationContext(), // 현재 화면의 제어권자
@@ -122,7 +126,7 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
 
 
     }
-    class wolrdcc implements View.OnClickListener {
+    class worldcc implements View.OnClickListener {
 
 
         @Override
@@ -142,7 +146,7 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
 
         }
     }
-    class wolrdcc2 implements View.OnClickListener {
+    class worldcc2 implements View.OnClickListener {
 
         @Override
         public void onClick(View view) {
@@ -160,8 +164,27 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
 
         }
     }
+    class worldlong1 implements View.OnLongClickListener{
+        @Override
+        public boolean onLongClick(View view) {
+            Intent intent = new Intent(WorldCUPActivity.this,WC_longClick.class);
+            intent.putExtra("longclicked",list.get(j));
+            startActivityForResult(intent, 1);
+
+            return false;
+        }
+    }
+    class worldlong2 implements View.OnLongClickListener{
+        @Override
+        public boolean onLongClick(View view) {
+            Intent intent = new Intent(WorldCUPActivity.this,WC_longClick.class);
+            intent.putExtra("longclicked",list.get(k));
+            startActivityForResult(intent, 1);
 
 
+            return false;
+        }
+    }
 
 
 }

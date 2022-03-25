@@ -271,25 +271,27 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
     private void worldEvents() {
         Intent intent = new Intent(ItemAlbumMultiSelectActivity.this, WorldCUPActivity.class);
 
-        ArrayList<String> list = new ArrayList<>();
         ArrayList<String> list2 = new ArrayList<>();
         for(int i=0;i<listImageSelected.size();i++) {
-            list.add(listImageSelected.get(i).getPath());
+
             list2.add(listImageSelected.get(i).getThumb());
         }
 
-        try
-        {
+        if(list2.size() < 2 ){
+            Toast.makeText(this,"사진을 두개 이상 선택하세요",Toast.LENGTH_SHORT).show();
+
+        }
+        else if(list2.size() >= 2 ){
+
             intent.putStringArrayListExtra("data_worldlist", list2);
-
-        }
-        catch(IllegalArgumentException e)
-        {
-            System.out.println("IllegalArgumentException caught"); // 예외처리 발생!!
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivityForResult(intent, REQUEST_CODE_SLIDESHOW);
         }
 
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivityForResult(intent, REQUEST_CODE_SLIDESHOW);
+
+
+
+
 
     }
 

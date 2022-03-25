@@ -123,6 +123,10 @@
         <activity
             android:name=".activities.mainActivities.ItemTrashCanActivity"
             android:exported="true" />
+        <activity android:name=".activities.mainActivities.WC_longClick"
+            android:theme="@android:style/Theme.Dialog" />
+
+
     </application>
 
 </manifest>
