@@ -1,13 +1,10 @@
 package com.example.testgallery.activities.mainActivities;
 
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -40,7 +37,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,6 +62,7 @@ import com.dsphotoeditor.sdk.activity.DsPhotoEditorActivity;
 import com.dsphotoeditor.sdk.utils.DsPhotoEditorConstants;
 import com.example.testgallery.R;
 import com.example.testgallery.activities.mainActivities.data_favor.DataLocalManager;
+import com.example.testgallery.activities.subActivities.ItemAlbumMultiSelectActivity;
 import com.example.testgallery.adapters.AlbumSheetAdapter;
 import com.example.testgallery.adapters.SearchRVAdapter;
 import com.example.testgallery.adapters.SlideImageAdapter;
@@ -118,6 +115,7 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
     private RecyclerView ryc_album;
     public static Set<String> imageListFavor = DataLocalManager.getListSet();
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -131,8 +129,6 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
         //Fix Uri file SDK link: https://stackoverflow.com/questions/48117511/exposed-beyond-app-through-clipdata-item-geturi?answertab=oldest#tab-top
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
-        verifyStoragePermissions(PictureActivity.this);
-
 
 
         mappingControls();
@@ -153,6 +149,8 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 Uri targetUri = Uri.parse("file://" + thumb);
+
+
                 switch (item.getItemId()) {
 
                     case R.id.sharePic:
@@ -229,13 +227,25 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
                                 File file = new File(targetUri.getPath());
 
                                 if (file.exists()) {
+                                    File img = new File(imgPath);
 
-                                    if (file.delete()) {
+                                    String folderName = "휴지통";      // 생성할 폴더 이름
+                                    String afterFilePath = "/storage/emulated/0/Pictures";     // 옮겨질 경로
+                                    String path = afterFilePath+"/"+folderName;     // 옮겨질 경로 + 생성할 폴더 이름 => 휴지통 경로
+                                    File dir = new File(path);
 
-                                        Toast.makeText(PictureActivity.this, "Delete successfully: " + targetUri.getPath(), Toast.LENGTH_SHORT).show();
-                                    } else{
-                                        Toast.makeText(PictureActivity.this, "Delete failed: " + targetUri.getPath(), Toast.LENGTH_SHORT).show();
+                                    if(!dir.exists()) {
+                                        dir.mkdir();
                                     }
+
+                                    File imgFile = new File(img.getPath());
+                                    File desImgFile = new File(path,"휴지통" + "_" + imgFile.getName());
+                                    imgFile.renameTo(desImgFile);
+                                    imgFile.deleteOnExit();     // 임시파일 삭제
+                                    desImgFile.getPath();
+
+                                    // 밑에 코드가 있어야 휴지통으로 이동한 복사본이 보임
+                                    MediaScannerConnection.scanFile(getApplicationContext(), new String[]{path+File.separator+desImgFile.getName()}, null, null);
                                 }
                                 finish();
                                 dialog.dismiss();
@@ -243,7 +253,6 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
                         });
 
                         builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
@@ -251,13 +260,10 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
                                 dialog.dismiss();
                             }
                         });
-
                         AlertDialog alert = builder.create();
                         alert.show();
 
                         break;
-
-
                 }
                 return true;
             }
@@ -422,18 +428,15 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
 
     private void getResults(ArrayList<SearchRV> searchRVArrayList){
         Uri imageUri = Uri.parse("file://" + thumb);
-        try
-        {
+        try {
             ParcelFileDescriptor parcelFileDescriptor =
                     getContentResolver().openFileDescriptor(imageUri, "r");
             FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
             imageBitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor);
 
             parcelFileDescriptor.close();
-
         } catch (IOException e) {
             e.printStackTrace();
-
         }
         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(imageBitmap);
         FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getOnDeviceImageLabeler();
@@ -765,28 +768,5 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
             super.onPostExecute(unused);
             bottomSheetDialog.cancel();
         }
-
-    }
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-
-    public static void verifyStoragePermissions(Activity activity) {
-        // Check if we have write permission
-        int permission = ActivityCompat.checkSelfPermission(
-                activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            // We don't have permission so prompt the user
-            ActivityCompat.requestPermissions(
-                    activity,
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
-            );
-        }
     }
 }
-
-
