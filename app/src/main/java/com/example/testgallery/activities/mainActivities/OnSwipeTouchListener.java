@@ -10,8 +10,8 @@ import android.view.View.OnTouchListener;
 import android.widget.Toast;
 
 public class OnSwipeTouchListener implements View.OnTouchListener {
-    public final int HORIZONTAL_MIN_DISTANCE = 80;
-    public final int VERTICAL_MIN_DISTANCE = 80;
+    public final int HORIZONTAL_MIN_DISTANCE = 100;
+    public final int VERTICAL_MIN_DISTANCE = 100;
 
     public static enum Action {
         LR, // Left to Right

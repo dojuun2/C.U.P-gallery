@@ -164,7 +164,7 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
         public void onClick(View view) {
 
 
-            if (SystemClock.elapsedRealtime() - mLastClickTime > 1000) {
+            if (SystemClock.elapsedRealtime() - mLastClickTime > 800) {
                 switch (view.getId()) {
                     case R.id.WC_image_1:
 
@@ -211,7 +211,7 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
                         }
                         break;
                 }
-                Log.i(logTag, "1초 지남");
+
             }
             mLastClickTime = SystemClock.elapsedRealtime();
 
@@ -220,7 +220,7 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
 
         @Override
         public boolean onLongClick(View view) {
-            if (SystemClock.elapsedRealtime() - mLastClickTime > 1000) {
+            if (SystemClock.elapsedRealtime() - mLastClickTime > 800) {
                 switch (view.getId()) {
                     case R.id.WC_image_1:
                         if (swipeDetector.swipeDetected()) {
@@ -249,7 +249,7 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
                         break;
 
                 }
-                Log.i(logTag, "롱 1초 지남");
+
             }
             mLastClickTime = SystemClock.elapsedRealtime();
             return false;
