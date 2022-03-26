@@ -61,6 +61,14 @@ public class WorldCUPActivity_result extends AppCompatActivity {
 
     private void tasklist() {
 
+        if(deletenum.size()<1){
+
+            for (int i = 0; i < Imglist.size(); i++) {
+                savelist.add(Imglist.get(i));
+            }
+
+        }
+
 
 
         for (int i = 0; i < Imglist.size(); i++) {

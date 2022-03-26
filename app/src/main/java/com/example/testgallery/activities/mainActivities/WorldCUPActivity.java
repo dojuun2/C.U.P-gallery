@@ -12,6 +12,8 @@ import android.graphics.Path;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,8 +47,10 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
     private ArrayList<image> imageList;
     private Intent intent;
     private ArrayList<String> list;
+    private Long mLastClickTime = 0L;
+    private static final String logTag = "ggoog";
     ArrayList<Integer> delete_list = new ArrayList<>();
-
+    final OnSwipeTouchListener swipeDetector = new OnSwipeTouchListener();
 
     ImageView WC_image1;
     ImageView WC_image2;
@@ -80,6 +84,8 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
     }
 
 
+
+
     private void event() {
 
         img_back_wolrd_cup.setOnClickListener(new View.OnClickListener() {
@@ -108,12 +114,14 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
 
 
 
+        WC_image1.setOnTouchListener(swipeDetector);
+        WC_image2.setOnTouchListener(swipeDetector);
         WC_image1.setImageDrawable(Drawable.createFromPath(list.get(0)));
         WC_image2.setImageDrawable(Drawable.createFromPath(list.get(1)));
         WC_image1.setOnClickListener(new worldcc());
-        WC_image2.setOnClickListener(new worldcc2());
-        WC_image1.setOnLongClickListener(new worldlong1());
-        WC_image2.setOnLongClickListener(new worldlong2());
+        WC_image2.setOnClickListener(new worldcc());
+        WC_image1.setOnLongClickListener(new worldcc());
+        WC_image2.setOnLongClickListener(new worldcc());
 
         MyAdapter adapter = new MyAdapter(
                 getApplicationContext(), // 현재 화면의 제어권자
@@ -126,67 +134,127 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
 
 
     }
-    class worldcc implements View.OnClickListener {
+
+    private void WC_LRswipe1() {
+        if (i >= list.size()) {
+            result();
+        } else {
+            j = i;
+            WC_image1.setImageDrawable(Drawable.createFromPath(list.get(j)));
+            i++;
+
+        }
+    }
+
+    private void WC_LRswipe2() {
+        if( i >= list.size()) {
+            result();
+        }
+        else{
+            k= i;
+            WC_image2.setImageDrawable(Drawable.createFromPath(list.get(k)));
+            i++;
+        }
+    }
+
+    class worldcc implements View.OnClickListener,View.OnLongClickListener {
 
 
         @Override
         public void onClick(View view) {
-            if( i >= list.size()) {
-                delete_list.add(k);
-                result();
-            }
-            else{
-                delete_list.add(k);
-                k= i;
-                WC_image2.setImageDrawable(Drawable.createFromPath(list.get(k)));
-                i++;
 
+
+            if (SystemClock.elapsedRealtime() - mLastClickTime > 1000) {
+                switch (view.getId()) {
+                    case R.id.WC_image_1:
+
+
+                        if (swipeDetector.swipeDetected()) {
+                            //스와이프 처리
+                            if (swipeDetector.getAction() == OnSwipeTouchListener.Action.LR) {
+                                WC_LRswipe1();
+
+                            }
+                        } else {
+                            if (i >= list.size()) {
+                                delete_list.add(k);
+                                result();
+                            } else {
+                                delete_list.add(k);
+                                k = i;
+                                WC_image2.setImageDrawable(Drawable.createFromPath(list.get(k)));
+                                i++;
+                            }
+                        }
+
+
+                        break;
+
+
+                    case R.id.WC_image_2:
+                        if (swipeDetector.swipeDetected()) {
+                            //스와이프 처리
+                            if (swipeDetector.getAction() == OnSwipeTouchListener.Action.LR) {
+                                WC_LRswipe2();
+                            }
+                        } else {
+                            if (i >= list.size()) {
+                                delete_list.add(j);
+                                result();
+                            } else {
+                                delete_list.add(j);
+                                j = i;
+                                WC_image1.setImageDrawable(Drawable.createFromPath(list.get(j)));
+                                i++;
+
+                            }
+                        }
+                        break;
+                }
+                Log.i(logTag, "1초 지남");
             }
+            mLastClickTime = SystemClock.elapsedRealtime();
 
 
         }
-    }
-    class worldcc2 implements View.OnClickListener {
 
-        @Override
-        public void onClick(View view) {
-            if( i >= list.size()) {
-                delete_list.add(j);
-                result();
-            }
-            else {
-                delete_list.add(j);
-                j = i;
-                WC_image1.setImageDrawable(Drawable.createFromPath(list.get(j)));
-                i++;
-
-            }
-
-        }
-    }
-    class worldlong1 implements View.OnLongClickListener{
         @Override
         public boolean onLongClick(View view) {
-            Intent intent = new Intent(WorldCUPActivity.this,WC_longClick.class);
-            intent.putExtra("longclicked",list.get(j));
-            startActivityForResult(intent, 1);
+            if (SystemClock.elapsedRealtime() - mLastClickTime > 1000) {
+                switch (view.getId()) {
+                    case R.id.WC_image_1:
+                        if (swipeDetector.swipeDetected()) {
+                            //스와이프 처리
+                            if (swipeDetector.getAction() == OnSwipeTouchListener.Action.LR) {
+                                WC_LRswipe1();
+                            }
+                        } else {
+                            Intent intent = new Intent(WorldCUPActivity.this, WC_longClick.class);
+                            intent.putExtra("longclicked", list.get(j));
+                            startActivityForResult(intent, 1);
+                        }
+                        break;
+                    case R.id.WC_image_2:
 
+                        if (swipeDetector.swipeDetected()){
+                            //스와이프 처리
+                            if(swipeDetector.getAction()== OnSwipeTouchListener.Action.LR){
+                                WC_LRswipe2();
+                            }
+                        } else {
+                            Intent intent = new Intent(WorldCUPActivity.this, WC_longClick.class);
+                            intent.putExtra("longclicked", list.get(k));
+                            startActivityForResult(intent, 1);
+                        }
+                        break;
+
+                }
+                Log.i(logTag, "롱 1초 지남");
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
             return false;
         }
     }
-    class worldlong2 implements View.OnLongClickListener{
-        @Override
-        public boolean onLongClick(View view) {
-            Intent intent = new Intent(WorldCUPActivity.this,WC_longClick.class);
-            intent.putExtra("longclicked",list.get(k));
-            startActivityForResult(intent, 1);
-
-
-            return false;
-        }
-    }
-
-
 }
 
 class MyAdapter extends BaseAdapter {
