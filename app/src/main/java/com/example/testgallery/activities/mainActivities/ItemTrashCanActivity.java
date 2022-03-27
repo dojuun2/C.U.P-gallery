@@ -182,7 +182,7 @@ public class ItemTrashCanActivity extends AppCompatActivity {
                         break;
                     case R.id.menuChoose:
                         if(isSecret == 0) {
-                            Intent intent_mul = new Intent(ItemTrashCanActivity.this, ItemAlbumMultiSelectActivity.class);
+                            Intent intent_mul = new Intent(ItemTrashCanActivity.this, ItemTrashCanMultiSelectActivity.class);
                             intent_mul.putStringArrayListExtra("data_1", myAlbum);
                             intent_mul.putExtra("name_1", album_name);
                             intent_mul.putExtra("path_folder", path_folder);
