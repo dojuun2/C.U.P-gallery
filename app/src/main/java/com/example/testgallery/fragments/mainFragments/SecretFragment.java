@@ -3,17 +3,18 @@ package com.example.testgallery.fragments.mainFragments;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.DatePicker;
 
-import android.util.Log;
+import java.text.ParseException;
+import java.util.Calendar;
+
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.SearchView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,42 +23,32 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.core.util.Pair;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.testgallery.R;
 import com.example.testgallery.activities.mainActivities.ItemAlbumActivity;
-import com.example.testgallery.activities.mainActivities.SlideShowActivity;
-import com.example.testgallery.activities.mainActivities.data_favor.DataLocalManager;
-import com.example.testgallery.adapters.CategoryAdapter;
-import com.example.testgallery.adapters.ItemAlbumAdapter;
 
-import com.example.testgallery.models.Category;
 import com.example.testgallery.models.Image;
 import com.example.testgallery.utility.GetAllPhotoFromGallery;
+import com.google.android.material.snackbar.Snackbar;
 
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 public class SecretFragment extends Fragment {
 
-
-    private List<String> imageListPath;
-
-
-    private List<Image> imageList;
     private androidx.appcompat.widget.Toolbar toolbar_secret;
     private Context context;
+    Button date1, btnresult;
 
-    private Set<String> imgListFavor;
+    private DateRange dateRange;
+    TextView txtFromDate, txtToDate;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,6 +56,30 @@ public class SecretFragment extends Fragment {
         context = view.getContext();
         toolbar_secret = view.findViewById(R.id.toolbar_secret);
 
+        date1 = view.findViewById(R.id.date1);
+        date1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+
+
+        txtToDate = view.findViewById(R.id.txtToDate);
+        txtToDate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                showDialogOnTextEdit();
+            }
+        });
+
+        txtFromDate = view.findViewById(R.id.txtFromDate);
+        txtFromDate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                showDialogOnTextEdit();
+            }
+        });
 
         // Toolbar events
         toolbar_secret.inflateMenu(R.menu.menu_top);
@@ -82,21 +97,9 @@ public class SecretFragment extends Fragment {
                 return true;
             }
         });
-
-
-        imageListPath = DataLocalManager.getListImg();
-        imgListFavor=DataLocalManager.getListSet();
-        //imageList = getListImgFavor(imageListPath);;
-
-
-
         return view;
     }
-
-
-
-
-
+    
     private void eventSearch(@NonNull MenuItem item) {
         final Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DATE);
@@ -113,6 +116,46 @@ public class SecretFragment extends Fragment {
         }, year, month, day);
         datePickerDialog.show();
     }
+
+
+    private void showDialogOnTextEdit() {
+        final Calendar calendar =  Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day  =calendar.get(Calendar.DATE);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                calendar.set(i, i1, i2);
+                SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd-MM-yyyy");
+                String date1 = simpleDateFormat1.format(calendar.getTime());
+                showImageByDate(date1);
+            }
+        }, year, month, day);
+        datePickerDialog.show();
+    }
+
+
+
+    private void showDatePickerDialog(){
+        final Calendar calendar =  Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day  =calendar.get(Calendar.DATE);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                calendar.set(i, i1, i2);
+                SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd-MM-yyyy");
+                String date1 = simpleDateFormat1.format(calendar.getTime());
+                showImageByDate(date1);
+            }
+        }, year, month, day);
+        datePickerDialog.show();
+    }
+
 
     private void showImageByDate(String date) {
         Toast.makeText(getContext(), date, Toast.LENGTH_LONG).show();
@@ -138,9 +181,6 @@ public class SecretFragment extends Fragment {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
-
-
-
 
     }
 }
