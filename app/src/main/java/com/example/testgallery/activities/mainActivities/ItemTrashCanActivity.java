@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.testgallery.R;
 import com.example.testgallery.activities.subActivities.ItemAlbumMultiSelectActivity;
 import com.example.testgallery.activities.subActivities.ItemSecretMultiSelectActivity;
+import com.example.testgallery.activities.subActivities.ItemTrashCanMultiSelectActivity;
 import com.example.testgallery.adapters.ItemAlbumAdapter;
 import com.example.testgallery.adapters.ItemAlbumAdapter2;
 import com.example.testgallery.adapters.ItemAlbumAdapter3;
