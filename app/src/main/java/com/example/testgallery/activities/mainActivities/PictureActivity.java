@@ -521,15 +521,24 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
                 TextView txtInfoAuthor = (TextView) infoDialogView.findViewById(R.id.txtInfoAuthor);
                 TextView txtInfoTime = (TextView) infoDialogView.findViewById(R.id.txtInfoTime);
                 TextView txtInfoName = (TextView) infoDialogView.findViewById(R.id.txtInfoName);
+                TextView txtInfoGps1 = (TextView) infoDialogView.findViewById(R.id.txtInfoGps1);
+                TextView txtInfoGps11 = (TextView) infoDialogView.findViewById(R.id.txtInfoGps11);
+                TextView txtInfoGps22 = (TextView) infoDialogView.findViewById(R.id.txtInfoGps22);
+                TextView txtInfoGps2 = (TextView) infoDialogView.findViewById(R.id.txtInfoGps2);
 
                 txtInfoName.setText(imageName);
-                txtInfoProducer.setText(exifInterface.getAttribute(ExifInterface.TAG_MAKE));
-                txtInfoSize.setText(exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH) + "x" + exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH));
-                txtInfoModel.setText(exifInterface.getAttribute(ExifInterface.TAG_MODEL));
-                txtInfoFlash.setText(exifInterface.getAttribute(ExifInterface.TAG_FLASH));
-                txtInfoFocalLength.setText(exifInterface.getAttribute(ExifInterface.TAG_FOCAL_LENGTH));
-                txtInfoAuthor.setText(exifInterface.getAttribute(ExifInterface.TAG_ARTIST));
-                txtInfoTime.setText(exifInterface.getAttribute(ExifInterface.TAG_DATETIME));
+                txtInfoProducer.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_MAKE));
+                txtInfoSize.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_IMAGE_LENGTH) + "x" + exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_IMAGE_WIDTH));
+                txtInfoModel.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_MODEL));
+                txtInfoFlash.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_FLASH));
+                txtInfoFocalLength.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_FOCAL_LENGTH));
+                txtInfoAuthor.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_ARTIST));
+                txtInfoTime.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_DATETIME));
+                txtInfoGps1.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_GPS_LATITUDE));
+                txtInfoGps11.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_GPS_LATITUDE_REF));
+                txtInfoGps22.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_GPS_LONGITUDE));
+                txtInfoGps2.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_GPS_LONGITUDE_REF));
+
 
                 infoDialog.setContentView(infoDialogView);
                 infoDialog.show();
