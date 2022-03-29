@@ -14,7 +14,7 @@
     <string name="photo">Photo</string>
     <string name="album">Album</string>
     <string name="search_photo" translatable="false">esamo</string>
-    <string name="favorite">Favorite</string>
+    <string name="trashcan">Trash Can</string>
     <string name="change_password">Change Password</string>
     <string name="delete_secret_album">Delete Secret Album</string>
     <string name="advance_search">Advanced Search</string>

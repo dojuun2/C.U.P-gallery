@@ -17,7 +17,7 @@
     <string name="photo">사진</string>
     <string name="album">앨범</string>
     <string name="search_photo">이사모</string>
-    <string name="favorite">가장 좋아하는</string>
+    <string name="trashcan">Trash Can</string>
     <string name="change_password">비밀번호 변경</string>
     <string name="delete_secret_album">비밀 앨범 삭제</string>
     <string name="advance_search">고급 검색</string>
@@ -76,5 +76,6 @@
     <string name="source_code">소스 코드</string>
     <string name="contributors">기여자</string>
     <string name="libraries">포함된 라이브러리</string>
+    <string name="favorite">trashcan</string>
 
 </resources>

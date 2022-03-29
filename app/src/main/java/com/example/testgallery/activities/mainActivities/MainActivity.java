@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                         viewPager.setCurrentItem(2);
                         break;
 
-                    case R.id.favorite:
+                    case R.id.trashcan:
 
                         viewPager.setCurrentItem(3);
                         break;
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 3:
 
-                        bottomNavigationView.getMenu().findItem(R.id.favorite).setChecked(true);
+                        bottomNavigationView.getMenu().findItem(R.id.trashcan).setChecked(true);
                         break;
                 }
             }
