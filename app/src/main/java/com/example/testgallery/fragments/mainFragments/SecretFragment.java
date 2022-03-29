@@ -1,11 +1,13 @@
 package com.example.testgallery.fragments.mainFragments;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.DatePicker;
 
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.Calendar;
 
@@ -43,10 +45,9 @@ public class SecretFragment extends Fragment {
 
     private androidx.appcompat.widget.Toolbar toolbar_secret;
     private Context context;
-    Button date1, btnresult;
-
-    private DateRange dateRange;
-    TextView txtFromDate, txtToDate;
+    DateRange dateRange;
+    Button date1, btnResult;
+    EditText txtFromDate, txtToDate;
 
 
     @Nullable
@@ -64,20 +65,19 @@ public class SecretFragment extends Fragment {
             }
         });
 
+        txtFromDate = view.findViewById(R.id.txtFromDate);
+        txtFromDate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                showDialogOnTextEdit1();
+            }
+        });
 
         txtToDate = view.findViewById(R.id.txtToDate);
         txtToDate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                showDialogOnTextEdit();
-            }
-        });
-
-        txtFromDate = view.findViewById(R.id.txtFromDate);
-        txtFromDate.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                showDialogOnTextEdit();
+                showDialogOnTextEdit2();
             }
         });
 
@@ -99,7 +99,7 @@ public class SecretFragment extends Fragment {
         });
         return view;
     }
-    
+
     private void eventSearch(@NonNull MenuItem item) {
         final Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DATE);
@@ -118,23 +118,53 @@ public class SecretFragment extends Fragment {
     }
 
 
-    private void showDialogOnTextEdit() {
+    private void showDialogOnTextEdit1() {
         final Calendar calendar =  Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day  =calendar.get(Calendar.DATE);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        txtFromDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                    }
+                }, year, month, day);
+        datePickerDialog.show();
+    }
+
+    private void showDialogOnTextEdit2() {
+        final Calendar calendar =  Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day  =calendar.get(Calendar.DATE);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+
             @Override
-            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                calendar.set(i, i1, i2);
-                SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd-MM-yyyy");
-                String date1 = simpleDateFormat1.format(calendar.getTime());
-                showImageByDate(date1);
+            public void onDateSet(DatePicker view, int year,
+                                  int monthOfYear, int dayOfMonth) {
+                txtToDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
             }
         }, year, month, day);
         datePickerDialog.show();
     }
+
+    private DatePickerDialog.OnDateSetListener fromDatePickerListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            txtFromDate.setText(dateRange.setFromDate(year, monthOfYear, dayOfMonth));
+        }
+    };
+
+    private DatePickerDialog.OnDateSetListener toDatePickerListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            txtToDate.setText(dateRange.setToDate(year, monthOfYear, dayOfMonth));
+        }
+    };
 
 
 
