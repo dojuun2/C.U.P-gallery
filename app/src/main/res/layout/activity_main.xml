@@ -16,11 +16,12 @@
 
         <Button
             android:id="@+id/down"
-            android:layout_width="43dp"
+            android:layout_width="61dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="230dp"
-            android:layout_marginTop="5dp"
-            android:onClick="ScreenshotButton" />
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="3dp"
+            android:onClick="ScreenshotButton"
+            android:text="캡쳐" />
 
 
         <androidx.viewpager2.widget.ViewPager2
