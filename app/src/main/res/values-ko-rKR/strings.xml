@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple Gallery</string>
+    <string name="app_name">Clean Up Picture</string>
     <string name="picture">사진</string>
     <string name="search">검색</string>
     <string name="share">공유</string>

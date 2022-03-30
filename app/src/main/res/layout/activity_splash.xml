@@ -24,7 +24,7 @@
         android:layout_alignParentEnd="true"
 
         android:layout_marginBottom="-100dp"
-        android:text="Simple Gallery"
+        android:text="Clean Up Picture"
         android:textColor="?attr/colorOnBackground"
         android:textSize="30sp" />
 
