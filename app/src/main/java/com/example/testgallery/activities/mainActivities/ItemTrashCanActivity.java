@@ -4,6 +4,7 @@ package com.example.testgallery.activities.mainActivities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaScannerConnection;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -273,7 +274,49 @@ public class ItemTrashCanActivity extends AppCompatActivity {
     }
 
     private void restoreAllEvents(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ItemTrashCanActivity.this);
 
+        builder.setTitle("Confirm");
+        builder.setMessage("Do you want to restore all image?");
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int which) {
+                File path = new File("/storage/emulated/0/Pictures/휴지통");       // 복원 전 폴더
+                File move_path = new File("/storage/emulated/0/Pictures");      // 복원 후 폴더
+
+                File[] filelist = path.listFiles();     // listFiles() : 디렉토리 경로에 있는 파일들을 배열로 리턴
+                // 복원 전 폴더에 있는 파일들을 filelist에 배열로 저장
+
+                String[] paths = path.list();           // list() : 디렉토리 경로에 있는 파일들의 이름들을 배열로 리턴
+                // 복원 전 폴더에 있는 파일들의 이름들을 filelist에 배열로 저장
+
+                for(int i = 0; i<filelist.length; i++){
+                    File MoveFile = new File(move_path,"Pictures" + "_" + filelist[i].getName());     // 이동할 경로와 이동 후 파일명
+                    filelist[i].renameTo(MoveFile);     // filelist에 있는 파일들 이름 변경
+                    filelist[i].deleteOnExit();         // 원래 파일 삭제
+                    paths[i] = MoveFile.getPath();      // 복원한 파일의 경로를 문자열로 저장
+                }
+                MediaScannerConnection.scanFile(getApplicationContext(),paths, null, null);
+                // context : 어플리케이션의 context
+                // paths : 추가할 파일의 경로를 나타내는 문자열
+                // mimeTypes : 파일의 MIME 유형을 나타내는 문자열
+                // callback : 스캔이 완료될 경우 호출
+
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                // Do nothing
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void setData() {
