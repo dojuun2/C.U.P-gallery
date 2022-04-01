@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.testgallery.activities.mainActivities.PictureActivity;
 import com.example.testgallery.R;
+import com.example.testgallery.activities.subActivities.MultiSelectImage;
 import com.example.testgallery.models.Category;
 import com.example.testgallery.models.Image;
 import com.example.testgallery.utility.GetAllPhotoFromGallery;
@@ -74,6 +75,18 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                 MyAsyncTask myAsyncTask = new MyAsyncTask();
                 myAsyncTask.setPos(position);
                 myAsyncTask.execute();
+            }
+        });
+
+        holder.imgPhoto.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                intent = new Intent(context, MultiSelectImage.class);
+                MyAsyncTask myAsyncTask = new MyAsyncTask();
+                myAsyncTask.setPos(position);
+                myAsyncTask.execute();
+
+                return false;
             }
         });
 
