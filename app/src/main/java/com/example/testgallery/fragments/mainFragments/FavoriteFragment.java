@@ -58,7 +58,7 @@ import com.example.testgallery.activities.mainActivities.ItemAlbumActivity;
 import com.example.testgallery.activities.subActivities.MultiSelectImage;
 import com.example.testgallery.activities.mainActivities.SettingsActivity;
 import com.example.testgallery.ml.MobilenetV110224Quant;
-import com.example.testgallery.utility.GetAllPhotoFromGallery;
+import com.example.testgallery.utility.GetAllPhotoFromGallery2;
 import com.example.testgallery.R;
 import com.example.testgallery.models.Category;
 import com.example.testgallery.adapters.CategoryAdapter;
@@ -191,7 +191,7 @@ public class FavoriteFragment extends Fragment {
     }
 
     public ArrayList<String> getListImg(){
-        List<Image> imageList = GetAllPhotoFromGallery.getAllImageFromGallery(getContext());
+        List<Image> imageList = GetAllPhotoFromGallery2.getAllImageFromGallery(getContext());
         long hash = 0;
         Map<Long,ArrayList<String>> map = new HashMap<Long,ArrayList<String>>();
         for (Image img: imageList) {
@@ -246,7 +246,7 @@ public class FavoriteFragment extends Fragment {
 
     private void showImageByDate(String date) {
         Toast.makeText(getContext(), date, Toast.LENGTH_LONG).show();
-        List<Image> imageList = GetAllPhotoFromGallery.getAllImageFromGallery(getContext());
+        List<Image> imageList = GetAllPhotoFromGallery2.getAllImageFromGallery(getContext());
         List<Image> listImageSearch = new ArrayList<>();
 
         for (Image image : imageList) {
@@ -406,7 +406,7 @@ public class FavoriteFragment extends Fragment {
     private List<Category> getListCategory() {
         List<Category> categoryList = new ArrayList<>();
         int categoryCount = 0;
-        imageList = GetAllPhotoFromGallery.getAllImageFromGallery(getContext());
+        imageList = GetAllPhotoFromGallery2.getAllImageFromGallery(getContext());
 
         try {
             categoryList.add(new Category(imageList.get(0).getDateTaken(), new ArrayList<>()));
@@ -450,7 +450,7 @@ public class FavoriteFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            List<Image> imageList = GetAllPhotoFromGallery.getAllImageFromGallery(context);
+            List<Image> imageList = GetAllPhotoFromGallery2.getAllImageFromGallery(context);
             list_searchA.clear();
             for (int i = 0; i < imageList.size(); i++) {
                 Bitmap bitmap = getBitmap(imageList.get(i).getPath());
