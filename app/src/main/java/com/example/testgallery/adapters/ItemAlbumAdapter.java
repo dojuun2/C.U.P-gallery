@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.testgallery.activities.mainActivities.PictureActivity;
 import com.example.testgallery.R;
+import com.example.testgallery.activities.subActivities.ItemAlbumMultiSelectActivity;
 import com.example.testgallery.models.Album;
 
 
@@ -28,8 +29,14 @@ public class ItemAlbumAdapter extends RecyclerView.Adapter<ItemAlbumAdapter.Item
     private ImageView imgPhoto;
     private static int REQUEST_CODE_PIC = 10;
 
+    private String album_name;
+    private String path_folder ;
+    private static final int REQUEST_CODE_CHOOSE = 55;
+
     public ItemAlbumAdapter(ArrayList<String> album) {
         this.album = album;
+        this.album_name = album_name;
+        this.path_folder = path_folder;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -63,6 +70,20 @@ public class ItemAlbumAdapter extends RecyclerView.Adapter<ItemAlbumAdapter.Item
             super(itemView);
             context = itemView.getContext();
             imgPhoto = itemView.findViewById(R.id.imgPhoto);
+
+            imgPhoto.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Intent intent = new Intent(context, ItemAlbumMultiSelectActivity.class);
+                    intent.putStringArrayListExtra("data_1", album);
+                    intent.putExtra("name", album_name);
+                    intent.putExtra("path_folder", path_folder);
+
+                    ((Activity) context).startActivityForResult(intent, REQUEST_CODE_CHOOSE);
+
+                    return true;
+                }
+            });
         }
 
         public void onBind(String img, int pos) {
