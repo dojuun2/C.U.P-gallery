@@ -64,7 +64,7 @@ public class AlbumFragment extends Fragment {
 
     private void toolBarEvents() {
         toolbar_album.inflateMenu(R.menu.menu_top_album);
-        toolbar_album.setTitle("Album");
+        toolbar_album.setTitle("앨범");
         toolbar_album.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -84,7 +84,7 @@ public class AlbumFragment extends Fragment {
 
     private void eventSearch(@NonNull MenuItem item) {
         SearchView searchView = (SearchView) item.getActionView();
-        searchView.setQueryHint("Type to search");
+        searchView.setQueryHint("검색 유형");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -102,7 +102,7 @@ public class AlbumFragment extends Fragment {
                         AlbumFragment.this.notifyAll();
                     }
                 } else {
-                    Toast.makeText(getContext(), "Searched album not found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "검색한 앨범을 찾을 수 없습니다", Toast.LENGTH_LONG).show();
                 }
                 return false;
             }
@@ -149,6 +149,7 @@ public class AlbumFragment extends Fragment {
         _intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ((Activity) view.getContext()).startActivityForResult(_intent, REQUEST_CODE_CREATE);
     }
+
 
     private void mappingControls() {
         ryc_album = view.findViewById(R.id.ryc_album);

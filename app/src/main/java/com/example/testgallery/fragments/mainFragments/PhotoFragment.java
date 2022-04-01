@@ -122,7 +122,7 @@ public class PhotoFragment extends Fragment {
 
     private void toolBarEvents() {
         toolbar_photo.inflateMenu(R.menu.menu_top);
-        toolbar_photo.setTitle("Photo");
+        toolbar_photo.setTitle("모든사진");
         toolbar_photo.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -184,7 +184,7 @@ public class PhotoFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(context);
-            mProgressDialog.setMessage("Loading, please wait...");
+            mProgressDialog.setMessage("잠시만 기다려주세요");
             mProgressDialog.show();
         }
 
@@ -236,7 +236,7 @@ public class PhotoFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 calendar.set(i, i1, i2);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String date = simpleDateFormat.format(calendar.getTime());
                 showImageByDate(date);
             }
@@ -256,7 +256,7 @@ public class PhotoFragment extends Fragment {
         }
 
         if (listImageSearch.size() == 0){
-            Toast.makeText(getContext(), "Searched image not found", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "검색한 사진을 찾을 수 없습니다", Toast.LENGTH_LONG).show();
         } else {
             ArrayList<String> listStringImage = new ArrayList<>();
             for (Image image : listImageSearch) {
@@ -295,8 +295,8 @@ public class PhotoFragment extends Fragment {
         View view = getLayoutInflater().inflate(R.layout.layout_dialog_search_advanced, null);
 
         dialog.setView(view);
-        dialog.setTitle("Advanced search");
-        dialog.setPositiveButton("Search", new DialogInterface.OnClickListener() {
+        dialog.setTitle("고급 검색");
+        dialog.setPositiveButton("검색", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 EditText edt_search_view = view.findViewById(R.id.edt_search_view);
@@ -356,11 +356,11 @@ public class PhotoFragment extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == MY_CAMERA_PERMISSION_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getActivity(), "camera permission granted", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "카메라 권한 부여", Toast.LENGTH_LONG).show();
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, CAMERA_REQUEST);
             } else {
-                Toast.makeText(getActivity(), "camera permission denied", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "카메라 권한 거부", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -389,7 +389,7 @@ public class PhotoFragment extends Fragment {
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_MULTI) {
             MyAsyncTask myAsyncTask = new MyAsyncTask();
             myAsyncTask.execute();
-            Toast.makeText(context, "Your image is hidden", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "사진이 숨겨져 있습니다", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -513,7 +513,7 @@ public class PhotoFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(context);
-            mProgressDialog.setMessage("Loading, please wait...");
+            mProgressDialog.setMessage("잠시만 기다려주세요");
             mProgressDialog.show();
         }
     }

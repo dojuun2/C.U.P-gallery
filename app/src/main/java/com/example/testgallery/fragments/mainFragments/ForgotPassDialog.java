@@ -49,7 +49,7 @@ public class ForgotPassDialog extends BottomSheetDialogFragment {
 
         getParentFragmentManager().beginTransaction().add(this,"ForgotPass_frag");
         if(password.equals("")||question.equals("")||answer.equals("")){
-            Toast.makeText(getActivity(),"Failed setting, can't get back password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"설정 실패, 암호를 되돌릴 수 없습니다", Toast.LENGTH_SHORT).show();
             Fragment thisFrag = getParentFragmentManager().findFragmentByTag("ForgotPass_frag");
             getParentFragmentManager().beginTransaction()
                     .remove(thisFrag)
@@ -81,7 +81,7 @@ public class ForgotPassDialog extends BottomSheetDialogFragment {
                 String newPassText = newPass.getText().toString();
                 String rePassText = rePass.getText().toString();
                 if(!newPassText.equals(rePassText)){
-                    Toast.makeText(getActivity(),"Password doesn't match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"암호가 일치하지 않습니다", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     String hashed = BCrypt.hashpw(newPassText, BCrypt.gensalt());
@@ -94,7 +94,7 @@ public class ForgotPassDialog extends BottomSheetDialogFragment {
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-                    Toast.makeText(getActivity(),"Change Password Success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"암호 변경 성공", Toast.LENGTH_SHORT).show();
                     Fragment thisFrag = getParentFragmentManager().findFragmentByTag("ForgotPass_frag");
                     getParentFragmentManager().beginTransaction()
                             .remove(thisFrag)

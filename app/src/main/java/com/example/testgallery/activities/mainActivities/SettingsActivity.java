@@ -68,7 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void toolbarEvents(){
         toolbar_settings = (Toolbar)findViewById(R.id.toolbar_settings);
         toolbar_settings.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
-        toolbar_settings.setTitle("Settings");
+        toolbar_settings.setTitle("설정");
         toolbar_settings.inflateMenu(R.menu.menu_top_settings);
         toolbar_settings.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
