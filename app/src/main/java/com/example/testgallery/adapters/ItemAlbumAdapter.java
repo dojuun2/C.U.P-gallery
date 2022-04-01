@@ -70,20 +70,6 @@ public class ItemAlbumAdapter extends RecyclerView.Adapter<ItemAlbumAdapter.Item
             super(itemView);
             context = itemView.getContext();
             imgPhoto = itemView.findViewById(R.id.imgPhoto);
-
-            imgPhoto.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    Intent intent = new Intent(context, ItemAlbumMultiSelectActivity.class);
-                    intent.putStringArrayListExtra("data_1", album);
-                    intent.putExtra("name", album_name);
-                    intent.putExtra("path_folder", path_folder);
-
-                    ((Activity) context).startActivityForResult(intent, REQUEST_CODE_CHOOSE);
-
-                    return true;
-                }
-            });
         }
 
         public void onBind(String img, int pos) {
@@ -98,6 +84,20 @@ public class ItemAlbumAdapter extends RecyclerView.Adapter<ItemAlbumAdapter.Item
                     intent.putExtra("pos", pos);
 
                     ((Activity) context).startActivityForResult(intent, REQUEST_CODE_PIC);
+                }
+            });
+
+            imgPhoto.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Intent intent = new Intent(context, ItemAlbumMultiSelectActivity.class);
+                    intent.putStringArrayListExtra("data_1", album);
+                    intent.putExtra("name_1", album_name);
+                    intent.putExtra("path_folder", path_folder);
+
+                    ((Activity) context).startActivityForResult(intent, REQUEST_CODE_CHOOSE);
+
+                    return true;
                 }
             });
         }
