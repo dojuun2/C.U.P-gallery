@@ -19,7 +19,7 @@ import com.example.testgallery.models.Image;
 
 import java.util.ArrayList;
 
-public class ItemAlbumAdapter4 extends RecyclerView.Adapter<ItemAlbumAdapter4.ItemViewHolder> {
+public class WC_recyclerAdapter extends RecyclerView.Adapter<WC_recyclerAdapter.ItemViewHolder> {
 
     private ArrayList<String> listData;
 
@@ -37,7 +37,7 @@ public class ItemAlbumAdapter4 extends RecyclerView.Adapter<ItemAlbumAdapter4.It
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // LayoutInflater를 이용하여 전 단계에서 만들었던 item.xml을 inflate 시킵니다.
         // return 인자는 ViewHolder 입니다.
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_picture, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_wc_gogo, parent, false);
         return new ItemViewHolder(view);
     }
 
@@ -50,7 +50,7 @@ public class ItemAlbumAdapter4 extends RecyclerView.Adapter<ItemAlbumAdapter4.It
     @Override
     public int getItemCount() {
 
-            return listData.size();
+        return 2;
 
     }
 
@@ -64,7 +64,7 @@ public class ItemAlbumAdapter4 extends RecyclerView.Adapter<ItemAlbumAdapter4.It
             super(itemView);
 
 
-            imageView = itemView.findViewById(R.id.imgPhoto);
+            imageView = itemView.findViewById(R.id.item_wc_gogo);
             context = itemView.getContext();
 
         }
