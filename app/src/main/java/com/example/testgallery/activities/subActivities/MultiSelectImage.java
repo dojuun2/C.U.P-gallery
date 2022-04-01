@@ -89,7 +89,7 @@ public class MultiSelectImage extends AppCompatActivity implements ListTransInte
 
     private void eventToolBar() {
         toolbar_item_album.inflateMenu(R.menu.menu_multi_select);
-        toolbar_item_album.setTitle("Multi Select");
+        toolbar_item_album.setTitle("다중 선택");
 
         toolbar_item_album.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -99,7 +99,7 @@ public class MultiSelectImage extends AppCompatActivity implements ListTransInte
                     case R.id.menuCreateAlbum:
                         AlertDialog.Builder alert = new AlertDialog.Builder(MultiSelectImage.this);
                         edittext = new EditText(MultiSelectImage.this);
-                        alert.setMessage("Enter name album");
+                        alert.setMessage("앨범 이름 입력");
                         alert.setView(edittext);
                         alert.setPositiveButton("Yes Option", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
@@ -186,8 +186,8 @@ public class MultiSelectImage extends AppCompatActivity implements ListTransInte
     private void hideEvents() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MultiSelectImage.this);
 
-        builder.setTitle("Confirm");
-        builder.setMessage("Do you want to hide/show this image?");
+        builder.setTitle("확인");
+        builder.setMessage("사진을 숨기거나 표시하시겠습니까?");
 
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
@@ -242,8 +242,8 @@ public class MultiSelectImage extends AppCompatActivity implements ListTransInte
     private void deleteEvents() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MultiSelectImage.this);
 
-        builder.setTitle("Confirm");
-        builder.setMessage("Do you want to delete this image?");
+        builder.setTitle("확인");
+        builder.setMessage("사진을 삭제하시겠습니까?");
 
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override

@@ -120,8 +120,8 @@ public class ItemSecretMultiSelectActivity extends AppCompatActivity implements 
     private void restoreEvent() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ItemSecretMultiSelectActivity.this);
 
-        builder.setTitle("Confirm");
-        builder.setMessage("Do you want to hide/show this image?");
+        builder.setTitle("확인");
+        builder.setMessage("사진을 숨기거나 표시하시겠습니까?");
 
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 

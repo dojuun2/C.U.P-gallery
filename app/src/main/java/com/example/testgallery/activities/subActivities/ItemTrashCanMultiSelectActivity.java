@@ -118,8 +118,8 @@ public class ItemTrashCanMultiSelectActivity extends AppCompatActivity implement
     private void restoreEvent() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ItemTrashCanMultiSelectActivity.this);
 
-        builder.setTitle("Confirm");
-        builder.setMessage("Do you want to restore this image?");
+        builder.setTitle("확인");
+        builder.setMessage("사진을 복구하시겠습니까?");
 
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
@@ -143,8 +143,8 @@ public class ItemTrashCanMultiSelectActivity extends AppCompatActivity implement
     private void deleteEvents() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ItemTrashCanMultiSelectActivity.this);
 
-        builder.setTitle("Confirm");
-        builder.setMessage("Do you want to delete this image?");
+        builder.setTitle("확인");
+        builder.setMessage("사진을 삭제하시겠습니까?");
 
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
