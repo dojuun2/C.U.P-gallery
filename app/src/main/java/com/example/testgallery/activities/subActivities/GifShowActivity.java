@@ -92,7 +92,7 @@ public class GifShowActivity extends AppCompatActivity {
             outStream.close();
             MediaScannerConnection.scanFile(getApplicationContext(),paths, null, null);
             progressDialog.cancel();
-            Toast.makeText(getApplicationContext(), "Lưu file thành công", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "파일 저장 성공", Toast.LENGTH_SHORT).show();
         } catch(Exception e) {
             e.printStackTrace();
         }

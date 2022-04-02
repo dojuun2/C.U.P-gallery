@@ -6,15 +6,15 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.example.testgallery.models.Image;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import com.example.testgallery.models.Image;
-
-public class GetAllPhotoFromGallery {
+public class GetAllPhotoFromGallery2 {
     public static final List<Image> getAllImageFromGallery(Context context) {
         Uri uri;
         Cursor cursor;
@@ -40,7 +40,7 @@ public class GetAllPhotoFromGallery {
         thumb = cursor.getColumnIndexOrThrow(MediaStore.Images.Thumbnails.DATA);
         dateIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_TAKEN);
         Calendar myCal = Calendar.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd, EEE");
+        SimpleDateFormat formatter = new SimpleDateFormat("b");
         while (cursor.moveToNext()) {
             try {
                 absolutePathImage = cursor.getString(columnIndexData);

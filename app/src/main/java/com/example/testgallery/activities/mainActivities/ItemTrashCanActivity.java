@@ -245,8 +245,8 @@ public class ItemTrashCanActivity extends AppCompatActivity {
     private void deleteAllEvents() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ItemTrashCanActivity.this);
 
-        builder.setTitle("Confirm");
-        builder.setMessage("Do you want to delete all image?");
+        builder.setTitle("확인");
+        builder.setMessage("모든 사진을 삭제하시겠습니까?");
 
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
@@ -276,8 +276,8 @@ public class ItemTrashCanActivity extends AppCompatActivity {
     private void restoreAllEvents(){
         AlertDialog.Builder builder = new AlertDialog.Builder(ItemTrashCanActivity.this);
 
-        builder.setTitle("Confirm");
-        builder.setMessage("Do you want to restore all image?");
+        builder.setTitle("확인");
+        builder.setMessage("모든 사진을 복구하시겠습니까?");
 
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override

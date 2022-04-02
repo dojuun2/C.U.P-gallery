@@ -159,19 +159,19 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
                             Intent share = new Intent(Intent.ACTION_SEND);
                             share.setType("image/*");
                             share.putExtra(Intent.EXTRA_STREAM, targetUri);
-                            startActivity( Intent.createChooser(share, "Share this image to your friends!") );
+                            startActivity( Intent.createChooser(share, "사진을 지인들에게 공유해보세요") );
                         }
                         else {
                             Drawable mDrawable = Drawable.createFromPath(imgPath);
                             Bitmap mBitmap = ((BitmapDrawable) mDrawable).getBitmap();
-                            String path = MediaStore.Images.Media.insertImage(getContentResolver(), mBitmap, "Image Description", null);
+                            String path = MediaStore.Images.Media.insertImage(getContentResolver(), mBitmap, "사진 묘사", null);
                             thumb = thumb.replaceAll(" ", "");
 
                             Uri uri = Uri.parse(path);
                             Intent shareIntent = new Intent(Intent.ACTION_SEND);
                             shareIntent.setType("image/*");
                             shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                            startActivity(Intent.createChooser(shareIntent, "Share Image"));
+                            startActivity(Intent.createChooser(shareIntent, "사진 공유"));
                         }
 
                         break;
@@ -180,7 +180,7 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
                         Intent editIntent = new Intent(PictureActivity.this, DsPhotoEditorActivity.class);
 
                         if(imgPath.contains("gif")){
-                            Toast.makeText(PictureActivity.this,"Cannot edit GIF images",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PictureActivity.this,"GIF 이미지를 편집할 수 없습니다",Toast.LENGTH_SHORT).show();
                         }
                         else{
                             // Set data
@@ -218,8 +218,8 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(PictureActivity.this);
 
-                        builder.setTitle("Confirm");
-                        builder.setMessage("Do you want to delete this image?");
+                        builder.setTitle("확인");
+                        builder.setMessage("사진을 삭제하시겠습니까?");
 
                         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
@@ -314,8 +314,8 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
                     case R.id.menuAddSecret:
                         AlertDialog.Builder builder = new AlertDialog.Builder(PictureActivity.this);
 
-                        builder.setTitle("Confirm");
-                        builder.setMessage("Do you want to hide/show this image?");
+                        builder.setTitle("확인");
+                        builder.setMessage("이미지를 숨기거나 표시하시겠습니까?");
 
                         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
@@ -323,14 +323,14 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
                                 String scrPath = Environment.getExternalStorageDirectory()+File.separator+".secret";
                                 File scrDir = new File(scrPath);
                                 if(!scrDir.exists()){
-                                    Toast.makeText(PictureActivity.this, "You haven't created secret album", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(PictureActivity.this, "비밀 앨범을 만들지 않았습니다", Toast.LENGTH_SHORT).show();
                                 }
                                 else{
                                     FileUtility fu = new FileUtility();
                                     File img = new File(imgPath);
                                     if(!(scrPath+File.separator+img.getName()).equals(imgPath)){
                                         fu.moveFile(imgPath,img.getName(),scrPath);
-                                        Toast.makeText(PictureActivity.this, "Your image is hidden", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(PictureActivity.this, "이미지가 숨겨진 상태입니다", Toast.LENGTH_SHORT).show();
                                     }
                                     else{
                                         String outputPath = Environment.getExternalStorageDirectory()+File.separator+"DCIM" + File.separator + "Restore";
@@ -406,7 +406,7 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
             BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(searchRVArrayList, new IClickListener() {
                 @Override
                 public void clickItem(SearchRV searchRV) {
-                    Toast.makeText(PictureActivity.this,"test",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PictureActivity.this,"테스트",Toast.LENGTH_SHORT).show();
                 }
             });
             bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
@@ -417,7 +417,7 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(PictureActivity.this);
-            mProgressDialog.setMessage("Loading, please wait...");
+            mProgressDialog.setMessage("잠시만 기다려주세요");
             mProgressDialog.show();
             searchRVArrayList.add(new SearchRV("Test 1","https://ashpex.eu.org","https://ashpex.eu.org","test test test"));
             searchRVArrayList.add(new SearchRV("Test 2","https://ashpex.eu.org","https://ashpex.eu.org","test test test"));
@@ -449,7 +449,7 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(PictureActivity.this, "Failed to detect image...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PictureActivity.this, "사진을 찾을 수 없습니다", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -489,7 +489,7 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(PictureActivity.this,"No results found...",Toast.LENGTH_SHORT).show();;
+                Toast.makeText(PictureActivity.this,"결과를 찾을 수 없습니다",Toast.LENGTH_SHORT).show();;
             }
         });
         queue.add(jsonObjectRequest);
@@ -550,19 +550,19 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Toast.makeText(getApplicationContext(),
-                        "Something wrong:\n" + e.toString(),
+                        "오류 발생:\n" + e.toString(),
                         Toast.LENGTH_LONG).show();
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(getApplicationContext(),
-                        "Something wrong:\n" + e.toString(),
+                        "오류 발생:\n" + e.toString(),
                         Toast.LENGTH_LONG).show();
             }
 
 
         } else {
             Toast.makeText(getApplicationContext(),
-                    "photoUri == null",
+                    "photoUri가 존재하지 않습니다",
                     Toast.LENGTH_LONG).show();
         }
     }

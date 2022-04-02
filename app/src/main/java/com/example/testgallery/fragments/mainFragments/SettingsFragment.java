@@ -77,7 +77,7 @@ public class SettingsFragment extends PreferenceFragment {
 
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals("nightMode")) {
+        if (key.equals("다크 모드")) {
             boolean nightMode = sharedPreferences.getBoolean("nightMode", false);
             if (nightMode) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -86,7 +86,7 @@ public class SettingsFragment extends PreferenceFragment {
             }
         }
 
-        if(key.equals("changeLanguage")){
+        if(key.equals("사용자 언어 변경")){
             boolean changeLanguage = sharedPreferences.getBoolean("changeLanguage", false);
 
             if(changeLanguage){

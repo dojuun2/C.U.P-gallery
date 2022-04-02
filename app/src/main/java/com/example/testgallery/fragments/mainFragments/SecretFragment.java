@@ -178,7 +178,7 @@ public class SecretFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 calendar.set(i, i1, i2);
-                SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
                 String date1 = simpleDateFormat1.format(calendar.getTime());
                 showImageByDate(date1);
             }
@@ -199,7 +199,7 @@ public class SecretFragment extends Fragment {
         }
 
         if (listImageSearch.size() == 0) {
-            Toast.makeText(getContext(), "Searched image not found", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "검색한 사진이 존재하지 않습니다", Toast.LENGTH_LONG).show();
         } else {
             ArrayList<String> listStringImage = new ArrayList<>();
             for (Image image : listImageSearch) {

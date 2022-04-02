@@ -138,7 +138,7 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
     }
 
     private void gifEvents() {
-        Toast.makeText(getApplicationContext(),"App sẽ loại bỏ ảnh gif có trong danh sách chọn", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"선택목록에 있는 GIF 사진을 제거합니다", Toast.LENGTH_SHORT).show();
         ArrayList<String> list_send_gif = new ArrayList<>();
         for(int i =0;i<listImageSelected.size();i++) {
             if(!listImageSelected.get(i).getPath().contains(".gif"))
@@ -149,13 +149,13 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
 
         }
         else
-            Toast.makeText(getApplicationContext(),"Danh sách trống", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"빈 목록", Toast.LENGTH_SHORT).show();
     }
 
     private void inputDialog(ArrayList<String> list_send_gif) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ItemAlbumMultiSelectActivity.this);
-        alertDialog.setTitle("Nhập khoảng delay");
-        alertDialog.setMessage("Delay: ");
+        alertDialog.setTitle("간격 입력 지연");
+        alertDialog.setMessage("지연: ");
         final EditText input = new EditText(ItemAlbumMultiSelectActivity.this);
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -175,7 +175,7 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
                     dialogInterface.cancel();
                 }
                 else
-                    Toast.makeText(getApplicationContext(),"Mời nhập đầy đủ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"전체 입력", Toast.LENGTH_SHORT).show();
             }
         });
         alertDialog.show();
@@ -199,8 +199,8 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
     private void deleteEvents() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ItemAlbumMultiSelectActivity.this);
 
-        builder.setTitle("Confirm");
-        builder.setMessage("Do you want to delete this image?");
+        builder.setTitle("확인");
+        builder.setMessage("사진을 삭제하시겠습니까?");
 
         builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override

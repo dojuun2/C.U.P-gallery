@@ -40,7 +40,7 @@ public class ChangePassFragment extends BottomSheetDialogFragment {
         password = settings.getString("password","");
         getParentFragmentManager().beginTransaction().add(this,"ChangePass_frag");
         if(password.equals("")){
-            Toast.makeText(getActivity(),"No password detected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"비밀번호가 검출되지 않았습니다", Toast.LENGTH_SHORT).show();
             Fragment thisFrag = getParentFragmentManager().findFragmentByTag("ChangePass_frag");
             getParentFragmentManager().beginTransaction()
                     .remove(thisFrag)
@@ -55,7 +55,7 @@ public class ChangePassFragment extends BottomSheetDialogFragment {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"Cancel", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"취소", Toast.LENGTH_SHORT).show();
                 Fragment thisFrag = getParentFragmentManager().findFragmentByTag("ChangePass_frag");
                 getParentFragmentManager().beginTransaction()
                         .remove(thisFrag)
@@ -69,11 +69,11 @@ public class ChangePassFragment extends BottomSheetDialogFragment {
                 String newPassText = newPass.getText().toString();
                 String confirmPassText = confirmPass.getText().toString();
                 if(!BCrypt.checkpw(oldPassText, password)){
-                    Toast.makeText(getActivity(),"Wrong Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"비밀번호 오류", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(!newPassText.equals(confirmPassText)){
-                    Toast.makeText(getActivity(),"ConfirmPassword doesn't match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"비밀번호가 일치하지 않습니다", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 String hashed = BCrypt.hashpw(newPassText, BCrypt.gensalt());
@@ -86,7 +86,7 @@ public class ChangePassFragment extends BottomSheetDialogFragment {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(getActivity(),"Change Password Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"비밀번호 변경 성공", Toast.LENGTH_SHORT).show();
                 Fragment thisFrag = getParentFragmentManager().findFragmentByTag("ChangePass_frag");
                 getParentFragmentManager().beginTransaction()
                         .remove(thisFrag)
