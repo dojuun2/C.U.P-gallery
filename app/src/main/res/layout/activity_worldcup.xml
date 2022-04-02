@@ -44,20 +44,19 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/WC_recycler_play"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_width="wrap_content"
+        android:layout_height="650dp"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"/>
 
 
 
-        <Gallery
-            android:id="@+id/WC_gallery_view"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:spacing="10dp"
-
-        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/WC_recycler_playlist"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"/>
 
 
 

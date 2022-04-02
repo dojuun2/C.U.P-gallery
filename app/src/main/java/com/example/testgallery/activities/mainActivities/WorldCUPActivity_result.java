@@ -122,4 +122,5 @@ public class WorldCUPActivity_result extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+
 }
