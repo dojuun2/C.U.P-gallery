@@ -1,53 +1,29 @@
 package com.example.testgallery.activities.mainActivities;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Path;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
-import android.view.ActionMode;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.testgallery.R;
-import com.example.testgallery.activities.subActivities.ItemAlbumMultiSelectActivity;
-import com.example.testgallery.adapters.SlideShowAdapter;
 import com.example.testgallery.adapters.WC_recyclerAdapter;
 import com.example.testgallery.adapters.WC_recyclerlistAdapter;
-import com.example.testgallery.models.Image;
-import com.example.testgallery.utility.GetAllPhotoFromGallery;
-import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorldCUPActivity<image> extends AppCompatActivity {
+public class WorldCUPActivity<image> extends AppCompatActivity implements WC_AdapterEndingListener {
     private SliderView sliderView;
     private ImageView img_back_wolrd_cup;
     private Toolbar toolbar_slide;
@@ -56,17 +32,21 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
     private ArrayList<String> list;
     private Long mLastClickTime = 0L;
     private static final String logTag = "ggoog";
-    private WC_recyclerAdapter adapter;
+    private WC_recyclerAdapter adapter,adapter1;
     private WC_recyclerlistAdapter listadapter;
     private RecyclerView recyclerView;
+    ArrayList<String> Savelist = new ArrayList<>();
+    ArrayList<String> Deletelist = new ArrayList<>();
+    private int endnum = 0;
 
-    ArrayList<Integer> delete_list = new ArrayList<>();
 
     ImageView WC_image1;
     ImageView WC_image2;
     int i;
     int j;
     int k;
+
+
 
 
     @Override
@@ -79,7 +59,6 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
 
         mappingControls();
         event();
-        gallery();
         init();
         getData();
 
@@ -87,12 +66,12 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
 
     }
 
-    private void result() {
-
+    public void result() {
         Intent intent = new Intent(WorldCUPActivity.this, WorldCUPActivity_result.class);
-        intent.putStringArrayListExtra("WC_list", list);
-        intent.putExtra("WC_deletenum", delete_list);
+        intent.putStringArrayListExtra("WC_savelist", Savelist);
+        intent.putStringArrayListExtra("WC_deletelist", Deletelist);
         startActivity(intent);
+
         finish();
     }
 
@@ -116,20 +95,25 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
 
     }
 
-    private void gallery() {
-        j = 0; // WC_image1 의 값
-        k = 1;// WC_image2 의 값
-        i = 2;
-
-
-    }
 
     private void init() {
+
+
         recyclerView = findViewById(R.id.WC_recycler_play);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager = new LinearLayoutManager(this){
+            @Override
+            public boolean canScrollVertically(){
+                return false;
+            }
+        };
+
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new WC_recyclerAdapter();
         recyclerView.setAdapter(adapter);
+
+
+
 
         RecyclerView recyclerlistView = findViewById(R.id.WC_recycler_playlist);
         LinearLayoutManager listLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -137,12 +121,53 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
         listadapter = new WC_recyclerlistAdapter();
         recyclerlistView.setAdapter(listadapter);
 
+      //  swipeHelper1 = new ItemTouchHelper(new WC_MySwipeHelper(adapter1));
+     //   swipeHelper1.attachToRecyclerView(recyclerView);
+
+
+
+
+        WC_MySwipeHelper swipeHelper= new WC_MySwipeHelper(WorldCUPActivity.this,recyclerView,300,adapter) {
+            @Override
+            public void instantiatrMyButton(RecyclerView.ViewHolder viewHolder, List<WC_MySwipeHelper.MyButton> buffer) {
+                buffer.add(new MyButton(WorldCUPActivity.this,
+                        "Delete",
+                        30,
+                        R.drawable.ic_add,
+                        Color.parseColor("#FF3C30"),
+                        new WC_MyButtonClickListener() {
+                            @Override
+                            public void onClick(int pos) {
+                                Toast.makeText(WorldCUPActivity.this, "Delete click", Toast.LENGTH_SHORT).show();
+                                Log.d("TAG", viewHolder.getAdapterPosition() + "");
+                                Savelist.add(list.get(viewHolder.getAdapterPosition()));
+                                list.remove(viewHolder.getAdapterPosition());
+                                Log.d("TAG", " coclcococlcococlco pos == " + Savelist.size());
+
+                                if (list.size()<2){
+                                    adapter.getdeletelist();
+                                    Log.d("TAG", " coclcococlcococlco pos == " + pos);
+                                }
+
+                                // 해당 항목 삭제
+                                adapter.notifyItemRemoved(viewHolder.getAdapterPosition());    // Adapter에 알려주기.
+
+                            }
+
+
+
+
+                        }));
+            }
+
+        };// swipeHelper
+
 
 
     }
 
     private void getData() {
-        adapter.addItem(list);
+        adapter.addItem(list,this);
         adapter.notifyDataSetChanged();
         listadapter.addItem(list);
         listadapter.notifyDataSetChanged();
@@ -150,7 +175,16 @@ public class WorldCUPActivity<image> extends AppCompatActivity {
     }
 
 
+    @Override
+    public void niceEnding(int endnum,ArrayList<String> Deletelist) {
+        if (endnum== 2)
+        {
+            Savelist.add(list.get(0));
+            this.Deletelist = Deletelist;
+            result();
+        }
 
+    }
 }
 
 

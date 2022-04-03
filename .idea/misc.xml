@@ -116,11 +116,15 @@
         <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/drawable/ic_info.xml" value="0.21822916666666667" />
         <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.378125" />
         <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/drawable/ic_picture.xml" value="0.21822916666666667" />
+        <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/layout/activity_item_album.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/layout/activity_main.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/layout/activity_multi_select_image.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/layout/activity_picture.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/layout/activity_splash.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/layout/activity_wc_longclick.xml" value="0.17755825734549138" />
         <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/layout/activity_worldcup.xml" value="0.2" />
         <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/layout/activity_worldcup_result.xml" value="0.25" />
+        <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/layout/item_category.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/layout/item_picture.xml" value="0.20208333333333334" />
         <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/layout/item_wc_gogo.xml" value="0.17755825734549138" />
         <entry key="..\:/Users/tmdgj/C.U.P.gallery/app/src/main/res/layout/item_wc_gogolist.xml" value="0.17755825734549138" />

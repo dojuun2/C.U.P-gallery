@@ -32,8 +32,8 @@ public class WorldCUPActivity_result extends AppCompatActivity {
     private ItemAlbumAdapter4 adapter;
     private Intent intent;
     private ArrayList<String> Imglist;
-    private ArrayList<String> savelist;
-    private ArrayList<String> deletelist;
+    private ArrayList<String> Savelist;
+    private ArrayList<String> Deletelist;
     private ArrayList<Integer> deletenum;
 
 
@@ -42,12 +42,11 @@ public class WorldCUPActivity_result extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worldcup_result);
         intent = getIntent();
-        Imglist = intent.getStringArrayListExtra("WC_list");
-        deletenum= intent.getIntegerArrayListExtra("WC_deletenum");
-        deletelist = new ArrayList<>();
-        savelist = new ArrayList<>();
+        Savelist = intent.getStringArrayListExtra("WC_savelist");
+        Deletelist= intent.getStringArrayListExtra("WC_deletelist");
 
-        tasklist();
+
+
 
         init();
         getData();
@@ -59,37 +58,6 @@ public class WorldCUPActivity_result extends AppCompatActivity {
 
     }
 
-    private void tasklist() {
-
-        if(deletenum.size()<1){
-
-            for (int i = 0; i < Imglist.size(); i++) {
-                savelist.add(Imglist.get(i));
-            }
-
-        }
-
-
-
-        for (int i = 0; i < Imglist.size(); i++) {
-
-            for(int j = 0 ; j < deletenum.size() ; j++){
-
-                if(deletenum.get(j) == i){
-
-                    deletelist.add((Imglist.get(i)));
-                    break;
-                }
-                else if (j+1 == deletenum.size()){
-
-                    savelist.add((Imglist.get(i)));
-
-                }
-            }
-
-
-        }
-    }
 
 
 
@@ -114,11 +82,11 @@ public class WorldCUPActivity_result extends AppCompatActivity {
     }
 
     private void getData() {
-        adapter.addItem(savelist);
+        adapter.addItem(Savelist);
         adapter.notifyDataSetChanged();
     }
     private void getData2() {
-        adapter.addItem(deletelist);
+        adapter.addItem(Deletelist);
         adapter.notifyDataSetChanged();
     }
 

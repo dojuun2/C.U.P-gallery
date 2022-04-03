@@ -25,6 +25,7 @@ public class WC_recyclerlistAdapter extends RecyclerView.Adapter<WC_recyclerlist
 
 
 
+
     public void addItem(ArrayList<String> imageList) {
         listData = new ArrayList<>();
         this.listData = imageList;

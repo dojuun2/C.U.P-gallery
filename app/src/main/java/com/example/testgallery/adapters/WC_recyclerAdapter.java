@@ -4,6 +4,8 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,23 +15,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.testgallery.R;
+import com.example.testgallery.activities.mainActivities.WC_AdapterEndingListener;
+import com.example.testgallery.activities.mainActivities.WC_MySwipeListner;
+import com.example.testgallery.activities.mainActivities.WorldCUPActivity;
 
 
 import java.util.ArrayList;
 
-public class WC_recyclerAdapter extends RecyclerView.Adapter<WC_recyclerAdapter.ItemViewHolder>  {
+public class WC_recyclerAdapter extends RecyclerView.Adapter<WC_recyclerAdapter.ItemViewHolder> implements WC_MySwipeListner {
 
     public ArrayList<String> listData;
+    ArrayList<String> DeleteData2 = new ArrayList<>();
+    private Intent intent;
+    public String pp;
+    private WC_AdapterEndingListener listener;
 
 
 
-    public void addItem(ArrayList<String> imageList) {
+    public void addItem(ArrayList<String> imageList, WC_AdapterEndingListener listener) {
 
         listData = new ArrayList<>();
         this.listData = imageList;
-
+        this.listener = listener;
 
     }
+
+
 
 
     @NonNull
@@ -50,10 +61,33 @@ public class WC_recyclerAdapter extends RecyclerView.Adapter<WC_recyclerAdapter.
 
     @Override
     public int getItemCount() {
-
-        return 2;
+        return listData.size();
 
     }
+
+    @Override
+    public void onItemSwipe(int position) {
+
+
+        DeleteData2.add(listData.remove(position));
+        Log.d("TAG", "possiisisisiis == " +position);
+
+        if (listData.size()<2) {
+
+
+            Log.d("TAG", " clclcllclclclcll33333333333");
+            getdeletelist();
+        }
+
+
+        notifyItemRemoved(position);
+    }
+
+    public void getdeletelist(){
+        listener.niceEnding(2, DeleteData2);
+    }
+
+
 
 
 

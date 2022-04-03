@@ -9,6 +9,7 @@
 
     <ImageView
         android:id="@+id/item_wc_gogo"
+
         android:layout_width="325dp"
         android:layout_height="325dp"
         android:scaleType="centerCrop"
