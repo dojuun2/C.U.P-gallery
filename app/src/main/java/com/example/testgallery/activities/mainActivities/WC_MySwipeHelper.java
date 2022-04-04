@@ -1,6 +1,7 @@
 package com.example.testgallery.activities.mainActivities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -75,7 +76,9 @@ public class WC_MySwipeHelper extends ItemTouchHelper.Callback {
     private View.OnTouchListener onTouchListener= new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent motionEvent) {
-            if(swipePosition<0) return false;
+            if(swipePosition<0) {
+                return false;
+            }
             Point point =new Point((int)motionEvent.getRawX(),(int)motionEvent.getRawY());
 
             RecyclerView.ViewHolder swipeViewHolder = recyclerView.findViewHolderForAdapterPosition(swipePosition);
@@ -93,11 +96,11 @@ public class WC_MySwipeHelper extends ItemTouchHelper.Callback {
                     swipePosition = -1;
                     recoverSwipedItem();
                 }
+
             }
             return false;
         }
     };
-
 
 
 
@@ -172,10 +175,9 @@ public class WC_MySwipeHelper extends ItemTouchHelper.Callback {
         public boolean onClick(float x, float y){
             if(clickRegion != null && clickRegion.contains(x,y) ){
                 listener.onClick(pos);
-
                 return true;
             }
-            return false;
+            return true;
         }// onClick()..
 
         public void onDraw(Canvas c, RectF rectF, int pos){
@@ -199,7 +201,7 @@ public class WC_MySwipeHelper extends ItemTouchHelper.Callback {
             }else{
                 Drawable d = ContextCompat.getDrawable(context,imageResId);
                 Bitmap bitmap= drawableToBitmap(d);
-                c.drawBitmap(bitmap,(rectF.left+rectF.right)/2,(rectF.top+rectF.bottom)/2,p);
+                c.drawBitmap(bitmap,(rectF.left+rectF.right)/2-50,(rectF.top+rectF.bottom)/2-50,p);
             }
             clickRegion= rectF;
             this.pos=pos;

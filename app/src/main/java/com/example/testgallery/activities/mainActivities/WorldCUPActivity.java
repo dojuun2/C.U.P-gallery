@@ -18,12 +18,15 @@ import android.widget.Toast;
 import com.example.testgallery.R;
 import com.example.testgallery.adapters.WC_recyclerAdapter;
 import com.example.testgallery.adapters.WC_recyclerlistAdapter;
+import com.example.testgallery.models.Image;
 import com.smarteist.autoimageslider.SliderView;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorldCUPActivity<image> extends AppCompatActivity implements WC_AdapterEndingListener {
+public class WorldCUPActivity<image> extends AppCompatActivity implements WC_AdapterEndingListener,WC_LongClickListener {
     private SliderView sliderView;
     private ImageView img_back_wolrd_cup;
     private Toolbar toolbar_slide;
@@ -131,22 +134,17 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
             @Override
             public void instantiatrMyButton(RecyclerView.ViewHolder viewHolder, List<WC_MySwipeHelper.MyButton> buffer) {
                 buffer.add(new MyButton(WorldCUPActivity.this,
-                        "Delete",
-                        30,
-                        R.drawable.ic_add,
-                        Color.parseColor("#FF3C30"),
+                        "SAVE",
+                        0,
+                        R.drawable.wc_downloadimg,
+                        Color.parseColor("#B2C7D9"),
                         new WC_MyButtonClickListener() {
                             @Override
                             public void onClick(int pos) {
-                                Toast.makeText(WorldCUPActivity.this, "Delete click", Toast.LENGTH_SHORT).show();
-                                Log.d("TAG", viewHolder.getAdapterPosition() + "");
                                 Savelist.add(list.get(viewHolder.getAdapterPosition()));
                                 list.remove(viewHolder.getAdapterPosition());
-                                Log.d("TAG", " coclcococlcococlco pos == " + Savelist.size());
-
                                 if (list.size()<2){
                                     adapter.getdeletelist();
-                                    Log.d("TAG", " coclcococlcococlco pos == " + pos);
                                 }
 
                                 // 해당 항목 삭제
@@ -167,7 +165,7 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
     }
 
     private void getData() {
-        adapter.addItem(list,this);
+        adapter.addItem(list,this,this );
         adapter.notifyDataSetChanged();
         listadapter.addItem(list);
         listadapter.notifyDataSetChanged();
@@ -184,6 +182,21 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
             result();
         }
 
+    }
+
+
+
+
+
+    @Override
+    public void onClick(int num) {
+        
+        ArrayList<String> image = new ArrayList<>();
+        image.add(list.get(num));
+
+        Intent intent = new Intent(this,WC_longClick.class);
+        intent.putStringArrayListExtra("image",image);
+        startActivityForResult(intent,1);
     }
 }
 

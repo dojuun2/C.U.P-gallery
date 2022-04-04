@@ -10,8 +10,8 @@
     <ImageView
         android:id="@+id/item_wc_gogo"
 
-        android:layout_width="325dp"
-        android:layout_height="325dp"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         android:scaleType="centerCrop"
         android:src="@drawable/anh1"
         android:focusable="true"

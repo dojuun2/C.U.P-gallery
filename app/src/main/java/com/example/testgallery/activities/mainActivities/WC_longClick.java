@@ -19,6 +19,8 @@ public class WC_longClick extends Activity {
 
     private String longclickedimg;
     private ImageView img_back_wolrd_cup;
+    ArrayList<String> imagelist ;
+    int num = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,13 @@ public class WC_longClick extends Activity {
 
         Intent intent = getIntent();
         event();
-        longclickedimg = intent.getStringExtra("longclicked");
+       // longclickedimg = intent.getStringExtra("image");
+
+
+        imagelist = intent.getStringArrayListExtra("image");
+
+
+
         load();
 
 
@@ -40,6 +48,7 @@ public class WC_longClick extends Activity {
             @Override
             public void onClick(View view) {
                 setResult(RESULT_OK);
+                imagelist.remove(0);
                 finish();
             }
         });
@@ -58,7 +67,7 @@ public class WC_longClick extends Activity {
 
     public void load(){
         ImageView v = findViewById(R.id.WC_longimg);
-        v.setImageDrawable(Drawable.createFromPath(longclickedimg));
+        v.setImageDrawable(Drawable.createFromPath(imagelist.get(0)));
 
 
     }

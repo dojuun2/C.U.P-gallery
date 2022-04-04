@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.testgallery.R;
 import com.example.testgallery.activities.mainActivities.WC_AdapterEndingListener;
+import com.example.testgallery.activities.mainActivities.WC_LongClickListener;
 import com.example.testgallery.activities.mainActivities.WC_MySwipeListner;
 import com.example.testgallery.activities.mainActivities.WorldCUPActivity;
 
@@ -29,15 +30,15 @@ public class WC_recyclerAdapter extends RecyclerView.Adapter<WC_recyclerAdapter.
     private Intent intent;
     public String pp;
     private WC_AdapterEndingListener listener;
+    private WC_LongClickListener listener1;
 
 
-
-    public void addItem(ArrayList<String> imageList, WC_AdapterEndingListener listener) {
+    public void addItem(ArrayList<String> imageList, WC_AdapterEndingListener listener, WC_LongClickListener listener1) {
 
         listData = new ArrayList<>();
         this.listData = imageList;
         this.listener = listener;
-
+        this.listener1 = listener1;
     }
 
 
@@ -56,7 +57,7 @@ public class WC_recyclerAdapter extends RecyclerView.Adapter<WC_recyclerAdapter.
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         // Item을 하나, 하나 보여주는(bind 되는) 함수입니다.
         holder.onBind(listData.get(position));
-
+        this.pp = listData.get(position);
     }
 
     @Override
@@ -67,28 +68,16 @@ public class WC_recyclerAdapter extends RecyclerView.Adapter<WC_recyclerAdapter.
 
     @Override
     public void onItemSwipe(int position) {
-
-
         DeleteData2.add(listData.remove(position));
-        Log.d("TAG", "possiisisisiis == " +position);
-
         if (listData.size()<2) {
-
-
-            Log.d("TAG", " clclcllclclclcll33333333333");
             getdeletelist();
         }
-
-
         notifyItemRemoved(position);
     }
 
     public void getdeletelist(){
         listener.niceEnding(2, DeleteData2);
     }
-
-
-
 
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -100,14 +89,21 @@ public class WC_recyclerAdapter extends RecyclerView.Adapter<WC_recyclerAdapter.
         ItemViewHolder(View itemView) {
             super(itemView);
 
-
             imageView = itemView.findViewById(R.id.item_wc_gogo);
             context = itemView.getContext();
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    listener1.onClick(getAdapterPosition());
+
+                }
+            });
 
         }
 
         void onBind(String img) {
-
             Glide.with(context).load(img).into(imageView);
         }
     }
