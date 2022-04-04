@@ -19,6 +19,7 @@ import com.example.testgallery.activities.mainActivities.PictureActivity;
 import com.example.testgallery.R;
 import com.example.testgallery.activities.mainActivities.TrashPictureActivity;
 import com.example.testgallery.activities.subActivities.ItemAlbumMultiSelectActivity;
+import com.example.testgallery.activities.subActivities.ItemTrashCanMultiSelectActivity;
 import com.example.testgallery.models.Album;
 
 
