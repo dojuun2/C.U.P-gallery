@@ -30,10 +30,10 @@ public class ItemAlbumAdapter extends RecyclerView.Adapter<ItemAlbumAdapter.Item
     private static int REQUEST_CODE_PIC = 10;
 
     private String album_name;
-    private String path_folder ;
+    private String path_folder;
     private static final int REQUEST_CODE_CHOOSE = 55;
 
-    public ItemAlbumAdapter(ArrayList<String> album) {
+    public ItemAlbumAdapter(ArrayList<String> album, String album_name, String path_folder) {
         this.album = album;
         this.album_name = album_name;
         this.path_folder = path_folder;
