@@ -34,7 +34,7 @@ public class ItemTrashCanAdapter extends RecyclerView.Adapter<ItemTrashCanAdapte
     private String path_folder ;
     private static final int REQUEST_CODE_CHOOSE = 55;
 
-    public ItemTrashCanAdapter(ArrayList<String> album) {
+    public ItemTrashCanAdapter(ArrayList<String> album, String album_name, String path_folder) {
         this.album = album;
         this.album_name = album_name;
         this.path_folder = path_folder;
