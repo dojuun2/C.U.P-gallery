@@ -91,7 +91,7 @@ public class ItemTrashCanAdapter extends RecyclerView.Adapter<ItemTrashCanAdapte
             imgPhoto.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    Intent intent = new Intent(context, ItemAlbumMultiSelectActivity.class);
+                    Intent intent = new Intent(context, ItemTrashCanMultiSelectActivity.class);
                     intent.putStringArrayListExtra("data_1", album);
                     intent.putExtra("name_1", album_name);
                     intent.putExtra("path_folder", path_folder);
