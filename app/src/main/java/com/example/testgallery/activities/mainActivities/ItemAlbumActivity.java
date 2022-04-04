@@ -126,20 +126,20 @@ public class ItemAlbumActivity extends AppCompatActivity {
             ryc_list_album.setAdapter(new ItemAlbumAdapter2(myAlbum));
         }
         else{
-            ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum));
+            ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum, album_name, path_folder));
         }
     }
 
     private void setRyc() {
         album_name = intent.getStringExtra("name");
         ryc_list_album.setLayoutManager(new GridLayoutManager(this, spanCount));
-        itemAlbumAdapter = new ItemAlbumAdapter(myAlbum);
+        itemAlbumAdapter = new ItemAlbumAdapter(myAlbum, album_name, path_folder);
         if(spanCount == 1)
             ryc_list_album.setAdapter(new ItemAlbumAdapter3(myAlbum));
         else if(spanCount == 2)
             ryc_list_album.setAdapter(new ItemAlbumAdapter2(myAlbum));
         else
-            ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum));
+            ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum, album_name, path_folder));
     }
 
     private void animationRyc() {
