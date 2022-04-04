@@ -27,9 +27,9 @@ import com.example.testgallery.R;
 import com.example.testgallery.activities.subActivities.ItemAlbumMultiSelectActivity;
 import com.example.testgallery.activities.subActivities.ItemSecretMultiSelectActivity;
 import com.example.testgallery.activities.subActivities.ItemTrashCanMultiSelectActivity;
-import com.example.testgallery.adapters.ItemAlbumAdapter;
-import com.example.testgallery.adapters.ItemAlbumAdapter2;
-import com.example.testgallery.adapters.ItemAlbumAdapter3;
+import com.example.testgallery.adapters.ItemTrashCanAdapter;
+import com.example.testgallery.adapters.ItemTrashCanAdapter2;
+import com.example.testgallery.adapters.ItemTrashCanAdapter3;
 import com.example.testgallery.models.Image;
 
 
@@ -44,9 +44,10 @@ public class ItemTrashCanActivity extends AppCompatActivity {
     private Intent intent;
     private String album_name;
     Toolbar toolbar_item_album;
-    private ItemAlbumAdapter itemAlbumAdapter;
-    private ItemAlbumAdapter2 itemAlbumAdapter2;
-    private ItemAlbumAdapter3 itemAlbumAdapter3;
+    private ItemTrashCanAdapter itemTrashCanAdapter;
+    private ItemTrashCanAdapter2 itemTrashCanAdapter2;
+    private ItemTrashCanAdapter3 itemTrashCanAdapter3;
+
     private int spanCount;
     private int isSecret;
     private int duplicateImg;
@@ -116,26 +117,38 @@ public class ItemTrashCanActivity extends AppCompatActivity {
 
     private void spanAction() {
         if(spanCount == 1) {
-            ryc_list_album.setAdapter(new ItemAlbumAdapter3(myAlbum));
+            ryc_list_album.setAdapter(new ItemTrashCanAdapter3(myAlbum));
         }
         else if(spanCount == 2) {
-            ryc_list_album.setAdapter(new ItemAlbumAdapter2(myAlbum));
+            ryc_list_album.setAdapter(new ItemTrashCanAdapter2(myAlbum));
         }
         else{
+<<<<<<< HEAD
             ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum,album_name));
+=======
+            ryc_list_album.setAdapter(new ItemTrashCanAdapter(myAlbum, album_name, path_folder));
+>>>>>>> dee74d1fc7b71cbcad49940c101bb97afce7be3a
         }
     }
 
     private void setRyc() {
         album_name = intent.getStringExtra("name");
         ryc_list_album.setLayoutManager(new GridLayoutManager(this, spanCount));
+<<<<<<< HEAD
         itemAlbumAdapter = new ItemAlbumAdapter(myAlbum,album_name);
+=======
+        itemTrashCanAdapter = new ItemTrashCanAdapter(myAlbum, album_name, path_folder);
+>>>>>>> dee74d1fc7b71cbcad49940c101bb97afce7be3a
         if(spanCount == 1)
-            ryc_list_album.setAdapter(new ItemAlbumAdapter3(myAlbum));
+            ryc_list_album.setAdapter(new ItemTrashCanAdapter3(myAlbum));
         else if(spanCount == 2)
-            ryc_list_album.setAdapter(new ItemAlbumAdapter2(myAlbum));
+            ryc_list_album.setAdapter(new ItemTrashCanAdapter2(myAlbum));
         else
+<<<<<<< HEAD
             ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum,album_name));
+=======
+            ryc_list_album.setAdapter(new ItemTrashCanAdapter(myAlbum, album_name, path_folder));
+>>>>>>> dee74d1fc7b71cbcad49940c101bb97afce7be3a
     }
 
     private void animationRyc() {
@@ -218,19 +231,19 @@ public class ItemTrashCanActivity extends AppCompatActivity {
         if(spanCount == 1){
             spanCount++;
             ryc_list_album.setLayoutManager(new GridLayoutManager(this, spanCount));
-            ryc_list_album.setAdapter(itemAlbumAdapter2);
+            ryc_list_album.setAdapter(itemTrashCanAdapter2);
         }
 
         else if(spanCount < 4 && spanCount > 1) {
             spanCount++;
             ryc_list_album.setLayoutManager(new GridLayoutManager(this, spanCount));
-            ryc_list_album.setAdapter(itemAlbumAdapter);
+            ryc_list_album.setAdapter(itemTrashCanAdapter);
         }
         else if(spanCount == 4) {
 
             spanCount = 1;
             ryc_list_album.setLayoutManager(new LinearLayoutManager(this));
-            ryc_list_album.setAdapter(itemAlbumAdapter3);
+            ryc_list_album.setAdapter(itemTrashCanAdapter3);
 
         }
 
@@ -324,9 +337,9 @@ public class ItemTrashCanActivity extends AppCompatActivity {
         path_folder = intent.getStringExtra("path_folder");
         isSecret = intent.getIntExtra("isSecret", 0);
         duplicateImg = intent.getIntExtra("duplicateImg",0);
-        itemAlbumAdapter2 = new ItemAlbumAdapter2(myAlbum);
+        itemTrashCanAdapter2 = new ItemTrashCanAdapter2(myAlbum);
         isAlbum = intent.getIntExtra("ok",0);
-        itemAlbumAdapter3 = new ItemAlbumAdapter3(myAlbum);
+        itemTrashCanAdapter3 = new ItemTrashCanAdapter3(myAlbum);
 
     }
 

@@ -35,7 +35,7 @@
     <string name="multiSelect">다중 선택</string>
     <string name="add_image">이미지 추가</string>
     <string name="move_image">사진 이동</string>
-    <string name="restore">복원하다</string>
+    <string name="restore">복구</string>
     <string name="create_album">비밀 앨범</string>
     <string name="gif">Gif 만들기</string>
     <string name="listGif">GIF</string>

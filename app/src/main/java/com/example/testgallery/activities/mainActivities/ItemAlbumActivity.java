@@ -126,20 +126,32 @@ public class ItemAlbumActivity extends AppCompatActivity {
             ryc_list_album.setAdapter(new ItemAlbumAdapter2(myAlbum));
         }
         else{
+<<<<<<< HEAD
             ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum,album_name));
+=======
+            ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum, album_name, path_folder));
+>>>>>>> dee74d1fc7b71cbcad49940c101bb97afce7be3a
         }
     }
 
     private void setRyc() {
         album_name = intent.getStringExtra("name");
         ryc_list_album.setLayoutManager(new GridLayoutManager(this, spanCount));
+<<<<<<< HEAD
         itemAlbumAdapter = new ItemAlbumAdapter(myAlbum,album_name);
+=======
+        itemAlbumAdapter = new ItemAlbumAdapter(myAlbum, album_name, path_folder);
+>>>>>>> dee74d1fc7b71cbcad49940c101bb97afce7be3a
         if(spanCount == 1)
             ryc_list_album.setAdapter(new ItemAlbumAdapter3(myAlbum));
         else if(spanCount == 2)
             ryc_list_album.setAdapter(new ItemAlbumAdapter2(myAlbum));
         else
+<<<<<<< HEAD
             ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum,album_name));
+=======
+            ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum, album_name, path_folder));
+>>>>>>> dee74d1fc7b71cbcad49940c101bb97afce7be3a
     }
 
     private void animationRyc() {
