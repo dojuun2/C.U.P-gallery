@@ -121,22 +121,22 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void toolBarEvents() {
-//        toolbar_photo.inflateMenu(R.menu.menu_top);
+        toolbar_photo.inflateMenu(R.menu.menu_top2);
         toolbar_photo.setTitle("스크린샷 삭제 예약");
         toolbar_photo.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 int id = item.getItemId();
                 switch (id) {
-                    case R.id.menuSearch:
-                        eventSearch(item);
-                        break;
-                    case R.id.menuCamera:
-                        takenImg();
-                        break;
-                    case R.id.menuSearch_Advanced:
-                        actionSearchAdvanced();
-                        break;
+//                    case R.id.menuSearch:
+//                        eventSearch(item);
+//                        break;
+//                    case R.id.menuCamera:
+//                        takenImg();
+//                        break;
+//                    case R.id.menuSearch_Advanced:
+//                        actionSearchAdvanced();
+//                        break;
                     case R.id.duplicateImages:
                         actionDuplicateImage();
                         break;
