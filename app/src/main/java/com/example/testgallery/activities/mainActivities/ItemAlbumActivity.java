@@ -126,32 +126,20 @@ public class ItemAlbumActivity extends AppCompatActivity {
             ryc_list_album.setAdapter(new ItemAlbumAdapter2(myAlbum));
         }
         else{
-<<<<<<< HEAD
-            ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum,album_name));
-=======
             ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum, album_name, path_folder));
->>>>>>> dee74d1fc7b71cbcad49940c101bb97afce7be3a
         }
     }
 
     private void setRyc() {
         album_name = intent.getStringExtra("name");
         ryc_list_album.setLayoutManager(new GridLayoutManager(this, spanCount));
-<<<<<<< HEAD
-        itemAlbumAdapter = new ItemAlbumAdapter(myAlbum,album_name);
-=======
         itemAlbumAdapter = new ItemAlbumAdapter(myAlbum, album_name, path_folder);
->>>>>>> dee74d1fc7b71cbcad49940c101bb97afce7be3a
         if(spanCount == 1)
             ryc_list_album.setAdapter(new ItemAlbumAdapter3(myAlbum));
         else if(spanCount == 2)
             ryc_list_album.setAdapter(new ItemAlbumAdapter2(myAlbum));
         else
-<<<<<<< HEAD
-            ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum,album_name));
-=======
             ryc_list_album.setAdapter(new ItemAlbumAdapter(myAlbum, album_name, path_folder));
->>>>>>> dee74d1fc7b71cbcad49940c101bb97afce7be3a
     }
 
     private void animationRyc() {
@@ -220,11 +208,11 @@ public class ItemAlbumActivity extends AppCompatActivity {
                         break;
                     case R.id.menu_add_image:
 
-                            Intent intent_add = new Intent(ItemAlbumActivity.this, AddImageToAlbumActivity.class);
-                            intent_add.putStringArrayListExtra("list_image", myAlbum);
-                            intent_add.putExtra("path_folder", path_folder);
-                            intent_add.putExtra("name_folder", album_name);
-                            startActivityForResult(intent_add, REQUEST_CODE_ADD);
+                        Intent intent_add = new Intent(ItemAlbumActivity.this, AddImageToAlbumActivity.class);
+                        intent_add.putStringArrayListExtra("list_image", myAlbum);
+                        intent_add.putExtra("path_folder", path_folder);
+                        intent_add.putExtra("name_folder", album_name);
+                        startActivityForResult(intent_add, REQUEST_CODE_ADD);
 
                         break;
                 }
@@ -233,7 +221,7 @@ public class ItemAlbumActivity extends AppCompatActivity {
             }
         });
         if(isSecret == 1)
-        hideMenu();
+            hideMenu();
     }
 
     private void hideMenu() {

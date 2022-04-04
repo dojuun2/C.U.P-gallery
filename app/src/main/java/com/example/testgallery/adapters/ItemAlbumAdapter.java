@@ -33,11 +33,8 @@ public class ItemAlbumAdapter extends RecyclerView.Adapter<ItemAlbumAdapter.Item
     private String path_folder;
     private static final int REQUEST_CODE_CHOOSE = 55;
 
-<<<<<<< HEAD
-    public ItemAlbumAdapter(ArrayList<String> album,String album_name) {
-=======
+
     public ItemAlbumAdapter(ArrayList<String> album, String album_name, String path_folder) {
->>>>>>> dee74d1fc7b71cbcad49940c101bb97afce7be3a
         this.album = album;
         this.album_name = album_name;
         this.path_folder = path_folder;
