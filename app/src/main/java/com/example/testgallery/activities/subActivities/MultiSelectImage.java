@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.example.testgallery.R;
 import com.example.testgallery.activities.mainActivities.PictureActivity;
 import com.example.testgallery.activities.mainActivities.SlideShowActivity;
+import com.example.testgallery.activities.mainActivities.WorldCUPActivity;
 import com.example.testgallery.adapters.AlbumSheetAdapter;
 import com.example.testgallery.adapters.CategoryMultiAdapter;
 import com.example.testgallery.models.Album;
@@ -133,6 +134,9 @@ public class MultiSelectImage extends AppCompatActivity implements ListTransInte
                     case R.id.menuGif:
                         gifEvents();
                         break;
+                    case R.id.menu_worldcup:
+                        worldEvents();
+                        break;
                 }
                 return true;
             }
@@ -152,6 +156,30 @@ public class MultiSelectImage extends AppCompatActivity implements ListTransInte
         else
             Toast.makeText(getApplicationContext(),"Danh sách trống", Toast.LENGTH_SHORT).show();
     }
+
+
+    private void worldEvents() {
+        Intent intent = new Intent(MultiSelectImage.this, WorldCUPActivity.class);
+
+        ArrayList<String> list2 = new ArrayList<>();
+        for(int i=0;i<listImageSelected.size();i++) {
+
+            list2.add(listImageSelected.get(i).getThumb());
+        }
+
+        if(list2.size() < 2 ){
+            Toast.makeText(this,"사진을 두개 이상 선택하세요",Toast.LENGTH_SHORT).show();
+
+        }
+        else if(list2.size() >= 2 ){
+
+            intent.putStringArrayListExtra("data_worldlist", list2);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivityForResult(intent, 1);
+        }
+
+    }
+
 
     private void inputDialog(ArrayList<String> list_send_gif) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MultiSelectImage.this);

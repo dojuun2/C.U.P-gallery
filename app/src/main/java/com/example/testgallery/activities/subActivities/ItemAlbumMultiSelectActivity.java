@@ -285,13 +285,8 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
 
             intent.putStringArrayListExtra("data_worldlist", list2);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivityForResult(intent, REQUEST_CODE_SLIDESHOW);
+            startActivityForResult(intent, 1);
         }
-
-
-
-
-
 
     }
 

@@ -124,6 +124,10 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
         listadapter = new WC_recyclerlistAdapter();
         recyclerlistView.setAdapter(listadapter);
 
+        WC_listItemDecorater itemDecorater = new WC_listItemDecorater(5);
+        recyclerlistView.addItemDecoration(itemDecorater);
+
+
       //  swipeHelper1 = new ItemTouchHelper(new WC_MySwipeHelper(adapter1));
      //   swipeHelper1.attachToRecyclerView(recyclerView);
 
