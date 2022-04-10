@@ -219,6 +219,9 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
                     dir.mkdirs();
                     for (Image img :listImageSelected){
                         File imgFile = new File(img.getPath());
+                        // 파일 최종수정일자를 현재 시간으로 변경
+                        imgFile.setLastModified(System.currentTimeMillis());
+                        
                         File desImgFile = new File(path,"휴지통" + "_" + imgFile.getName());
                         list.add(desImgFile.getPath());
                         imgFile.renameTo(desImgFile);
@@ -231,6 +234,9 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
                 } else {
                     for (Image img :listImageSelected){
                         File imgFile = new File(img.getPath());
+                        // 파일 최종수정일자를 현재 시간으로 변경
+                        imgFile.setLastModified(System.currentTimeMillis());
+                        
                         File desImgFile = new File(path,"휴지통" + "_" + imgFile.getName());
                         list.add(desImgFile.getPath());
                         imgFile.renameTo(desImgFile);
