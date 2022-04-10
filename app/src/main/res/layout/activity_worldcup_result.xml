@@ -8,20 +8,32 @@
     app:layoutDescription="@xml/activity_worldcup_result_scene"
     >
 
-
-
+    <include
+        android:id="@+id/toolbar_wc_result"
+        layout="@layout/layout_toolbar" />
 
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:layout_below="@id/toolbar_wc_result"
         android:text="저장" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#EEEEEE"
+        android:layout_below="@+id/textView">
+
+    </View>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/WC_recycle"
         android:layout_width="wrap_content"
-        android:layout_height="350dp"
+        android:layout_height="280dp"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:layout_below="@+id/textView"
@@ -30,23 +42,62 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
         android:text="삭제"
         android:layout_below="@+id/WC_recycle"
         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#EEEEEE"
+        android:layout_below="@+id/textView2">
+
+    </View>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/WC_recycle2"
         android:layout_width="wrap_content"
-        android:layout_height="350dp"
+        android:layout_height="280dp"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:layout_below="@+id/textView2"
         />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/WC_recycle2"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_wc_save"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:onClick="OnClick"
+            android:text="저장">
+
+        </androidx.appcompat.widget.AppCompatButton>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_wc_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:onClick="OnClick"
+        android:text="삭제">
+
+        </androidx.appcompat.widget.AppCompatButton>
 
 
 
 
-
-
+    </LinearLayout>
 
 </RelativeLayout>

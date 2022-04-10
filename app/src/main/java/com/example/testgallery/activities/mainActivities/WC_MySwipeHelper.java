@@ -1,7 +1,6 @@
 package com.example.testgallery.activities.mainActivities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,19 +11,16 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.location.GnssAntennaInfo;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testgallery.adapters.WC_recyclerAdapter;
+import com.example.testgallery.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -154,12 +150,15 @@ public class WC_MySwipeHelper extends ItemTouchHelper.Callback {
 
 
     public class MyButton{
+
+        private int color;
         private String text;
-        private int imageResId,textSize, color,pos;
+        private int imageResId,textSize,pos;
         private RectF clickRegion;
         private WC_MyButtonClickListener listener;
         private Context context;
         private Resources resources;
+
 
         public MyButton(Context context, String text,  int textSize,int imageResId, int color, WC_MyButtonClickListener listener) {
             this.text = text;
@@ -172,6 +171,12 @@ public class WC_MySwipeHelper extends ItemTouchHelper.Callback {
             resources= context.getResources();
         }// MyButton()..
 
+        public void Setcolor(int color) {
+            this.color = color;
+        }
+
+
+
         public boolean onClick(float x, float y){
             if(clickRegion != null && clickRegion.contains(x,y) ){
                 listener.onClick(pos);
@@ -180,7 +185,7 @@ public class WC_MySwipeHelper extends ItemTouchHelper.Callback {
             return true;
         }// onClick()..
 
-        public void onDraw(Canvas c, RectF rectF, int pos){
+        public void onDraw(Canvas c, RectF rectF, int pos, int color , int imageResId){
             Paint p = new Paint();
             p.setColor(color);
             c.drawRect(rectF,p);
@@ -233,6 +238,7 @@ public class WC_MySwipeHelper extends ItemTouchHelper.Callback {
         recoverSwipedItem();
 
         if (direction == ItemTouchHelper.START) {
+
             listner.onItemSwipe(pos);
         }
 
@@ -275,7 +281,18 @@ public class WC_MySwipeHelper extends ItemTouchHelper.Callback {
                 drawButton(c,itemView,buffer,pos,translationX);
             }
             else if(dX<0) {
-                actionState = ItemTouchHelper.ACTION_STATE_IDLE;
+
+                List<MyButton> buffer= new ArrayList<>();
+                if(!buttonBuffer.containsKey(pos)){
+                    instantiatrMyButton(viewHolder,buffer);
+                    buttonBuffer.put(pos,buffer);
+                }else{
+                    buffer = buttonBuffer.get(pos);
+                }
+
+                translationX=dX*buffer.size()*buttonWidth*2 / itemView.getWidth();
+
+                drawButton1(c,itemView,buffer,pos,translationX);
             }
         }
 
@@ -288,8 +305,20 @@ public class WC_MySwipeHelper extends ItemTouchHelper.Callback {
         float dButtonWidth = -1*translationX / buffer.size();
         for(MyButton button:buffer){
             float right= left - dButtonWidth;
-            button.onDraw(c,new RectF(left,itemView.getTop(),right,itemView.getBottom()),pos);
+            button.onDraw(c,new RectF(left,itemView.getTop(),right,itemView.getBottom()),pos, button.color , button.imageResId);
             left=right;
+        }
+    }
+
+    private void drawButton1(Canvas c, View itemView, List<MyButton> buffer, int pos, float translationX) {
+        float right = itemView.getRight();
+        float dButtonWidth = -1*translationX / buffer.size();
+        int color = Color.parseColor("#D97D7E");
+        int imageResId = R.drawable.wc_deleteimg;
+        for(MyButton button:buffer){
+            float left= right - dButtonWidth;
+            button.onDraw(c,new RectF(right,itemView.getTop(),left,itemView.getBottom()),pos , color , imageResId);
+            right=left;
         }
     }
 

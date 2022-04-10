@@ -27,6 +27,20 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:iconTint="?attr/colorOnBackground"/>
 
+        <ImageView
+            android:id="@+id/img_help"
+            android:layout_width="0dp"
+            android:layout_marginTop="2.5dp"
+            android:layout_marginBottom="2.5dp"
+            android:layout_weight="0.1"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:src="@drawable/ic_help"
+            android:foregroundTint="@color/black"
+            android:clickable="true"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:iconTint="?attr/colorOnBackground"/>
+
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,11 +29,11 @@ import java.util.List;
 
 public class WorldCUPActivity<image> extends AppCompatActivity implements WC_AdapterEndingListener,WC_LongClickListener {
     private SliderView sliderView;
-    private ImageView img_back_wolrd_cup;
+    private ImageView img_back_wolrd_cup, img_help;
     private Toolbar toolbar_slide;
     private ArrayList<image> imageList;
     private Intent intent;
-    private ArrayList<String> list;
+    private ArrayList<String> list , list1;
     private Long mLastClickTime = 0L;
     private static final String logTag = "ggoog";
     private WC_recyclerAdapter adapter,adapter1;
@@ -40,12 +41,15 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
     private RecyclerView recyclerView;
     ArrayList<String> Savelist = new ArrayList<>();
     ArrayList<String> Deletelist = new ArrayList<>();
+    ArrayList<String> listpath = new ArrayList<>();
+
+
     private int endnum = 0;
 
 
     ImageView WC_image1;
     ImageView WC_image2;
-    int i;
+    int i = 0;
     int j;
     int k;
 
@@ -58,8 +62,9 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
         setContentView(R.layout.activity_worldcup);
         intent = getIntent();
         list = intent.getStringArrayListExtra("data_worldlist");
+        list1 = list;
 
-
+        Log.d("TAG","00000000000000000000000000000000000000000000 =="+list.size());
         mappingControls();
         event();
         init();
@@ -70,6 +75,10 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
     }
 
     public void result() {
+
+
+
+
         Intent intent = new Intent(WorldCUPActivity.this, WorldCUPActivity_result.class);
         intent.putStringArrayListExtra("WC_savelist", Savelist);
         intent.putStringArrayListExtra("WC_deletelist", Deletelist);
@@ -89,13 +98,21 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
             }
         });
 
+        img_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WorldCUPActivity.this, WC_HelpExample.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     private void mappingControls() {
 
         img_back_wolrd_cup = findViewById(R.id.img_back_world_cup);
-
-
+        img_help = findViewById(R.id.img_help);
     }
 
 
@@ -142,11 +159,13 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
                         0,
                         R.drawable.wc_downloadimg,
                         Color.parseColor("#B2C7D9"),
+
                         new WC_MyButtonClickListener() {
                             @Override
                             public void onClick(int pos) {
                                 Savelist.add(list.get(viewHolder.getAdapterPosition()));
                                 list.remove(viewHolder.getAdapterPosition());
+
                                 if (list.size()<2){
                                     adapter.getdeletelist();
                                 }

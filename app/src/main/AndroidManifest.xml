@@ -128,6 +128,8 @@
             android:exported="true" />
         <activity android:name=".activities.mainActivities.WC_longClick"
             android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".activities.mainActivities.WC_HelpExample"
+            android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".activities.subActivities.ItemTrashCanMultiSelectActivity"
             android:exported="false" />

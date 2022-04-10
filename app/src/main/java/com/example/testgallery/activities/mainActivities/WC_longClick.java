@@ -17,10 +17,8 @@ import java.util.ArrayList;
 
 public class WC_longClick extends Activity {
 
-    private String longclickedimg;
     private ImageView img_back_wolrd_cup;
     ArrayList<String> imagelist ;
-    int num = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +26,10 @@ public class WC_longClick extends Activity {
         //타이틀바 없애기
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_wc_longclick);
-
         Intent intent = getIntent();
         event();
-       // longclickedimg = intent.getStringExtra("image");
-
-
         imagelist = intent.getStringArrayListExtra("image");
-
-
-
         load();
-
-
     }
     private void event() {
         img_back_wolrd_cup = findViewById(R.id.img_back_world_cup);
@@ -54,7 +43,7 @@ public class WC_longClick extends Activity {
         });
 
     }
-
+    /*
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //바깥레이어 클릭시 안닫히게
@@ -63,13 +52,10 @@ public class WC_longClick extends Activity {
         }
         return true;
     }
-
+    */
 
     public void load(){
         ImageView v = findViewById(R.id.WC_longimg);
         v.setImageDrawable(Drawable.createFromPath(imagelist.get(0)));
-
-
     }
-
 }
