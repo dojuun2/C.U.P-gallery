@@ -72,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
         permission.checkAndRequestPermissions(this);
         setUpViewPager();
 
+        
+        // 파일 자동삭제
+        AutomaticDeletion();
+        
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -102,8 +106,42 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+    
+    // 파일 자동삭제 코드
+    public void AutomaticDeletion(){
+        // 수정시간 변경 코드
+        Calendar cal = Calendar.getInstance();    // Calendar 객체 생성
+        long todayMil = cal.getTimeInMillis();    // 현재 시간을 밀리초 단위로 생성
+        long oneDayMil = 24 * 60 * 60 * 1000;    // 일 단위 => 하루 시간을 밀리초 단위로
 
+        Calendar fileCal = Calendar.getInstance();
+        Date fileDate = null;
 
+        File path2 = new File("/storage/emulated/0/Pictures/휴지통");
+        if (!path2.exists()) {        // 폴더 없으면 폴더 생성
+            path2.mkdirs();
+        }
+
+        File[] list2 = path2.listFiles();         // 휴지통에 있는 파일 리스트 가져오기
+        for(int j = 0; j < list2.length; j++) {
+
+            // 파일의 마지막 수정시간 가져오기
+            fileDate = new Date(list2[j].lastModified());
+
+            // 현재시간과 파일 수정시간 시간차 계산(단위 : 밀리 세컨드) => 1000이면 1초
+            fileCal.setTime(fileDate);          // 파일 수정시간
+            fileCal.getTimeInMillis();
+            long diffMil = todayMil - fileCal.getTimeInMillis();;
+
+            // 날짜로 계산
+            int diffDay = (int) (diffMil / oneDayMil);
+
+            // 10초 지난 파일 삭제
+            if (diffDay > 1 && list2[j].exists()) {
+                list2[j].delete();
+            }
+        }
     }
 
     private void verifyStoragePermission(MainActivity mainActivity) {
