@@ -4,6 +4,7 @@ package com.example.testgallery.activities.subActivities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Path;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -45,6 +46,7 @@ import com.example.testgallery.utility.ListTransInterface;
 import com.example.testgallery.utility.SubInterface;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -271,11 +273,12 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
 
     private void worldEvents() {
         Intent intent = new Intent(ItemAlbumMultiSelectActivity.this, WorldCUPActivity.class);
-        ArrayList<String> list1 = new ArrayList<>();
+        ArrayList<String> Urilist = new ArrayList<>();
         ArrayList<String> list2 = new ArrayList<>();
         for(int i=0;i<listImageSelected.size();i++) {
-            list1.add(listImageSelected.get(i).getPath());
+            Urilist.add("file://" + listImageSelected.get(i).getPath());
             list2.add(listImageSelected.get(i).getThumb());
+
         }
 
         if(list2.size() < 2 ){
@@ -283,10 +286,12 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
 
         }
         else if(list2.size() >= 2 ){
-            intent.putExtra("data", list1);
+
+            intent.putStringArrayListExtra("Urilist",Urilist);
             intent.putStringArrayListExtra("data_worldlist", list2);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivityForResult(intent, 1);
+            finish();
         }
 
     }
@@ -294,9 +299,7 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
 
 
 
-    private void setData() {
-        myAlbum = intent.getStringArrayListExtra("data_1");
-    }
+    private void setData() {myAlbum = intent.getStringArrayListExtra("data_1"); }
 
     @Override
     public boolean onSupportNavigateUp() {

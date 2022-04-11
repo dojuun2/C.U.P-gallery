@@ -69,8 +69,10 @@
         android:layout_below="@+id/WC_recycle2"
         android:orientation="horizontal">
 
+
+
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_wc_save"
+            android:id="@+id/btn_wc_delete"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,20 +80,20 @@
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:onClick="OnClick"
-            android:text="저장">
+            android:text="월드컵 결과 취소">
 
         </androidx.appcompat.widget.AppCompatButton>
 
 
         <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_wc_delete"
+        android:id="@+id/btn_wc_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
         android:onClick="OnClick"
-        android:text="삭제">
+        android:text="월드컵 결과 저장">
 
         </androidx.appcompat.widget.AppCompatButton>
 

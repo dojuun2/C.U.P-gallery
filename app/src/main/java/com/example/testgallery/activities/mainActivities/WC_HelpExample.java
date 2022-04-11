@@ -19,11 +19,14 @@ import com.example.testgallery.fragments.mainFragments.WC_help0_fragment;
 import com.example.testgallery.fragments.mainFragments.WC_help1_fragment;
 import com.example.testgallery.fragments.mainFragments.WC_help2_fragment;
 import com.example.testgallery.fragments.mainFragments.WC_help3_fragment;
+import com.example.testgallery.fragments.mainFragments.WC_help4_fragment;
 
 import java.util.ArrayList;
 
 public class WC_HelpExample extends  FragmentActivity {
 
+
+    PageListener pageListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,9 @@ public class WC_HelpExample extends  FragmentActivity {
 
 
         ViewPager pager = findViewById(R.id.pager);
-        pager.setOffscreenPageLimit(4); //3개까지 caching
+        pageListener = new PageListener();
+        pager.setOnPageChangeListener(pageListener);
+        pager.setOffscreenPageLimit(5); //3개까지 caching
 
         MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager(), 1);
         WC_help0_fragment fragment0 = new WC_help0_fragment();
@@ -52,6 +57,9 @@ public class WC_HelpExample extends  FragmentActivity {
         adapter.addItem(fragment2);
         WC_help3_fragment fragment3 = new WC_help3_fragment();
         adapter.addItem(fragment3);
+        WC_help4_fragment fragment4 = new WC_help4_fragment();
+        adapter.addItem(fragment4);
+
 
         pager.setAdapter(adapter);
 
@@ -83,5 +91,20 @@ public class WC_HelpExample extends  FragmentActivity {
             return items.size();
         }
 
+
+        @Override
+        public CharSequence getPageTitle(int position){
+            return "도움말" +(position+1) +"/5";
+        }
+    }
+
+
+    private static class PageListener extends ViewPager.SimpleOnPageChangeListener {
+        private int currentPage;
+
+        public void onPageSelected(int position) {
+            Log.i("TAG", "page selected ===================" + position);
+            currentPage = position;
+        }
     }
 }

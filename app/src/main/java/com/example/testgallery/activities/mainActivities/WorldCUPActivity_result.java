@@ -61,6 +61,9 @@ public class WorldCUPActivity_result extends AppCompatActivity {
     }
 
     private void event() {
+
+
+
     }
 
 
@@ -98,13 +101,92 @@ public class WorldCUPActivity_result extends AppCompatActivity {
         switch (view.getId())
         {
             case R.id.btn_wc_save:
+                AlertDialog.Builder builder = new AlertDialog.Builder(WorldCUPActivity_result.this);
+
+                builder.setTitle("월드컵 결과 저장");
+                builder.setMessage("삭제리스트에 위치한 사진은 삭제됩니다");
+
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        String[] paths = new String[Deletelist.size()];
+                        ArrayList<String> list = new ArrayList<>();
+                        int i = 0;
+
+                        String folderName = "휴지통";      // 생성할 폴더 이름
+                        String afterFilePath = "/storage/emulated/0/Pictures";     // 옮겨질 경로
+                        String path = afterFilePath+"/"+folderName;     // 옮겨질 경로 + 생성할 폴더 이름 => 휴지통 경로
+                        File dir = new File(path);
+
+                        if (!dir.exists()) {        // 폴더 없으면 폴더 생성
+                            dir.mkdirs();
+                            for (String img :Deletelist){
+                                File imgFile = new File(img);
+                                File desImgFile = new File(path,"휴지통" + "_" + imgFile.getName());
+                                list.add(desImgFile.getPath());
+                                imgFile.renameTo(desImgFile);
+                                imgFile.deleteOnExit();
+                                paths[i] = desImgFile.getPath();
+                                i++;
+                            }
+                            // 밑에 코드가 있어야 휴지통으로 이동한 복사본이 보임
+                            MediaScannerConnection.scanFile(getApplicationContext(),paths, null, null);
+                        } else {
+                            for (String img :Deletelist){
+                                File imgFile = new File(img);
+                                File desImgFile = new File(path,"휴지통" + "_" + imgFile.getName());
+                                list.add(desImgFile.getPath());
+                                imgFile.renameTo(desImgFile);
+                                imgFile.deleteOnExit();
+                                paths[i] = desImgFile.getPath();
+                                i++;
+                            }
+                            // 밑에 코드가 있어야 휴지통으로 이동한 복사본이 보임
+                            MediaScannerConnection.scanFile(getApplicationContext(),paths, null, null);
+                        }
+                        finish();
+                    }
+                });
+
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // Do nothing
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
 
                 break;
 
             case R.id.btn_wc_delete:
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(WorldCUPActivity_result.this);
 
+                builder1.setTitle("확인");
+                builder1.setMessage("월드컵을 취소하시겠습니까?");
 
-                break;
+                builder1.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int which) {
+                                finish();
+
+                            }
+                        });
+
+                    builder1.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            // Do nothing
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alert1 = builder1.create();
+                    alert1.show();
+
+                    break;
         }
 
     }

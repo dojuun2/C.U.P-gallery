@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Path;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,7 +34,8 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
     private Toolbar toolbar_slide;
     private ArrayList<image> imageList;
     private Intent intent;
-    private ArrayList<String> list , list1;
+    private ArrayList<String> list ;
+    private ArrayList<String> listpath;
     private Long mLastClickTime = 0L;
     private static final String logTag = "ggoog";
     private WC_recyclerAdapter adapter,adapter1;
@@ -41,7 +43,6 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
     private RecyclerView recyclerView;
     ArrayList<String> Savelist = new ArrayList<>();
     ArrayList<String> Deletelist = new ArrayList<>();
-    ArrayList<String> listpath = new ArrayList<>();
 
 
     private int endnum = 0;
@@ -62,9 +63,10 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
         setContentView(R.layout.activity_worldcup);
         intent = getIntent();
         list = intent.getStringArrayListExtra("data_worldlist");
-        list1 = list;
+        listpath = intent.getStringArrayListExtra("Urilist");
 
-        Log.d("TAG","00000000000000000000000000000000000000000000 =="+list.size());
+
+        Log.d("Tag","mmmmmmmmmmmmmmmmmm = " + list);
         mappingControls();
         event();
         init();
