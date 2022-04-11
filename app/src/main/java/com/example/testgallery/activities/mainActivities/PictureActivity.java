@@ -241,6 +241,9 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
                                     }
 
                                     File imgFile = new File(img.getPath());
+                                    // 파일 최종수정일자를 현재 시간으로 변경
+                                    imgFile.setLastModified(System.currentTimeMillis());
+                                    
                                     File desImgFile = new File(path,"휴지통" + "_" + imgFile.getName());
                                     imgFile.renameTo(desImgFile);
                                     imgFile.deleteOnExit();     // 임시파일 삭제
