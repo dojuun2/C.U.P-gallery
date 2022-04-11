@@ -132,13 +132,13 @@ public class MainActivity extends AppCompatActivity {
             // 현재시간과 파일 수정시간 시간차 계산(단위 : 밀리 세컨드) => 1000이면 1초
             fileCal.setTime(fileDate);          // 파일 수정시간
             fileCal.getTimeInMillis();
-            long diffMil = todayMil - fileCal.getTimeInMillis();;
+            double diffMil = todayMil - fileCal.getTimeInMillis();;
 
             // 날짜로 계산
-            int diffDay = (int) (diffMil / oneDayMil);
+            double diffDay = (diffMil / oneDayMil);
 
-            // 10초 지난 파일 삭제
-            if (diffDay > 1 && list2[j].exists()) {
+            // 30일 지난 파일 삭제
+            if (diffDay > 30 && list2[j].exists()) {
                 list2[j].delete();
             }
         }
