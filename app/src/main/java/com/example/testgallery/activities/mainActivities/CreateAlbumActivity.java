@@ -25,7 +25,7 @@ import com.example.testgallery.adapters.ImageAdapter;
 import com.example.testgallery.adapters.ImageSelectAdapter;
 import com.example.testgallery.adapters.SlideShowAdapter;
 import com.example.testgallery.models.Image;
-import com.example.testgallery.utility.GetAllPhotoFromGallery;
+import com.example.testgallery.utility.GetAllPhotoFromGallery_AllPhotosTab;
 import com.example.testgallery.utility.ListTransInterface;
 
 import java.io.File;
@@ -90,7 +90,7 @@ public class CreateAlbumActivity extends AppCompatActivity implements ListTransI
     }*/
 
     private void setViewRyc() {
-        listImage = GetAllPhotoFromGallery.getAllImageFromGallery(this);
+        listImage = GetAllPhotoFromGallery_AllPhotosTab.getAllImageFromGallery(this);
         ImageSelectAdapter imageAdapter = new ImageSelectAdapter(this);
         imageAdapter.setListTransInterface(this);
         imageAdapter.setData(listImage);
