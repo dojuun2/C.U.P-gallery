@@ -37,7 +37,7 @@ import com.example.testgallery.models.Album;
 import com.example.testgallery.models.Category;
 import com.example.testgallery.models.Image;
 import com.example.testgallery.utility.FileUtility;
-import com.example.testgallery.utility.GetAllPhotoFromGallery;
+import com.example.testgallery.utility.GetAllPhotoFromGallery_AllPhotosTab;
 import com.example.testgallery.utility.ListTransInterface;
 import com.example.testgallery.utility.SubInterface;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -249,7 +249,7 @@ public class MultiSelectImage extends AppCompatActivity implements ListTransInte
     private List<Category> getListCategory() {
         List<Category> categoryList = new ArrayList<>();
         int categoryCount = 0;
-        imageList = GetAllPhotoFromGallery.getAllImageFromGallery(MultiSelectImage.this);
+        imageList = GetAllPhotoFromGallery_AllPhotosTab.getAllImageFromGallery(MultiSelectImage.this);
 
         try {
             categoryList.add(new Category(imageList.get(0).getDateTaken(),new ArrayList<>()));
@@ -423,7 +423,7 @@ public class MultiSelectImage extends AppCompatActivity implements ListTransInte
         private List<Album> listAlbum;
         @Override
         protected Void doInBackground(Void... voids) {
-            List<Image> listImage = GetAllPhotoFromGallery.getAllImageFromGallery(MultiSelectImage.this);
+            List<Image> listImage = GetAllPhotoFromGallery_AllPhotosTab.getAllImageFromGallery(MultiSelectImage.this);
             listAlbum = getListAlbum(listImage);
             return null;
         }
