@@ -1,4 +1,4 @@
-<img src="./app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" align="right" width="150px">
+<img src="./app/src/main/res/mipmap-hdpi/ic_cleanuppicture.png" align="right" width="150px">
 <h1> SimpleGallery </h1>
 
 A simple gallery app for Android
