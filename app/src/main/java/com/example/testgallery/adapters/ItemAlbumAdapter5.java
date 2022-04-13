@@ -19,7 +19,7 @@ import com.example.testgallery.activities.mainActivities.WC_LongClickListener;
 
 import java.util.ArrayList;
 
-public class ItemAlbumAdapter4 extends RecyclerView.Adapter<ItemAlbumAdapter4.ItemViewHolder>   {
+public class ItemAlbumAdapter5 extends RecyclerView.Adapter<ItemAlbumAdapter5.ItemViewHolder>   {
 
     private ArrayList<String> listData;
     private WC_DragDropListener listener;
@@ -27,7 +27,7 @@ public class ItemAlbumAdapter4 extends RecyclerView.Adapter<ItemAlbumAdapter4.It
     public void addItem(ArrayList<String> imageList , WC_DragDropListener listener) {
         listData = new ArrayList<>();
         this.listData = imageList;
-       this.listener = listener;
+        this.listener = listener;
     }
 
 
@@ -49,7 +49,7 @@ public class ItemAlbumAdapter4 extends RecyclerView.Adapter<ItemAlbumAdapter4.It
     @Override
     public int getItemCount() {
 
-            return listData.size();
+        return listData.size();
 
     }
 
@@ -65,6 +65,8 @@ public class ItemAlbumAdapter4 extends RecyclerView.Adapter<ItemAlbumAdapter4.It
             super(itemView);
 
 
+
+
             imageView = itemView.findViewById(R.id.imgPhoto);
             context = itemView.getContext();
 
@@ -72,6 +74,10 @@ public class ItemAlbumAdapter4 extends RecyclerView.Adapter<ItemAlbumAdapter4.It
                 @Override
                 public boolean onLongClick(View view) {
                     listener.onLongClick(getAdapterPosition(),view);
+                    if (listData.size() ==1){
+                        Log.d("Tag","DDDDDDDDDDDDDDDDDDDDDDDDDDDD000000000000000000000000000000000000000000000000000000000");
+
+                    }
                     return true;
                 }
             });

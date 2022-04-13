@@ -95,7 +95,7 @@ public class WC_recyclerAdapter extends RecyclerView.Adapter<WC_recyclerAdapter.
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Log.d("tag", "mmmmmmmmmmmmmmmmmmmmmmmmmmmm = == 33 = " + getAdapterPosition() );
                     listener1.onClick(getAdapterPosition());
 
                 }

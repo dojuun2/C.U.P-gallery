@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,32 +12,46 @@
         android:id="@+id/toolbar_wc_result"
         layout="@layout/layout_toolbar" />
 
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="20dp"
-        android:layout_below="@id/toolbar_wc_result"
-        android:text="저장" />
-
-    <View
+    <LinearLayout
+        android:id="@+id/WC_SaveLayout"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="#EEEEEE"
-        android:layout_below="@+id/textView">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    </View>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/WC_recycle"
-        android:layout_width="wrap_content"
-        android:layout_height="280dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/textView"
-        />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+
+            android:text="저장" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="#EEEEEE"
+            >
+
+        </View>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/WC_recycle"
+            android:layout_width="wrap_content"
+            android:layout_height="280dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/WC_DeleteLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -45,13 +59,13 @@
         android:layout_marginLeft="10dp"
         android:textSize="20dp"
         android:text="삭제"
-        android:layout_below="@+id/WC_recycle"
+
         />
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="#EEEEEE"
-        android:layout_below="@+id/textView2">
+        >
 
     </View>
     <androidx.recyclerview.widget.RecyclerView
@@ -60,13 +74,14 @@
         android:layout_height="280dp"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        android:layout_below="@+id/textView2"
+
         />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/WC_recycle2"
         android:orientation="horizontal">
 
 
@@ -102,4 +117,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
