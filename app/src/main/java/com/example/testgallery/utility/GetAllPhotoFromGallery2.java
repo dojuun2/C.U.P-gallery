@@ -60,12 +60,15 @@ public class GetAllPhotoFromGallery2 {
 
             image.setThumb(thumbnail);
             image.setDateTaken(dateText);
-            if(image.getPath()==""){
-                continue;
-            }
+
             Log.d("Path",image.getPath());
             Log.d("Path",listImage.size()+"");
-            listImage.add(image);
+
+            File img = new File(image.getPath());
+
+            if(img.getPath().contains("/storage/emulated/0/Pictures/Screenshots")){
+                listImage.add(image);
+            }
         }
         return listImage;
     }
