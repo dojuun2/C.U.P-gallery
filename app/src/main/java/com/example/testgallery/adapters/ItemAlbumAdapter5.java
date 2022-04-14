@@ -1,9 +1,11 @@
 package com.example.testgallery.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.testgallery.R;
 import com.example.testgallery.activities.mainActivities.WC_DragDropListener;
 import com.example.testgallery.activities.mainActivities.WC_LongClickListener;
+import com.example.testgallery.activities.mainActivities.WC_result_PictureActivity;
 
 import java.util.ArrayList;
 
@@ -81,7 +84,18 @@ public class ItemAlbumAdapter5 extends RecyclerView.Adapter<ItemAlbumAdapter5.It
                     return true;
                 }
             });
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, WC_result_PictureActivity.class);
+                    intent.putStringArrayListExtra("data_list_Path", listData);
+                    intent.putStringArrayListExtra("data_list_Save", listData);
+                    intent.putExtra("key",2);
+                    intent.putExtra("pos", getAdapterPosition());
 
+                    ((Activity) context).startActivityForResult(intent, 10);
+                }
+            });
 
         }
 

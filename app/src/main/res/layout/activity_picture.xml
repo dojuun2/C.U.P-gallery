@@ -43,4 +43,16 @@
         android:background="?attr/colorOnPrimary"
         app:menu="@menu/menu_bottom_trash_picture" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_wc_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemIconTint="?attr/colorOnBackground"
+        app:itemTextColor="@color/custom_color_bottom_nav"
+        app:elevation="16dp"
+        app:labelVisibilityMode="unlabeled"
+        android:background="?attr/colorOnPrimary"
+        app:menu="@menu/menu_bottom_wcresult" />
+
 </RelativeLayout>

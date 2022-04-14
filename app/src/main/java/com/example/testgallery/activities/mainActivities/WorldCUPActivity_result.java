@@ -2,6 +2,7 @@ package com.example.testgallery.activities.mainActivities;
 
 
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.DialogInterface;
@@ -48,38 +49,36 @@ import java.io.File;
 import java.util.ArrayList;
 
 
-public class WorldCUPActivity_result extends AppCompatActivity implements WC_DragDropListener {
+public class WorldCUPActivity_result extends AppCompatActivity implements WC_DragDropListener   {
     private ItemAlbumAdapter4 adapter1;
     private ItemAlbumAdapter5 adapter2;
     private Intent intent;
     private ArrayList<String> Savelist;
     private ArrayList<String> Deletelist;
-    private ItemTouchHelper itemTouchHelper;
-    private WC_DragDropListener listener;
     private int position;
     int i = 1;
+    private WC_result_PictureActivity wc_result_pictureActivity;
+    private int REQUEST_TEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worldcup_result);
 
-        setTitle("dddd");
         intent = getIntent();
         Savelist = intent.getStringArrayListExtra("WC_savelist");
         Deletelist= intent.getStringArrayListExtra("WC_deletelist");
-        event();
+
+
+
         init();
         getData();
         init2();
         getData2();
-    }
-
-    private void event() {
-
-
 
     }
+
+
 
 
     private void init() {
@@ -114,7 +113,8 @@ public class WorldCUPActivity_result extends AppCompatActivity implements WC_Dra
     }
 
     private void getData() {
-        adapter1.addItem(Savelist,this);
+        adapter1.addItem(Savelist);
+        adapter1.ItemAlbumAdapter4(this);
         adapter1.notifyDataSetChanged();
     }
     private void getData2() {
@@ -244,6 +244,58 @@ public class WorldCUPActivity_result extends AppCompatActivity implements WC_Dra
 
     }
 
+    @Override
+    public void onClick(int position, View view) {
+
+
+        Intent intent = new Intent(this, WC_result_PictureActivity.class);
+        intent.putStringArrayListExtra("data_list_Delete", Deletelist);
+        intent.putStringArrayListExtra("data_list_Save", Savelist);
+        intent.putStringArrayListExtra("data_list_Path", Savelist);
+        intent.putExtra("pos",position);
+        intent.putExtra("key",1);
+
+        startActivityForResult(intent, REQUEST_TEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String img = data.getStringExtra("result");
+        if (requestCode == REQUEST_TEST) {
+            if (resultCode == RESULT_OK) {
+
+                Savelist.remove(img);
+                Deletelist.add(img);
+
+                adapter1.notifyDataSetChanged();
+                adapter2.notifyDataSetChanged();
+
+
+            } else {   // RESULT_CANCEL
+
+            }
+        }
+        else if (requestCode == 10) {
+
+            if (resultCode == RESULT_OK) {
+
+                Deletelist.remove(img);
+                Savelist.add(img);
+
+                adapter1.notifyDataSetChanged();
+                adapter2.notifyDataSetChanged();
+
+
+            } else {   // RESULT_CANCEL
+
+            }
+
+            }
+
+        }
+
+
 
     class DragListener implements View.OnDragListener {
 
@@ -354,13 +406,13 @@ public class WorldCUPActivity_result extends AppCompatActivity implements WC_Dra
         }
     }
 
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+

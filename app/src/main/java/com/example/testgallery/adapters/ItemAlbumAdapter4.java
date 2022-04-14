@@ -1,9 +1,11 @@
 package com.example.testgallery.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.testgallery.R;
+import com.example.testgallery.activities.mainActivities.TrashPictureActivity;
 import com.example.testgallery.activities.mainActivities.WC_DragDropListener;
 import com.example.testgallery.activities.mainActivities.WC_LongClickListener;
+import com.example.testgallery.activities.mainActivities.WC_resultPictureListener;
+import com.example.testgallery.activities.mainActivities.WC_result_PictureActivity;
+import com.example.testgallery.activities.mainActivities.WorldCUPActivity_result;
 
 import java.util.ArrayList;
 
@@ -24,10 +30,17 @@ public class ItemAlbumAdapter4 extends RecyclerView.Adapter<ItemAlbumAdapter4.It
     private ArrayList<String> listData;
     private WC_DragDropListener listener;
 
-    public void addItem(ArrayList<String> imageList , WC_DragDropListener listener) {
+
+
+    public void ItemAlbumAdapter4(WC_DragDropListener listener){
+        this.listener = listener;
+    }
+
+
+    public void addItem(ArrayList<String> imageList) {
         listData = new ArrayList<>();
         this.listData = imageList;
-       this.listener = listener;
+
     }
 
 
@@ -55,6 +68,8 @@ public class ItemAlbumAdapter4 extends RecyclerView.Adapter<ItemAlbumAdapter4.It
 
 
 
+
+
     class ItemViewHolder extends RecyclerView.ViewHolder {
 
 
@@ -73,6 +88,16 @@ public class ItemAlbumAdapter4 extends RecyclerView.Adapter<ItemAlbumAdapter4.It
                 public boolean onLongClick(View view) {
                     listener.onLongClick(getAdapterPosition(),view);
                     return true;
+                }
+            });
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    listener.onClick(getAdapterPosition(),view);
+
+
                 }
             });
 
