@@ -1,6 +1,7 @@
 package com.example.testgallery.activities.mainActivities;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,6 +33,7 @@ import com.example.testgallery.adapters.SlideImageAdapter;
 import com.example.testgallery.models.Album;
 import com.example.testgallery.utility.PictureInterface;
 import com.example.testgallery.utility.SubInterface;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationBarView;
@@ -184,6 +186,11 @@ public class WC_result_PictureActivity extends AppCompatActivity implements Pict
         }
 
         private void events() {
+
+
+
+
+
             setDataIntent();
             setUpToolBar();
             setUpSilder();
@@ -191,13 +198,18 @@ public class WC_result_PictureActivity extends AppCompatActivity implements Pict
         }
 
         private void bottomNavigationViewEvents() {
+
+
+
             bottomNavigationView2.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Uri targetUri = Uri.parse("file://" + thumb);
 
 
+
                     if(keynum ==1){
+
                         switch (item.getItemId()) {
 
                             case R.id.gotoSAVE:
@@ -351,6 +363,18 @@ public class WC_result_PictureActivity extends AppCompatActivity implements Pict
             keynum = intent.getIntExtra("key",0);
             pos = intent.getIntExtra("pos", 0);
             activityPicture = this;
+            if(keynum ==1 ){
+                BottomNavigationItemView item;
+                item = findViewById(R.id.gotoSAVE);
+               // item.setVisibility(View.INVISIBLE);
+                item.setAlpha((float) 0.1);
+
+            }else if(keynum ==2 ){
+                BottomNavigationItemView item;
+                item = findViewById(R.id.gotoDELETE);
+                // item.setVisibility(View.INVISIBLE);
+                item.setAlpha((float) 0.1);
+            }
 
         }
 
@@ -364,7 +388,11 @@ public class WC_result_PictureActivity extends AppCompatActivity implements Pict
             frame_viewPager = findViewById(R.id.frame_viewPager);
 
             bottomNavigationView.setVisibility(View.INVISIBLE);
+
             bottomNavigationView3.setVisibility(View.INVISIBLE);
+
+
+
         }
 
         public Boolean check(String  Path){

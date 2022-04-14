@@ -279,10 +279,10 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
 
     private void worldEvents() {
         Intent intent = new Intent(ItemAlbumMultiSelectActivity.this, WorldCUPActivity.class);
-        ArrayList<String> Urilist = new ArrayList<>();
+        ArrayList<String> list3 = new ArrayList<>();
         ArrayList<String> list2 = new ArrayList<>();
         for(int i=0;i<listImageSelected.size();i++) {
-            Urilist.add("file://" + listImageSelected.get(i).getPath());
+            list3.add(listImageSelected.get(i).getPath());
             list2.add(listImageSelected.get(i).getThumb());
 
         }
@@ -293,8 +293,8 @@ public class ItemAlbumMultiSelectActivity extends AppCompatActivity implements L
         }
         else if(list2.size() >= 2 ){
 
-            intent.putStringArrayListExtra("Urilist",Urilist);
             intent.putStringArrayListExtra("data_worldlist", list2);
+            intent.putStringArrayListExtra("data_worldcuplist", list3);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivityForResult(intent, 1);
             finish();

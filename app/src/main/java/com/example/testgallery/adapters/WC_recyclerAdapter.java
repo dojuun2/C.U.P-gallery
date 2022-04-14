@@ -69,6 +69,8 @@ public class WC_recyclerAdapter extends RecyclerView.Adapter<WC_recyclerAdapter.
     @Override
     public void onItemSwipe(int position) {
         DeleteData2.add(listData.remove(position));
+       listener.count(1);
+
         if (listData.size()<2) {
             getdeletelist();
         }

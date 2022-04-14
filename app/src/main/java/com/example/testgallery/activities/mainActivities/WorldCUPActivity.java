@@ -35,12 +35,13 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
     private ArrayList<image> imageList;
     private Intent intent;
     private ArrayList<String> list ;
-    private ArrayList<String> listpath;
+    private ArrayList<String> WCGRIDlist;
     private Long mLastClickTime = 0L;
     private static final String logTag = "ggoog";
     private WC_recyclerAdapter adapter,adapter1;
     private WC_recyclerlistAdapter listadapter;
     private RecyclerView recyclerView;
+    private RecyclerView recyclerlistView;
     ArrayList<String> Savelist = new ArrayList<>();
     ArrayList<String> Deletelist = new ArrayList<>();
 
@@ -50,7 +51,7 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
 
     ImageView WC_image1;
     ImageView WC_image2;
-    int i = 0;
+    int i = 2;
     int j;
     int k;
 
@@ -62,11 +63,13 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worldcup);
         intent = getIntent();
+        list = new ArrayList<>();
+        WCGRIDlist = new ArrayList<>();
         list = intent.getStringArrayListExtra("data_worldlist");
-        listpath = intent.getStringArrayListExtra("Urilist");
+        WCGRIDlist.addAll(list);
+        Log.d("TAG", "00000000000000000000000000000000000000-- ==="+WCGRIDlist);
 
 
-        Log.d("Tag","mmmmmmmmmmmmmmmmmm = " + list);
         mappingControls();
         event();
         init();
@@ -77,10 +80,6 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
     }
 
     public void result() {
-
-
-
-
         Intent intent = new Intent(WorldCUPActivity.this, WorldCUPActivity_result.class);
         intent.putStringArrayListExtra("WC_savelist", Savelist);
         intent.putStringArrayListExtra("WC_deletelist", Deletelist);
@@ -122,24 +121,23 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
 
 
         recyclerView = findViewById(R.id.WC_recycler_play);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager = new LinearLayoutManager(this){
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this);
+        linearLayoutManager1 = new LinearLayoutManager(this){
             @Override
             public boolean canScrollVertically(){
                 return false;
             }
         };
 
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(linearLayoutManager1);
         adapter = new WC_recyclerAdapter();
         recyclerView.setAdapter(adapter);
 
 
 
-
-        RecyclerView recyclerlistView = findViewById(R.id.WC_recycler_playlist);
-        LinearLayoutManager listLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerlistView.setLayoutManager(listLayoutManager);
+        recyclerlistView = findViewById(R.id.WC_recycler_playlist);
+        LinearLayoutManager listLayoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerlistView.setLayoutManager(listLayoutManager1);
         listadapter = new WC_recyclerlistAdapter();
         recyclerlistView.setAdapter(listadapter);
 
@@ -167,7 +165,7 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
                             public void onClick(int pos) {
                                 Savelist.add(list.get(viewHolder.getAdapterPosition()));
                                 list.remove(viewHolder.getAdapterPosition());
-
+                                count(1);
                                 if (list.size()<2){
                                     adapter.getdeletelist();
                                 }
@@ -192,8 +190,9 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
     private void getData() {
         adapter.addItem(list,this,this );
         adapter.notifyDataSetChanged();
-        listadapter.addItem(list);
+        listadapter.addItem(WCGRIDlist);
         listadapter.notifyDataSetChanged();
+
 
     }
 
@@ -209,8 +208,13 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
 
     }
 
+    @Override
+    public void count(int count) {
+        i += count;
+        Log.d("TAG","0000000000000000000000000 ========"+i);
+        recyclerlistView.scrollToPosition(i);
 
-
+    }
 
 
     @Override

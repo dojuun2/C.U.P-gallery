@@ -4,6 +4,7 @@
         android:id="@+id/gotoSAVE"
         android:title="저장리스트로"
         android:icon="@drawable/ic_save"
+        android:visible="true"
         />
 
     <item

@@ -97,7 +97,7 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
     private Toolbar toolbar_picture;
     private BottomNavigationView bottomNavigationView;
     private BottomNavigationView bottomNavigationView2;
-
+    private BottomNavigationView bottomNavigationView3;
     private FrameLayout frame_viewPager;
     private ArrayList<String> imageListThumb;
     private ArrayList<String> imageListPath;
@@ -631,6 +631,9 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
         
         bottomNavigationView2 = findViewById(R.id.bottom_trash_picture);
         bottomNavigationView2.setVisibility(View.INVISIBLE);
+        bottomNavigationView3 = findViewById(R.id.bottom_wc_picture);
+        bottomNavigationView3.setVisibility(View.INVISIBLE);
+
     }
 
     public Boolean check(String  Path){

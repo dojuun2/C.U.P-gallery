@@ -21,14 +21,14 @@ package com.example.testgallery.adapters;
 
 public class WC_recyclerlistAdapter extends RecyclerView.Adapter<WC_recyclerlistAdapter.ItemViewHolder>  {
 
-    private ArrayList<String> listData;
+    private ArrayList<String> listData1;
 
 
 
 
-    public void addItem(ArrayList<String> imageList) {
-        listData = new ArrayList<>();
-        this.listData = imageList;
+    public void addItem(ArrayList<String> imageList1) {
+        listData1 = new ArrayList<>();
+        this.listData1 = imageList1;
 
 
     }
@@ -46,13 +46,13 @@ public class WC_recyclerlistAdapter extends RecyclerView.Adapter<WC_recyclerlist
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         // Item을 하나, 하나 보여주는(bind 되는) 함수입니다.
-        holder.onBind(listData.get(position));
+        holder.onBind(listData1.get(position));
     }
 
     @Override
     public int getItemCount() {
 
-        return listData.size();
+        return listData1.size();
 
     }
 
