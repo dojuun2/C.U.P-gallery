@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.testgallery.R;
@@ -44,14 +45,14 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
     private RecyclerView recyclerlistView;
     ArrayList<String> Savelist = new ArrayList<>();
     ArrayList<String> Deletelist = new ArrayList<>();
-
+    private TextView WClistblider;
 
     private int endnum = 0;
 
 
     ImageView WC_image1;
     ImageView WC_image2;
-    int i = 2;
+    int i;
     int j;
     int k;
 
@@ -69,7 +70,7 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
         WCGRIDlist.addAll(list);
         Log.d("TAG", "00000000000000000000000000000000000000-- ==="+WCGRIDlist);
 
-
+        i=3;
         mappingControls();
         event();
         init();
@@ -114,6 +115,8 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
 
         img_back_wolrd_cup = findViewById(R.id.img_back_world_cup);
         img_help = findViewById(R.id.img_help);
+        WClistblider = findViewById(R.id.item_wc_list_blind);
+
     }
 
 
@@ -136,7 +139,12 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
 
 
         recyclerlistView = findViewById(R.id.WC_recycler_playlist);
-        LinearLayoutManager listLayoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager listLayoutManager1 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false){
+            @Override
+            public boolean canScrollHorizontally(){
+                return false;
+            }
+        };
         recyclerlistView.setLayoutManager(listLayoutManager1);
         listadapter = new WC_recyclerlistAdapter();
         recyclerlistView.setAdapter(listadapter);
@@ -166,6 +174,8 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
                                 Savelist.add(list.get(viewHolder.getAdapterPosition()));
                                 list.remove(viewHolder.getAdapterPosition());
                                 count(1);
+
+
                                 if (list.size()<2){
                                     adapter.getdeletelist();
                                 }

@@ -97,7 +97,7 @@ public class TrashPictureActivity extends AppCompatActivity implements PictureIn
     private Toolbar toolbar_picture;
     private BottomNavigationView bottomNavigationView;
     private BottomNavigationView bottomNavigationView2;
-
+    private BottomNavigationView bottomNavigationView3;
     private FrameLayout frame_viewPager;
     private ArrayList<String> imageListThumb;
     private ArrayList<String> imageListPath;
@@ -296,11 +296,12 @@ public class TrashPictureActivity extends AppCompatActivity implements PictureIn
         viewPager_picture = findViewById(R.id.viewPager_picture);
         bottomNavigationView = findViewById(R.id.bottom_picture);
         bottomNavigationView2 = findViewById(R.id.bottom_trash_picture);
-
+        bottomNavigationView3 = findViewById(R.id.bottom_wc_picture);
         toolbar_picture = findViewById(R.id.toolbar_picture);
         frame_viewPager = findViewById(R.id.frame_viewPager);
 
         bottomNavigationView.setVisibility(View.INVISIBLE);
+        bottomNavigationView3.setVisibility(View.INVISIBLE);
     }
 
     public Boolean check(String  Path){

@@ -46,6 +46,7 @@ public class WC_recyclerlistAdapter extends RecyclerView.Adapter<WC_recyclerlist
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         // Item을 하나, 하나 보여주는(bind 되는) 함수입니다.
+
         holder.onBind(listData1.get(position));
     }
 
