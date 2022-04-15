@@ -1,4 +1,4 @@
-<img src="./app/src/main/res/mipmap-hdpi/cuplogo1.png" align="right" width="150px">
+<img src="./app/src/main/res/drawable/cuplogo11.jpg" align="right" width="150px">
 <h1> Clean Up picture </h1>
 
 우리는 전설이다.
