@@ -6,12 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activities.mainActivities.WorldCUPActivity">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:translationZ="90dp">
+        android:translationZ="90dp"
+        android:background="?attr/colorOnPrimary">
 
         <ImageView
             android:id="@+id/img_back_world_cup"
@@ -41,17 +44,27 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:iconTint="?attr/colorOnBackground"/>
 
+        <TextView
+            android:id="@+id/WC_play_textname"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:layout_gravity="center"
+            android:text="사진 월드컵"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#000000">
+
+        </TextView>
+
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.9"
+            android:layout_weight="0.2"
             android:layout_gravity="center"/>
 
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_slide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 

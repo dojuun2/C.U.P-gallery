@@ -59,6 +59,8 @@ public class WorldCUPActivity_result extends AppCompatActivity implements WC_Dra
     int i = 1;
     private WC_result_PictureActivity wc_result_pictureActivity;
     private int REQUEST_TEST = 1;
+    TextView savetext,deletetext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +77,15 @@ public class WorldCUPActivity_result extends AppCompatActivity implements WC_Dra
         getData();
         init2();
         getData2();
-
+        textset();
     }
 
+
+    private void textset(){
+
+        savetext.setText("저장 (" + Savelist.size() + "/" + (Savelist.size()+Deletelist.size() )+ ")");
+        deletetext.setText("삭제 (" + Deletelist.size() + "/" + (Savelist.size()+Deletelist.size()) + ")");
+    }
 
 
 
@@ -94,6 +102,8 @@ public class WorldCUPActivity_result extends AppCompatActivity implements WC_Dra
         LinearLayout linearLayout = findViewById(R.id.WC_SaveLayout);
         linearLayout.setOnDragListener(new DragListener());
 
+        savetext = findViewById(R.id.WC_result_savetext);
+        deletetext= findViewById(R.id.WC_result_deletetext);
     }
 
     private void init2() {
@@ -292,7 +302,7 @@ public class WorldCUPActivity_result extends AppCompatActivity implements WC_Dra
             }
 
             }
-
+        textset();
         }
 
 
@@ -389,7 +399,7 @@ public class WorldCUPActivity_result extends AppCompatActivity implements WC_Dra
                     if(v== findViewById(R.id.WC_DeleteLayout)) {
                         Log.d("DragClickListener", "ACTION_DRAG_ENDED");
                         v.setBackgroundColor(Color.parseColor("#FFFFFF"));
-
+                        textset();
                         finish();
                         overridePendingTransition(0, 0);//인텐트 효과 없애기
                         Intent intent = getIntent(); //인텐트

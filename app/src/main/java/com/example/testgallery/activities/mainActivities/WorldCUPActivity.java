@@ -1,11 +1,13 @@
 package com.example.testgallery.activities.mainActivities;
 
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -41,7 +43,7 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
     private TextView WClistblider;
     ArrayList<WC_itemlist> itemlists  = new ArrayList<>();
     private int endnum = 0;
-
+    TextView WC_title_textView;
 
     ImageView WC_image1;
     ImageView WC_image2;
@@ -88,8 +90,29 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
         img_back_wolrd_cup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setResult(RESULT_OK);
-                finish();
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(WorldCUPActivity.this);
+
+                builder1.setTitle("확인");
+                builder1.setMessage("월드컵을 취소하시겠습니까?");
+
+                builder1.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        finish();
+
+                    }
+                });
+
+                builder1.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // Do nothing
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alert1 = builder1.create();
+                alert1.show();
             }
         });
 
@@ -109,7 +132,7 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
         img_back_wolrd_cup = findViewById(R.id.img_back_world_cup);
         img_help = findViewById(R.id.img_help);
         WClistblider = findViewById(R.id.item_wc_list_blind);
-
+        WC_title_textView = findViewById(R.id.WC_play_textname);
     }
 
 
@@ -210,6 +233,7 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
 
         listadapter.notifyDataSetChanged();
 
+        WC_title_textView.setText("사진 월드컵 (2/"+WCGRIDlist.size()+")");
 
     }
 
@@ -257,6 +281,10 @@ public class WorldCUPActivity<image> extends AppCompatActivity implements WC_Ada
         i += count;
         recyclerlistView.scrollToPosition(i);
         listadapter.notifyDataSetChanged();
+
+
+        if ( i-1<=WCGRIDlist.size())
+        WC_title_textView.setText("사진 월드컵 (" + (i-1)  +"/"+WCGRIDlist.size()+")");
     }
 
 

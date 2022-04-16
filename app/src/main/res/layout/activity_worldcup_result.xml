@@ -8,18 +8,44 @@
     app:layoutDescription="@xml/activity_worldcup_result_scene"
     >
 
-    <include
-        android:id="@+id/toolbar_wc_result"
-        layout="@layout/layout_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:translationZ="90dp"
+        android:background="?attr/colorOnPrimary">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:layout_gravity="center"
+            android:text="사진 월드컵 결과 "
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#000000">
+        </TextView>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/WC_SaveLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
+        <LinearLayout
+            android:id="@+id/WC_SaveLayouttitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/WC_result_savetext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -27,13 +53,13 @@
             android:textSize="20dp"
 
             android:text="저장" />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="#EEEEEE"
             >
-
         </View>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/WC_recycle"
@@ -53,7 +79,7 @@
         android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/WC_result_deletetext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
