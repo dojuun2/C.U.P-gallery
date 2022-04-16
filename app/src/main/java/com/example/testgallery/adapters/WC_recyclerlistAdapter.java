@@ -1,34 +1,39 @@
-
 package com.example.testgallery.adapters;
 
-        import android.content.Context;
-        import android.graphics.drawable.Drawable;
-        import android.provider.ContactsContract;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.provider.ContactsContract;
 
-        import androidx.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.ImageView;
-        import android.widget.TextView;
-        import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.recyclerview.widget.RecyclerView;
 
-        import com.bumptech.glide.Glide;
-        import com.example.testgallery.R;
+import com.bumptech.glide.Glide;
+import com.example.testgallery.R;
+import com.example.testgallery.models.WC_itemlist;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class WC_recyclerlistAdapter extends RecyclerView.Adapter<WC_recyclerlistAdapter.ItemViewHolder>  {
 
-    private ArrayList<String> listData1;
+    private ArrayList<WC_itemlist> wcitem;
+
+    public WC_recyclerlistAdapter(ArrayList<WC_itemlist> itemlists) {
+        wcitem = itemlists;
+    }
 
 
 
 
-    public void addItem(ArrayList<String> imageList1) {
-        listData1 = new ArrayList<>();
-        this.listData1 = imageList1;
+    public void addItem(ArrayList<WC_itemlist> wcitem1) {
+
+        this.wcitem = wcitem1;
 
 
     }
@@ -46,14 +51,15 @@ public class WC_recyclerlistAdapter extends RecyclerView.Adapter<WC_recyclerlist
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         // Item을 하나, 하나 보여주는(bind 되는) 함수입니다.
+        WC_itemlist listitem = wcitem.get(position);
+        holder.onBind(listitem.getWClistimg(),listitem.getblindnum());
 
-        holder.onBind(listData1.get(position));
     }
 
     @Override
     public int getItemCount() {
 
-        return listData1.size();
+        return wcitem.size();
 
     }
 
@@ -61,7 +67,7 @@ public class WC_recyclerlistAdapter extends RecyclerView.Adapter<WC_recyclerlist
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
 
-
+        private TextView textView;
         private ImageView imageView;
         private Context context;
 
@@ -70,13 +76,18 @@ public class WC_recyclerlistAdapter extends RecyclerView.Adapter<WC_recyclerlist
 
 
             imageView = itemView.findViewById(R.id.item_wc_gogolist);
+            textView = itemView.findViewById(R.id.item_wc_list_blind);
             context = itemView.getContext();
 
         }
 
-        void onBind(String img) {
-
+        void onBind(String img , int blindnum) {
             Glide.with(context).load(img).into(imageView);
+            textView.setVisibility(View.INVISIBLE);
+            if(blindnum==0) {
+                textView.setVisibility(View.VISIBLE);
+
+            }
         }
     }
 }

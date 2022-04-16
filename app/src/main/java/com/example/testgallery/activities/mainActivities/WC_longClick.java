@@ -27,7 +27,7 @@ public class WC_longClick extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_wc_longclick);
         Intent intent = getIntent();
-        event();
+
         imagelist = intent.getStringArrayListExtra("image");
         load();
     }

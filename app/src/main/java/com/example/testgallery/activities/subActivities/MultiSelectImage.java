@@ -176,6 +176,7 @@ public class MultiSelectImage extends AppCompatActivity implements ListTransInte
             intent.putStringArrayListExtra("data_worldlist", list2);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivityForResult(intent, 1);
+            finish();
         }
 
     }

@@ -1,43 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#FFFFFF"
+    android:background="@drawable/wc_longclickview_round"
     android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-    <!-- 타이틀바 -->
-    <LinearLayout
-        android:background="#FFFFFF"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp">
+    android:layout_width="400dp"
+    android:layout_height="600dp">
 
 
-        <ImageView
-            android:id="@+id/img_back_world_cup"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="2.5dp"
-            android:layout_weight="0.1"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:src="@drawable/abc_ic_ab_back_material"
-            android:foregroundTint="@color/black"
-            android:clickable="true"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:iconTint="?attr/colorOnBackground"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.9"
-            android:layout_gravity="center"/>
-
-    </LinearLayout>
         <ImageView
             android:id="@+id/WC_longimg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:scaleType="fitCenter"
             android:src="@drawable/anh1"
             android:focusable="true"

@@ -69,16 +69,18 @@ public class WC_recyclerAdapter extends RecyclerView.Adapter<WC_recyclerAdapter.
     @Override
     public void onItemSwipe(int position) {
         DeleteData2.add(listData.remove(position));
-       listener.count(1);
 
+        getdeletelist(1);
         if (listData.size()<2) {
-            getdeletelist();
+            getdeletelist(2);
         }
+
+        listener.count(1);
         notifyItemRemoved(position);
     }
 
-    public void getdeletelist(){
-        listener.niceEnding(2, DeleteData2);
+    public void getdeletelist(int endnum){
+        listener.niceEnding(endnum, DeleteData2);
     }
 
 
@@ -97,7 +99,6 @@ public class WC_recyclerAdapter extends RecyclerView.Adapter<WC_recyclerAdapter.
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d("tag", "mmmmmmmmmmmmmmmmmmmmmmmmmmmm = == 33 = " + getAdapterPosition() );
                     listener1.onClick(getAdapterPosition());
 
                 }
