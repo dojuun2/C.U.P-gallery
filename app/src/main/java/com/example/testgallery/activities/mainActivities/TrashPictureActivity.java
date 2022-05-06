@@ -164,16 +164,48 @@ public class TrashPictureActivity extends AppCompatActivity implements PictureIn
                             public void onClick(DialogInterface dialog, int which) {
                                 File file = new File(targetUri.getPath());
 
-                                File move_path = new File("/storage/emulated/0/Pictures");      // 복원 후 폴더
+                                int start = file.getName().indexOf("_"); // 첫 _ 위치 추출
+                                int end = file.getName().indexOf("_", 4); //  추출
 
-                                File MoveFile = new File(move_path,"Pictures" + "_" + file.getName());     // 이동할 경로와 이동 후 파일명
+                                String fileRestore_folder = file.getName().substring(start+1, end);
 
-                                file.renameTo(MoveFile);     // filelist에 있는 파일들 이름 변경
-                                file.deleteOnExit();         // 원래 파일 삭제
-                                MediaScannerConnection.scanFile(getApplicationContext(), new String[]{move_path+File.separator+MoveFile.getName()}, null, null);
+                                File move_path = new File("/storage/emulated/0/Pictures/" + fileRestore_folder);      // 복원 후 폴더
+                                File move_path2 = new File("/storage/emulated/0/" + fileRestore_folder);      // Pictures 였을 경우복원 후 폴더
 
-                                finish();
-                                dialog.dismiss();
+                                switch (fileRestore_folder){
+                                    case "Pictures":
+                                        File MoveFile1 = new File(move_path2,fileRestore_folder + "_" + file.getName());     // 이동할 경로와 이동 후 파일명
+
+                                        file.renameTo(MoveFile1);     // filelist에 있는 파일들 이름 변경
+                                        file.deleteOnExit();         // 원래 파일 삭제
+                                        MediaScannerConnection.scanFile(getApplicationContext(), new String[]{move_path2+File.separator+MoveFile1.getName()}, null, null);
+
+                                        finish();
+                                        dialog.dismiss();
+                                        break;
+
+                                    case "Screenshot":
+                                        File MoveFile2 = new File(move_path,fileRestore_folder + "s" + "_" + file.getName());     // 이동할 경로와 이동 후 파일명
+
+                                        file.renameTo(MoveFile2);     // filelist에 있는 파일들 이름 변경
+                                        file.deleteOnExit();         // 원래 파일 삭제
+                                        MediaScannerConnection.scanFile(getApplicationContext(), new String[]{move_path+File.separator+MoveFile2.getName()}, null, null);
+
+                                        finish();
+                                        dialog.dismiss();
+                                        break;
+
+                                    default:
+                                        File MoveFile = new File(move_path,fileRestore_folder + "_" + file.getName());     // 이동할 경로와 이동 후 파일명
+
+                                        file.renameTo(MoveFile);     // filelist에 있는 파일들 이름 변경
+                                        file.deleteOnExit();         // 원래 파일 삭제
+                                        MediaScannerConnection.scanFile(getApplicationContext(), new String[]{move_path+File.separator+MoveFile.getName()}, null, null);
+
+                                        finish();
+                                        dialog.dismiss();
+                                        break;
+                                }
                             }
                         });
 
