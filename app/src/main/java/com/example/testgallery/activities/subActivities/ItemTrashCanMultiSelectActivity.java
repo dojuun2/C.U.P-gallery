@@ -205,16 +205,46 @@ public class ItemTrashCanMultiSelectActivity extends AppCompatActivity implement
             ArrayList<String> list = new ArrayList<>();
             int i = 0;
 
-            String afterFilePath = "/storage/emulated/0/Pictures";     // 옮겨질 경로
-
             for (Image img :listImageSelected){
                 File imgFile = new File(img.getPath());
-                File desImgFile = new File(afterFilePath,"Pictures" + "_" + imgFile.getName());
-                list.add(desImgFile.getPath());
-                imgFile.renameTo(desImgFile);
-                imgFile.deleteOnExit();
-                paths[i] = desImgFile.getPath();
-                i++;
+
+                int start = imgFile.getName().indexOf("_"); // 첫 _ 위치 추출
+                int end = imgFile.getName().indexOf("_", 4); //  추출
+
+                String fileRestore_folder = imgFile.getName().substring(start+1, end);
+
+                File move_path = new File("/storage/emulated/0/Pictures/" + fileRestore_folder);      // 복원 후 폴더
+                File move_path2 = new File("/storage/emulated/0/" + fileRestore_folder);      // Pictures 였을 경우 복원 후 폴더
+
+                switch (fileRestore_folder){
+                    case "Pictures":
+                        File MoveFile1 = new File(move_path2,fileRestore_folder + "_" + imgFile.getName());     // 이동할 경로와 이동 후 파일명
+                        list.add(MoveFile1.getPath());
+                        imgFile.renameTo(MoveFile1);
+                        imgFile.deleteOnExit();
+                        paths[i] = MoveFile1.getPath();
+                        i++;
+                        break;
+
+                    case "Screenshot":
+                        File MoveFile2 = new File(move_path,fileRestore_folder + "s" + "_" + imgFile.getName());     // 이동할 경로와 이동 후 파일명
+                        list.add(MoveFile2.getPath());
+                        imgFile.renameTo(MoveFile2);
+                        imgFile.deleteOnExit();
+                        paths[i] = MoveFile2.getPath();
+                        i++;
+                        break;
+
+                    default:
+                        File MoveFile = new File(move_path,fileRestore_folder + "_" + imgFile.getName());     // 이동할 경로와 이동 후 파일명
+                        list.add(MoveFile.getPath());
+                        imgFile.renameTo(MoveFile);
+                        imgFile.deleteOnExit();
+                        paths[i] = MoveFile.getPath();
+                        i++;
+                        break;
+                }
+
             }
             // 밑에 코드가 있어야 휴지통으로 이동한 복사본이 보임
             MediaScannerConnection.scanFile(getApplicationContext(),paths, null, null);
