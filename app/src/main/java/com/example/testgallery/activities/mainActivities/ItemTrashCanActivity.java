@@ -291,7 +291,6 @@ public class ItemTrashCanActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 File path = new File("/storage/emulated/0/Pictures/휴지통");       // 복원 전 폴더
-                File move_path = new File("/storage/emulated/0/Pictures");      // 복원 후 폴더
 
                 File[] filelist = path.listFiles();     // listFiles() : 디렉토리 경로에 있는 파일들을 배열로 리턴
                 // 복원 전 폴더에 있는 파일들을 filelist에 배열로 저장
@@ -300,16 +299,41 @@ public class ItemTrashCanActivity extends AppCompatActivity {
                 // 복원 전 폴더에 있는 파일들의 이름들을 filelist에 배열로 저장
 
                 for(int i = 0; i<filelist.length; i++){
-                    File MoveFile = new File(move_path,"Pictures" + "_" + filelist[i].getName());     // 이동할 경로와 이동 후 파일명
-                    filelist[i].renameTo(MoveFile);     // filelist에 있는 파일들 이름 변경
-                    filelist[i].deleteOnExit();         // 원래 파일 삭제
-                    paths[i] = MoveFile.getPath();      // 복원한 파일의 경로를 문자열로 저장
+                    File file = new File(filelist[i].getPath());
+
+                    int start = file.getName().indexOf("_"); // 첫 _ 위치 추출
+                    int end = file.getName().indexOf("_", 4); //  추출
+
+                    String fileRestore_folder = file.getName().substring(start+1, end);
+
+                    File move_path = new File("/storage/emulated/0/Pictures/" + fileRestore_folder);      // 복원 후 폴더
+                    File move_path2 = new File("/storage/emulated/0/" + fileRestore_folder);      // Pictures 였을 경우 복원 후 폴더
+
+                    switch(fileRestore_folder){
+                        case "Pictures":
+                            File MoveFile1 = new File(move_path2,fileRestore_folder + "_" + file.getName());     // 이동할 경로와 이동 후 파일명
+                            filelist[i].renameTo(MoveFile1);     // filelist에 있는 파일들 이름 변경
+                            filelist[i].deleteOnExit();         // 원래 파일 삭제
+                            paths[i] = MoveFile1.getPath();      // 복원한 파일의 경로를 문자열로 저장
+                            break;
+
+                        case "Screenshot":
+                            File MoveFile2 = new File(move_path,fileRestore_folder + "_" + file.getName());     // 이동할 경로와 이동 후 파일명
+                            filelist[i].renameTo(MoveFile2);     // filelist에 있는 파일들 이름 변경
+                            filelist[i].deleteOnExit();         // 원래 파일 삭제
+                            paths[i] = MoveFile2.getPath();      // 복원한 파일의 경로를 문자열로 저장
+                            break;
+
+                        default:
+                            File MoveFile = new File(move_path,fileRestore_folder + "_" + file.getName());     // 이동할 경로와 이동 후 파일명
+                            filelist[i].renameTo(MoveFile);     // filelist에 있는 파일들 이름 변경
+                            filelist[i].deleteOnExit();         // 원래 파일 삭제
+                            paths[i] = MoveFile.getPath();      // 복원한 파일의 경로를 문자열로 저장
+                            break;
+                    }
+
                 }
                 MediaScannerConnection.scanFile(getApplicationContext(),paths, null, null);
-                // context : 어플리케이션의 context
-                // paths : 추가할 파일의 경로를 나타내는 문자열
-                // mimeTypes : 파일의 MIME 유형을 나타내는 문자열
-                // callback : 스캔이 완료될 경우 호출
 
                 finish();
             }
