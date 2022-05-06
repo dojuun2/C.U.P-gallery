@@ -292,8 +292,11 @@ public class MultiSelectImage extends AppCompatActivity implements ListTransInte
                         File imgFile = new File(img.getPath());
                         // 파일 최종수정일자를 현재 시간으로 변경
                         imgFile.setLastModified(System.currentTimeMillis());
-                        
-                        File desImgFile = new File(path,"휴지통" + "_" + imgFile.getName());
+
+                        String imgFile_path = imgFile.getPath().replace("/" + imgFile.getName(), "");       // 파일의 이름까지 포함된 경로
+                        String parentFolder = imgFile_path.substring(imgFile_path.lastIndexOf("/") + 1);        // 삭제할 파일이 있는 폴더 이름
+
+                        File desImgFile = new File(path,"휴지통" + "_" + parentFolder + "_" + imgFile.getName());
                         list.add(desImgFile.getPath());
                         imgFile.renameTo(desImgFile);
                         imgFile.deleteOnExit();
@@ -307,8 +310,11 @@ public class MultiSelectImage extends AppCompatActivity implements ListTransInte
                         File imgFile = new File(img.getPath());
                         // 파일 최종수정일자를 현재 시간으로 변경
                         imgFile.setLastModified(System.currentTimeMillis());
-                        
-                        File desImgFile = new File(path,"휴지통" + "_" + imgFile.getName());
+
+                        String imgFile_path = imgFile.getPath().replace("/" + imgFile.getName(), "");       // 파일의 이름까지 포함된 경로
+                        String parentFolder = imgFile_path.substring(imgFile_path.lastIndexOf("/") + 1);        // 삭제할 파일이 있는 폴더 이름
+
+                        File desImgFile = new File(path,"휴지통" + "_" + parentFolder + "_" + imgFile.getName());
                         list.add(desImgFile.getPath());
                         imgFile.renameTo(desImgFile);
                         imgFile.deleteOnExit();
