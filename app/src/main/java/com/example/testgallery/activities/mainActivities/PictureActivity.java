@@ -16,7 +16,7 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
+import android.os.ParcelFileDescriptor;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
@@ -27,6 +27,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +40,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -74,8 +78,11 @@ import com.example.testgallery.models.SearchRV;
 import com.example.testgallery.utility.FileUtility;
 import com.example.testgallery.utility.GetAllPhotoFromGallery;
 import com.example.testgallery.utility.IClickListener;
+import com.example.testgallery.utility.ImageUtil;
 import com.example.testgallery.utility.PictureInterface;
 import com.example.testgallery.utility.SubInterface;
+import com.example.testgallery.utility.ToastUtil;
+import com.example.testgallery.viewmodel.PhotoViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -91,6 +98,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class PictureActivity extends AppCompatActivity implements PictureInterface, SubInterface {
     private ViewPager viewPager_picture;
@@ -116,12 +131,33 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
     private BottomSheetDialog bottomSheetDialog;
     private RecyclerView ryc_album;
     public static Set<String> imageListFavor = DataLocalManager.getListSet();
+public static final int GALLERY_REQUEST = 1;
 
+    private Uri imageListUri;
+
+    TextView colorName;
+    TextView colorHexa;
+    TextView colorRGB;
+    ImageView imageView;
+
+
+    PhotoViewModel viewModel;
 
     @Override
     protected void onResume() {
         super.onResume();
         imageListFavor = DataLocalManager.getListSet();
+    }
+
+    private void updateDisplay() {
+        viewModel.getImage().observe(this, image -> {
+            colorName.setText(image.getColor());
+            Log.d("TAGG", "viewModel 00000000000000000000000000000000000000000000000000 - =" + image.getColor());
+            colorHexa.setText(image.getHexadecimal());
+            Log.d("TAGG", "viewModel 00000000000000000000000000000000000000000000000000 - =" + image.getHexadecimal());
+
+            colorRGB.setText(image.getRGB());
+        });
     }
 
     @Override
@@ -131,7 +167,11 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
         //Fix Uri file SDK link: https://stackoverflow.com/questions/48117511/exposed-beyond-app-through-clipdata-item-geturi?answertab=oldest#tab-top
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
-
+        imageView = (ImageView) findViewById(R.id.imgPhoto);
+        colorName = (TextView) findViewById(R.id.color_name_gallery);
+        colorHexa = (TextView) findViewById(R.id.color_hexa_gallery);
+        colorRGB = (TextView) findViewById(R.id.color_rgb_gallery);
+        intent = getIntent();
 
         mappingControls();
 
@@ -142,8 +182,44 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
         setDataIntent();
         setUpToolBar();
         setUpSilder();
+        initializeUi();
         bottomNavigationViewEvents();
     }
+
+    void initializeUi() {
+        viewModel = ViewModelProviders.of(this).get(PhotoViewModel.class);
+
+        try {
+            Uri imageUri = Uri.parse("file://" + imageListPath.get(pos));
+
+            Log.d("TAg","000000000000000000000000000ddddddddddddddddddddddd = " + imageUri);
+            final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+
+            float aspectRatio = selectedImage.getWidth() /
+                (float) selectedImage.getHeight();
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            int width = displayMetrics.widthPixels;
+            int height = Math.round(width / aspectRatio);
+            Bitmap.createScaledBitmap(selectedImage, width, height, false);
+
+            // imageView.setImageBitmap(resizeBitmap(selectedImage));
+            Log.d("TAg","000000000000000000000000000ddddddddddddddddddddddd = " + selectedImage);
+            Log.d("TAg","000000000000000000000000000ddddddddddddddddddddddd = " + viewModel);
+            if (!viewModel.isImageTaken()) {
+                viewModel.setImage(ImageUtil.mapBitmapToImage(selectedImage));
+            } else {
+                updateDisplay();
+            }
+            updateDisplay();
+        } catch (FileNotFoundException e) {
+            Log.d("TAg","33333333333333333333333333333333333333 = " + imageListPath);
+            e.printStackTrace();
+            ToastUtil.callShortToast(PictureActivity.this, R.string.pick_image_error_msg);
+        }
+    }
+
 
     private void bottomNavigationViewEvents() {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
