@@ -216,7 +216,7 @@ public static final int GALLERY_REQUEST = 1;
         } catch (FileNotFoundException e) {
             Log.d("TAg","33333333333333333333333333333333333333 = " + imageListPath);
             e.printStackTrace();
-            ToastUtil.callShortToast(PictureActivity.this, R.string.pick_image_error_msg);
+            ToastUtil.callShortToast(PictureActivity.this, R.string.unknown);
         }
     }
 
