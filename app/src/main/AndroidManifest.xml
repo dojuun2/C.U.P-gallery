@@ -133,6 +133,9 @@
         <activity
             android:name=".activities.subActivities.ItemTrashCanMultiSelectActivity"
             android:exported="false" />
+        <!-- 팝업 Activity -->
+        <activity android:name=".activities.mainActivities.PopupActivity"
+            android:theme="@android:style/Theme.Dialog" />
 
         <activity
             android:name=".activities.mainActivities.WC_result_PictureActivity"
