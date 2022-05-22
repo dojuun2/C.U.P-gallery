@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                         viewPager.setCurrentItem(2);
                         break;
 
-                    case R.id.trashcan:
+                    case R.id.screenshot:
 
                         viewPager.setCurrentItem(3);
                         break;
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 3:
 
-                        bottomNavigationView.getMenu().findItem(R.id.trashcan).setChecked(true);
+                        bottomNavigationView.getMenu().findItem(R.id.screenshot).setChecked(true);
                         break;
                 }
             }

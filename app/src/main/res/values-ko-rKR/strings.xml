@@ -17,7 +17,7 @@
     <string name="photo">사진</string>
     <string name="album">앨범</string>
     <string name="search_photo">이사모</string>
-    <string name="trashcan">Trash Can</string>
+    <string name="screenshot">스크린샷</string>
     <string name="change_password">비밀번호 변경</string>
     <string name="delete_secret_album">비밀 앨범 삭제</string>
     <string name="advance_search">고급 검색</string>

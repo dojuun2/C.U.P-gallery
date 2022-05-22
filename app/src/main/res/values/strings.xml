@@ -14,7 +14,7 @@
     <string name="photo">Photo</string>
     <string name="album">Album</string>
     <string name="search_photo" translatable="false">esamo</string>
-    <string name="trashcan">Trash Can</string>
+    <string name="screenshot">Screenshot</string>
     <string name="change_password">Change Password</string>
     <string name="delete_secret_album">Delete Secret Album</string>
     <string name="advance_search">Advanced Search</string>
@@ -74,4 +74,29 @@
     <string name="contributors">Contributors</string>
     <string name="libraries">Included Libraries</string>
     <string name="worldcup" translatable="false">World Cup</string>
+
+    <string-array name="spinner_time">
+        <item>기간 지정</item>-->
+        <item>선택안함</item>
+        <item>7일 이상 경과 삭제</item>
+        <item>15일 이상 경과 삭제</item>
+        <item>30일 이상 경과 삭제</item>
+    </string-array>
+    
+    <string-array name="spinner_recent">
+        <item>사진 개수 지정</item>
+        <item>선택안함</item>
+        <item>최근 사진 10장 삭제</item>
+        <item>최근 사진 50장 삭제</item>
+        <item>최근 사진 100장 삭제</item>
+    </string-array>
+
+    <string-array name="spinner_star">
+        <item>즐겨찾기 지정</item>
+        <item>즐겨찾기 포함</item>
+        <item>즐겨찾기 제외</item>
+    </string-array>
+    
+
+
 </resources>

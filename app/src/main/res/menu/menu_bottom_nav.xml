@@ -16,9 +16,9 @@
         android:icon="@drawable/ic_search"
         android:iconTint="?attr/colorOnBackground" />
 
-    <item android:id="@+id/trashcan"
-        android:title="@string/trashcan"
-        android:icon="@drawable/ic_delete"
+    <item android:id="@+id/screenshot"
+        android:title="@string/screenshot"
+        android:icon="@drawable/screenshot"
         android:iconTint="?attr/colorOnBackground"/>
 
 

@@ -17,6 +17,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.widget.SearchView;
 
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,6 +40,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -55,6 +58,8 @@ import java.util.Map;
 import java.util.Set;
 
 import com.example.testgallery.activities.mainActivities.ItemAlbumActivity;
+import com.example.testgallery.activities.mainActivities.PopupActivity;
+import com.example.testgallery.activities.mainActivities.WC_HelpExample;
 import com.example.testgallery.activities.subActivities.MultiSelectImage;
 import com.example.testgallery.activities.mainActivities.SettingsActivity;
 import com.example.testgallery.ml.MobilenetV110224Quant;
@@ -79,7 +84,8 @@ public class FavoriteFragment extends Fragment {
     private List<String> listLabel;
     private ArrayList<String> list_searchA;
     private static int REQUEST_CODE_MULTI = 40;
-
+    private ImageView img_back_world_cup, img_help01;
+    private Set<String> imgListFavor;
     private Context context;
 
     @Nullable
@@ -122,15 +128,15 @@ public class FavoriteFragment extends Fragment {
 
     private void toolBarEvents() {
         toolbar_photo.inflateMenu(R.menu.menu_top2);
-        toolbar_photo.setTitle("스크린샷 삭제 예약");
+        toolbar_photo.setTitle("스크린샷 간편 삭제");
         toolbar_photo.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 int id = item.getItemId();
                 switch (id) {
-//                    case R.id.menuSearch:
-//                        eventSearch(item);
-//                        break;
+                    case R.id.menuSearch:
+                        eventSearch(item);
+                        break;
 //                    case R.id.menuCamera:
 //                        takenImg();
 //                        break;
@@ -192,6 +198,8 @@ public class FavoriteFragment extends Fragment {
 
     public ArrayList<String> getListImg(){
         List<Image> imageList = GetAllPhotoFromGallery2.getAllImageFromGallery(getContext());
+
+
         long hash = 0;
         Map<Long,ArrayList<String>> map = new HashMap<Long,ArrayList<String>>();
         for (Image img: imageList) {
@@ -227,22 +235,41 @@ public class FavoriteFragment extends Fragment {
         return hash;
     }
 
+
+
+
+
     private void eventSearch(@NonNull MenuItem item) {
-        final Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DATE);
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                calendar.set(i, i1, i2);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                String date = simpleDateFormat.format(calendar.getTime());
-                showImageByDate(date);
-            }
-        }, year, month, day);
-        datePickerDialog.show();
-    }
+            Intent intent = new Intent(getActivity(), PopupActivity.class);
+            startActivity(intent);
+        }
+
+
+
+
+
+
+//        final Calendar calendar = Calendar.getInstance();
+//        int day = calendar.get(Calendar.DATE);
+//        int month = calendar.get(Calendar.MONTH);
+//        int year = calendar.get(Calendar.YEAR);
+//        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+//                calendar.set(i, i1, i2);
+//                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//                String date = simpleDateFormat.format(calendar.getTime());
+//                showImageByDate(date);
+//            }
+//        }, year, month, day);
+//        datePickerDialog.show();
+
+
+
+
+
+
+
 
     private void showImageByDate(String date) {
         Toast.makeText(getContext(), date, Toast.LENGTH_LONG).show();
