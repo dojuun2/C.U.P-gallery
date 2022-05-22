@@ -40,7 +40,7 @@ public class GetAllPhotoFromGallery2 {
         thumb = cursor.getColumnIndexOrThrow(MediaStore.Images.Thumbnails.DATA);
         dateIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_TAKEN);
         Calendar myCal = Calendar.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("b");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd, EEE");
         while (cursor.moveToNext()) {
             try {
                 absolutePathImage = cursor.getString(columnIndexData);
