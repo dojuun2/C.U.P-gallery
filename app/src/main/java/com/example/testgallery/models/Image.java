@@ -31,19 +31,16 @@ public class Image {
         colors = new ColorList();
     }
 
-
+    // 이미지 경로를 위한 객체 지정
     public void setPath(String path) {
         this.path = path;
     }
-
     public String getThumb() {
         return thumb;
     }
-
     public void setThumb(String thumb) {
         this.thumb = thumb;
     }
-
     public Image(String path, String thumb) {
         this.path = path;
         this.thumb = thumb;
@@ -51,50 +48,46 @@ public class Image {
     public int getResId() {
         return resId;
     }
+
     public String getDateTaken() {
         return dateTaken;
     }
-
     public void setDateTaken(String dateTaken) {
         this.dateTaken = dateTaken;
     }
 
 
-
+    // 비트맵 객체 지정
     public Bitmap getBitmap() {
         return bitmap;
     }
-
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
 
-    public String getColor() {
-
-        return color;
-    }
-
+    // 색 값 문자열 객체 지정
+    public String getColor() {return color;}
     public void setColor(String color) {
         this.color = color;
     }
 
+    //헥사값 문자열 객체 지정
     public String getHexadecimal() {
         return hexadecimal;
     }
-
     public void setHexadecimal(String hexadecimal) {
         this.hexadecimal = hexadecimal;
     }
 
+    //RGB 값 문자열 객체 지정
     public String getRGB() {
         return RGB;
     }
-
     public void setRGB(String RGB) {
         this.RGB = RGB;
     }
 
-    //Get RGB, Hexadecimal and Name value for dominant color
+    //주요 색상에 대한 RGB, 헥사 및 이름 값 가져오기
     public void getDominantColor() {
         Palette p = Palette.from(getBitmap()).generate();
         setHexadecimal(getHexadecimal(p.getDominantSwatch().getRgb()));
@@ -107,19 +100,8 @@ public class Image {
         }
     }
 
-    public void getDominantColor1() {
-        Palette q = Palette.from(getBitmap()).generate();
-        setHexadecimal(getHexadecimal(q.getDominantSwatch().getRgb()));
-        setRGB(getRgbCode(q.getDominantSwatch().getRgb()));
 
-        if (isGray(r, g, b))
-            setColor("gray");
-        else {
-            setColor(getColorName(r, g, b));
-        }
-    }
-
-    //Convert Hexadecimal value to RGB value
+    //헥사 값을 rgb 값으로 변환
     private String getRgbCode(int intColor) {
         String color = String.format("#%06X", (0xFFFFFF & intColor));
         r = Integer.valueOf(color.substring(1, 3), 16);
@@ -135,12 +117,13 @@ public class Image {
         return sb.toString();
     }
 
-    //Get Hexadecimal
+    //헥사값 가져오기
     private String getHexadecimal(int intColor) {
         return String.format("#%06X", (0xFFFFFF & intColor));
     }
 
-    //Check if color is gray
+
+    //색상이 회색인지 확인
     private boolean isGray(int r, int g, int b) {
         if (r == g && r == b) {
             return true;
@@ -149,11 +132,13 @@ public class Image {
         }
     }
 
-    //If color is not gray check for other colors
+    //색상이 회색이 아닌 경우 나머지 8가지 색을 확인할 수 있다.
     private String getColorName(int r, int g, int b) {
-        ColorName closestMatch = null;
+        ColorName closestMatch = null;  // 변수 null 값으로 초기화
         int minMSE = Integer.MAX_VALUE;
         int mse;
+        // ColorName rgb평균계산을 활용한다.
+        // 이쪽.
         for (ColorName c : colors.getColors()) {
             System.out.println(c.getName());
             mse = c.computeMSE(r, g, b);

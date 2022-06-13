@@ -1,6 +1,8 @@
 package com.example.testgallery.activities.mainActivities;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.DialogInterface;
@@ -25,6 +27,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,7 +53,9 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -92,6 +97,10 @@ import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.smarteist.autoimageslider.SliderView;
 
 import org.json.JSONArray;
@@ -131,51 +140,113 @@ public class PictureActivity extends AppCompatActivity implements PictureInterfa
     private BottomSheetDialog bottomSheetDialog;
     private RecyclerView ryc_album;
     public static Set<String> imageListFavor = DataLocalManager.getListSet();
-public static final int GALLERY_REQUEST = 1;
 
-    private Uri imageListUri;
-
-    TextView colorName;
-    TextView colorHexa;
-    TextView colorRGB;
-    ImageView imageView;
-
+    TextView colorName;     // 이미지 색 값 변수명
+    TextView colorHexa;     // 이미지 헥사 변수명
+    TextView colorRGB;      // 이미지 RGB 값 변수명
+    private Button btUpload;
+    private ImageView ivPreview;
+    private Uri filePath;
 
     PhotoViewModel viewModel;
 
+    // 이미지리스트 키/값 설정
     @Override
     protected void onResume() {
         super.onResume();
         imageListFavor = DataLocalManager.getListSet();
     }
 
-    private void updateDisplay() {
-        viewModel.getImage().observe(this, image -> {
-            colorName.setText(image.getColor());
-            Log.d("TAGG", "viewModel 00000000000000000000000000000000000000000000000000 - =" + image.getColor());
-            colorHexa.setText(image.getHexadecimal());
-            Log.d("TAGG", "viewModel 00000000000000000000000000000000000000000000000000 - =" + image.getHexadecimal());
 
-            colorRGB.setText(image.getRGB());
-        });
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture);
         //Fix Uri file SDK link: https://stackoverflow.com/questions/48117511/exposed-beyond-app-through-clipdata-item-geturi?answertab=oldest#tab-top
+        // 개발자가 실수하는 것들을 감지하고 해결 할 수 있도록 돕는 모드 설정 및 생성
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
-        imageView = (ImageView) findViewById(R.id.imgPhoto);
-        colorName = (TextView) findViewById(R.id.color_name_gallery);
-        colorHexa = (TextView) findViewById(R.id.color_hexa_gallery);
-        colorRGB = (TextView) findViewById(R.id.color_rgb_gallery);
+        colorName = (TextView) findViewById(R.id.color_name_gallery);   // 이미지 색 변수명으로 연결
+        colorHexa = (TextView) findViewById(R.id.color_hexa_gallery);   // 이미지 헥사 변수명으로 연결
+        colorRGB = (TextView) findViewById(R.id.color_rgb_gallery);      // 이미지 RGB 변수명으로 연결
+        btUpload = (Button) findViewById(R.id.bt_upload);
+        ivPreview = (ImageView) findViewById(R.id.imgPhoto);
         intent = getIntent();
-
         mappingControls();
-
+        btUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //업로드
+                initializeUi2();
+            }
+        });
         events();
+    }
+
+
+    void initializeUi2() {
+            filePath = Uri.parse("file://" + imageListPath.get(pos));
+            Log.d(TAG, "uri:" + String.valueOf(filePath));
+            try {
+                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                ivPreview.setImageBitmap(bitmap);
+                uploadFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
+
+    private void uploadFile() {
+        //업로드할 파일이 있으면 수행
+        filePath = Uri.parse("file://" + imageListPath.get(pos));
+        if (filePath != null) {
+
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("업로드중...");
+            progressDialog.show();
+
+            //storage
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+
+            //Unique한 파일명을 만들자.
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
+            Date now = new Date();
+            String filename = formatter.format(now) + ".png";
+            //storage 주소와 폴더 파일명을 지정해 준다.
+            StorageReference storageRef = storage.getReferenceFromUrl("gs://test1-73fb1.appspot.com").child("images/" + filename);
+            //올라가거라...
+            storageRef.putFile(filePath)
+                    //성공시
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
+                            Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    //실패시
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    //진행중
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
+                            double progress = (100 * taskSnapshot.getBytesTransferred()) /  taskSnapshot.getTotalByteCount();
+                            //dialog에 진행률을 퍼센트로 출력해 준다
+                            progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
+                        }
+                    });
+        } else {
+            Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void events() {
@@ -186,28 +257,34 @@ public static final int GALLERY_REQUEST = 1;
         bottomNavigationViewEvents();
     }
 
+    //
     void initializeUi() {
+        //Activity의 범위인 클래스가 살아있는 동안 ViewModels를 유지하는 viewmodel을 생성
         viewModel = ViewModelProviders.of(this).get(PhotoViewModel.class);
-
         try {
+            // 이미지를 파일경로로 가져오기
             Uri imageUri = Uri.parse("file://" + imageListPath.get(pos));
-
             Log.d("TAg","000000000000000000000000000ddddddddddddddddddddddd = " + imageUri);
-            final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+            final InputStream imageStream = getContentResolver().openInputStream(imageUri);// ContentResover 객체의 openInputStream() 메서드로 파일 읽어 들이기
+            // openInputStream() 메서드를 호출하면 InputStream 객체가 반환되며
+            // BitmapFactory.decodeStream() 메서드를 사용하면 Bitmap 객체로 만들 수 있다.
+            // 이 비트맵 객체를 이미지뷰에 설정하면 사용자에게 사진이 보이게 된다.
             final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
 
+            // 선택된 이미지 넓이 높이 값 설정
             float aspectRatio = selectedImage.getWidth() /
                 (float) selectedImage.getHeight();
             DisplayMetrics displayMetrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             int width = displayMetrics.widthPixels;
             int height = Math.round(width / aspectRatio);
+            // 선택된 이미지 비트맵 생성
             Bitmap.createScaledBitmap(selectedImage, width, height, false);
 
-            // imageView.setImageBitmap(resizeBitmap(selectedImage));
-            Log.d("TAg","000000000000000000000000000ddddddddddddddddddddddd = " + selectedImage);
-            Log.d("TAg","000000000000000000000000000ddddddddddddddddddddddd = " + viewModel);
+            Log.d("TAg","000000000000000000000000000ddddddddddddddddddddddd = " + selectedImage);   //log값으로  selected 값 확인
+            Log.d("TAg","000000000000000000000000000ddddddddddddddddddddddd = " + viewModel);       //log값으로 viewModel 값 확인
             if (!viewModel.isImageTaken()) {
+                // Bitmap으로 설정된 이미지 가져오기
                 viewModel.setImage(ImageUtil.mapBitmapToImage(selectedImage));
             } else {
                 updateDisplay();
@@ -220,6 +297,15 @@ public static final int GALLERY_REQUEST = 1;
         }
     }
 
+    //
+    private void updateDisplay() {
+        //LiveData 객체 viewmodel에 에 Observer 객체를 연결
+        viewModel.getImage().observe(this, image -> {
+            colorName.setText(image.getColor());            // 이미지 색 값 출력
+            colorHexa.setText(image.getHexadecimal());      // 이미지 헥사 값 출력
+            colorRGB.setText(image.getRGB());               // 이미지 RGB 값 출력
+        });
+    }
 
     private void bottomNavigationViewEvents() {
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -227,7 +313,6 @@ public static final int GALLERY_REQUEST = 1;
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 Uri targetUri = Uri.parse("file://" + thumb);
-
 
                 switch (item.getItemId()) {
 
@@ -276,7 +361,6 @@ public static final int GALLERY_REQUEST = 1;
                         break;
 
                     case R.id.starPic:
-
                         if(!imageListFavor.add(imgPath)){
                             imageListFavor.remove(imgPath);
                         }
@@ -540,7 +624,7 @@ public static final int GALLERY_REQUEST = 1;
     }
 
     private void getSearchResults(String searchQuery, ArrayList<SearchRV> searchRVArrayList){
-        String apiKey = "51f619982c077bb7ef5cb7e50667ec174162dcae9f75f6c3a5ef88b00a7d305e";
+        String apiKey = "AIzaSyDHNdUkY_cOAIMtmLEp5yrnocC1cFSacho";
         String url = "https://serpapi.com/search.json?q=" + searchQuery.trim() + "&hl=en&gl=us&google_domain=google.com&api_key=" + apiKey;
         //String url = "https://serpapi.com/search.json?engine=google&q="+searchQuery+"&api_key=51f619982c077bb7ef5cb7e50667ec174162dcae9f75f6c3a5ef88b00a7d305e";
         RequestQueue queue = Volley.newRequestQueue(PictureActivity.this);
@@ -580,14 +664,17 @@ public static final int GALLERY_REQUEST = 1;
         queue.add(jsonObjectRequest);
     }
 
+    // 이미지 exif 데이터 출력
     private void showExif(Uri photoUri) {
+        // 사진의 경로가 맞을 시 사진이 가지고있는 메타데이터 정보 출력
         if (photoUri != null) {
-
-            ParcelFileDescriptor parcelFileDescriptor = null;
+            // 프로세스가 열린 파일을 읽거나 쓰는 데 사용하는 ParcelFileDescriptor 개체 사용
+            ParcelFileDescriptor parcelFileDescriptor = null; // 값 초기화
 
             try {
-                parcelFileDescriptor = getContentResolver().openFileDescriptor(photoUri, "r");
-                FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+                //
+                parcelFileDescriptor = getContentResolver().openFileDescriptor(photoUri, "r"); //getContentResolver 함수를 활용하여 사진 uri 접근
+                FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor(); // 입출력 파일디스크립터 설정
 
                 ExifInterface exifInterface = new ExifInterface(fileDescriptor);
 
@@ -598,20 +685,21 @@ public static final int GALLERY_REQUEST = 1;
                                 (LinearLayout) findViewById(R.id.infoContainer),
                                 false
                         );
-                TextView txtInfoProducer = (TextView) infoDialogView.findViewById(R.id.txtInfoProducer);
-                TextView txtInfoSize = (TextView) infoDialogView.findViewById(R.id.txtInfoSize);
-                TextView txtInfoModel = (TextView) infoDialogView.findViewById(R.id.txtInfoModel);
-                TextView txtInfoFlash = (TextView) infoDialogView.findViewById(R.id.txtInfoFlash);
-                TextView txtInfoFocalLength = (TextView) infoDialogView.findViewById(R.id.txtInfoFocalLength);
-                TextView txtInfoAuthor = (TextView) infoDialogView.findViewById(R.id.txtInfoAuthor);
-                TextView txtInfoTime = (TextView) infoDialogView.findViewById(R.id.txtInfoTime);
-                TextView txtInfoName = (TextView) infoDialogView.findViewById(R.id.txtInfoName);
-                TextView txtInfoGps1 = (TextView) infoDialogView.findViewById(R.id.txtInfoGps1);
-                TextView txtInfoGps11 = (TextView) infoDialogView.findViewById(R.id.txtInfoGps11);
-                TextView txtInfoGps22 = (TextView) infoDialogView.findViewById(R.id.txtInfoGps22);
-                TextView txtInfoGps2 = (TextView) infoDialogView.findViewById(R.id.txtInfoGps2);
+                TextView txtInfoProducer = (TextView) infoDialogView.findViewById(R.id.txtInfoProducer);        // 생산자정보 변수 생성
+                TextView txtInfoSize = (TextView) infoDialogView.findViewById(R.id.txtInfoSize);                // 크기정보 변수 생성
+                TextView txtInfoModel = (TextView) infoDialogView.findViewById(R.id.txtInfoModel);              // 모델 정보 변수 생성
+                TextView txtInfoFlash = (TextView) infoDialogView.findViewById(R.id.txtInfoFlash);              // flash 여부 변수 생성
+                TextView txtInfoFocalLength = (TextView) infoDialogView.findViewById(R.id.txtInfoFocalLength);  // 초점거리 변수 생성
+                TextView txtInfoAuthor = (TextView) infoDialogView.findViewById(R.id.txtInfoAuthor);            // 작가 변수 생성
+                TextView txtInfoTime = (TextView) infoDialogView.findViewById(R.id.txtInfoTime);                // 시간 변수 생성
+                TextView txtInfoName = (TextView) infoDialogView.findViewById(R.id.txtInfoName);                // 이름 변수 생성
+                TextView txtInfoGps1 = (TextView) infoDialogView.findViewById(R.id.txtInfoGps1);                // 위도 정보1 변수 생성
+                TextView txtInfoGps11 = (TextView) infoDialogView.findViewById(R.id.txtInfoGps11);              // 위도 정보2 변수 생성
+                TextView txtInfoGps22 = (TextView) infoDialogView.findViewById(R.id.txtInfoGps22);              // 경도 정보1 변수 생성
+                TextView txtInfoGps2 = (TextView) infoDialogView.findViewById(R.id.txtInfoGps2);                // 경도 정보2 변수 생성
 
                 txtInfoName.setText(imageName);
+                // 메타데이터를 활용하여 사진의 정보값 출력
                 txtInfoProducer.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_MAKE));
                 txtInfoSize.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_IMAGE_LENGTH) + "x" + exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_IMAGE_WIDTH));
                 txtInfoModel.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_MODEL));
@@ -624,7 +712,7 @@ public static final int GALLERY_REQUEST = 1;
                 txtInfoGps22.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_GPS_LONGITUDE));
                 txtInfoGps2.setText(exifInterface.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_GPS_LONGITUDE_REF));
 
-
+                // 해당 경로에 맞는 사진이 가지고있는 변수 값 출력/띄우기
                 infoDialog.setContentView(infoDialogView);
                 infoDialog.show();
 

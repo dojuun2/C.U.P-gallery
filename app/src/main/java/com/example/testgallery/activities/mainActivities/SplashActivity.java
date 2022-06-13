@@ -5,8 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.testgallery.R;
+
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -27,4 +34,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 1000);
     }
+
+
 }

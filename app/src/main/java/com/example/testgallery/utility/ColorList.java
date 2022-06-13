@@ -10,9 +10,10 @@ import java.util.List;
  * Created by avukelic on 25-Jul-18.
  */
 public class ColorList {
-
+    // colorname 타입 ArrayList 객체로 선언
     private List<ColorName> colors = new ArrayList<>();
 
+    // RGB 값에 해당하는 9가지 색 이름 설정
     public ColorList() {
         colors.add(new ColorName("Black", 0x00, 0x00, 0x00));
         colors.add(new ColorName("White", 0xff, 0xff, 0xff));

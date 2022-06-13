@@ -14,19 +14,16 @@ import android.os.StrictMode;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.preference.PreferenceManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.testgallery.R;
 import com.example.testgallery.adapters.ViewPagerAdapter;
-import com.example.testgallery.fragments.mainFragments.FavoriteFragment;
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.karan.churi.PermissionManager.PermissionManager;
@@ -34,10 +31,6 @@ import com.karan.churi.PermissionManager.PermissionManager;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Calendar;
-import java.util.Date;
-
 import java.util.Calendar;
 import java.util.Date;
 
@@ -65,10 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        View down = findViewById(R.id.down);
 
-
         bottomNavigationView = findViewById(R.id.bottom_nav);
         viewPager = findViewById(R.id.view_pager);
-
         permission = new PermissionManager() {
             @Override
             public void ifCancelledAndCannotRequest(Activity activity) {
@@ -77,10 +68,8 @@ public class MainActivity extends AppCompatActivity {
         permission.checkAndRequestPermissions(this);
         setUpViewPager();
 
-        
         // 파일 자동삭제
         AutomaticDeletion();
-        
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

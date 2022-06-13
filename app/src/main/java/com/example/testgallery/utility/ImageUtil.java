@@ -9,6 +9,7 @@ import com.example.testgallery.models.Image;
  */
 public class ImageUtil {
 
+    // 선택된 이미지를 bitmap으로 설정
     public static Image mapBitmapToImage(Bitmap bitmap){
         Image image = new Image();
         image.setBitmap(bitmap);

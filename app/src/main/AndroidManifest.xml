@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <!-- permission for internet -->
     <uses-permission android:name="android.permission.INTERNET"
         android:required="true"/>
@@ -134,7 +135,7 @@
             android:name=".activities.subActivities.ItemTrashCanMultiSelectActivity"
             android:exported="false" />
         <!-- 팝업 Activity -->
-        <activity android:name=".activities.mainActivities.PopupActivity"
+        <activity android:name=".activities.mainActivities.ScreenshotPopupActivity"
             android:theme="@android:style/Theme.Dialog" />
 
         <activity

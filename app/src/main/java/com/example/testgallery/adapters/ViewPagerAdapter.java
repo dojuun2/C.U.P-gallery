@@ -9,9 +9,9 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.testgallery.fragments.mainFragments.AlbumFragment;
-import com.example.testgallery.fragments.mainFragments.FavoriteFragment;
+import com.example.testgallery.fragments.mainFragments.ScreenshotFragment;
 import com.example.testgallery.fragments.mainFragments.PhotoFragment;
-import com.example.testgallery.fragments.mainFragments.SecretFragment;
+import com.example.testgallery.fragments.mainFragments.EsamoFragment;
 import com.example.testgallery.models.Image;
 import com.example.testgallery.utility.GetAllPhotoFromGallery;
 
@@ -40,9 +40,9 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 1:
                 return new AlbumFragment();
             case 2:
-                return new SecretFragment();
+                return new EsamoFragment();
             case 3:
-                return new FavoriteFragment();
+                return new ScreenshotFragment();
             default:
                 return null;
         }
