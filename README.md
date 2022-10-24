@@ -5,9 +5,9 @@
 <p>팀원 : 박도준 은상현 한동훈</p>
   <br>
   <br>
-
+<div style="width = 500px; height = 600px">
 ![2 갤러리누가하자했을까_포스터](https://user-images.githubusercontent.com/99643732/197427491-98bbeadd-43f9-4bbe-ab8a-bb07509d7160.jpg)
-
+</div>
   
  
 ### 이사모 기능
